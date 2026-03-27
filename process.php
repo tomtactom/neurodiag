@@ -3,23 +3,29 @@
  * JSON-driven process renderer for diagnostics units.
  *
  * URL params:
- * - process (required): e.g. aq, adhs, dyslexia, dysgraphia, dyskalkulie, dyspraxie, tic, dld
+ * - process (required): canonical slug oder Legacy-Alias (z. B. aq-test, asrs-test)
  * - unit (optional): active unit identifier from process definition
  */
 
 declare(strict_types=1);
 
-$allowedProcesses = ['aq', 'adhs', 'dyslexia', 'dysgraphia', 'dyskalkulie', 'dyspraxie', 'tic', 'dld'];
+$processRegistry = require __DIR__ . '/config/process-registry.php';
+$areas = isset($processRegistry['areas']) && is_array($processRegistry['areas']) ? $processRegistry['areas'] : [];
+$aliases = isset($processRegistry['aliases']) && is_array($processRegistry['aliases']) ? $processRegistry['aliases'] : [];
 
-$processId = isset($_GET['process']) ? strtolower(trim((string) $_GET['process'])) : '';
+$processInput = isset($_GET['process']) ? strtolower(trim((string) $_GET['process'])) : '';
 $requestedUnitId = isset($_GET['unit']) ? strtolower(trim((string) $_GET['unit'])) : '';
 
-if (!preg_match('/^[a-z0-9_-]+$/', $processId)) {
-    $processId = '';
+if (!preg_match('/^[a-z0-9_-]+$/', $processInput)) {
+    $processInput = '';
 }
 if (!preg_match('/^[a-z0-9_-]*$/', $requestedUnitId)) {
     $requestedUnitId = '';
 }
+
+$canonicalProcessId = ($processInput !== '' && isset($aliases[$processInput]) && is_string($aliases[$processInput]))
+    ? $aliases[$processInput]
+    : '';
 
 /**
  * @return array{0: ?array<string, mixed>, 1: ?string}
@@ -185,14 +191,23 @@ function clearResumeCookie(string $processId): void
     ]);
 }
 
-if ($processId === '' || !in_array($processId, $allowedProcesses, true)) {
-    renderError('Bitte wähle einen gültigen Prozess über den Parameter "process" (z. B. aq oder dld).');
+if ($canonicalProcessId === '' || !isset($areas[$canonicalProcessId]) || !is_array($areas[$canonicalProcessId])) {
+    renderError('Bitte wähle einen gültigen Prozess über den Parameter "process" (z. B. aq, aq-test oder dld).');
 }
 
-$processPath = __DIR__ . '/data/processes/' . $processId . '.json';
+$processMeta = $areas[$canonicalProcessId];
+$definitionFile = isset($processMeta['definitionFile']) && is_string($processMeta['definitionFile'])
+    ? trim($processMeta['definitionFile'])
+    : '';
+
+if ($definitionFile === '') {
+    renderError('Für den Bereich "' . $canonicalProcessId . '" wurde keine Prozessdefinition hinterlegt.');
+}
+
+$processPath = __DIR__ . '/' . ltrim($definitionFile, '/');
 [$processDefinition, $processError] = loadJsonFile($processPath);
 if ($processDefinition === null) {
-    renderError('Die Prozessdatei "data/processes/' . $processId . '.json" konnte nicht geladen werden: ' . $processError);
+    renderError('Die Prozessdatei "' . $definitionFile . '" konnte nicht geladen werden: ' . $processError);
 }
 
 $unitRefs = getUnitRefs($processDefinition);
@@ -200,13 +215,13 @@ if (empty($unitRefs)) {
     renderError('Die Prozessdefinition enthält keine Units. Bitte ergänze im JSON ein Feld "units" mit Unit-IDs.');
 }
 
-$resumeState = readResumeStateFromCookie($processId, $unitRefs);
-if (isset($_COOKIE['neurodiag_process_' . $processId]) && $resumeState === null) {
-    clearResumeCookie($processId);
+$resumeState = readResumeStateFromCookie($canonicalProcessId, $unitRefs);
+if (isset($_COOKIE['neurodiag_process_' . $canonicalProcessId]) && $resumeState === null) {
+    clearResumeCookie($canonicalProcessId);
 }
 
 if ($requestedUnitId === '' && $resumeState !== null && !$resumeState['completed']) {
-    header('Location: process.php?process=' . urlencode($processId) . '&unit=' . urlencode($resumeState['unit']));
+    header('Location: process.php?process=' . urlencode($canonicalProcessId) . '&unit=' . urlencode($resumeState['unit']));
     exit;
 }
 
@@ -229,7 +244,7 @@ if ($unitDefinition === null) {
 
 $processTitle = isset($processDefinition['title']) && is_string($processDefinition['title'])
     ? $processDefinition['title']
-    : strtoupper($processId) . ' Prozess';
+    : strtoupper($canonicalProcessId) . ' Prozess';
 
 $processDescription = isset($processDefinition['description']) && is_string($processDefinition['description'])
     ? $processDefinition['description']
@@ -262,21 +277,21 @@ $globalOptions = isset($unitDefinition['options']) && is_array($unitDefinition['
 
 $prevUrl = null;
 if ($activeUnitIndex > 0) {
-    $prevUrl = 'process.php?process=' . urlencode($processId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex - 1]['id']);
+    $prevUrl = 'process.php?process=' . urlencode($canonicalProcessId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex - 1]['id']);
 }
 
 $nextUrl = null;
 if ($activeUnitIndex < count($unitRefs) - 1) {
-    $nextUrl = 'process.php?process=' . urlencode($processId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex + 1]['id']);
+    $nextUrl = 'process.php?process=' . urlencode($canonicalProcessId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex + 1]['id']);
 }
 
 $pageTitle = 'Diagnostischer Prozess';
 include 'includes/header.php';
 ?>
 
-<main class="process-page" aria-labelledby="process-title" data-process-id="<?php echo htmlspecialchars($processId); ?>" data-unit-id="<?php echo htmlspecialchars($activeUnitId); ?>">
+<main class="process-page" aria-labelledby="process-title" data-process-id="<?php echo htmlspecialchars($canonicalProcessId); ?>" data-unit-id="<?php echo htmlspecialchars($activeUnitId); ?>">
   <header class="process-header">
-    <p class="process-overline">Diagnostischer Prozess: <?php echo htmlspecialchars(strtoupper($processId)); ?></p>
+    <p class="process-overline">Diagnostischer Prozess: <?php echo htmlspecialchars(strtoupper($canonicalProcessId)); ?></p>
     <h1 id="process-title"><?php echo htmlspecialchars($processTitle); ?></h1>
     <p><?php echo htmlspecialchars($processDescription); ?></p>
     <p><strong>Einheit:</strong> <?php echo ($activeUnitIndex + 1); ?> / <?php echo count($unitRefs); ?></p>
@@ -391,7 +406,7 @@ include 'includes/header.php';
     <?php if ($nextUrl !== null): ?>
       <a href="<?php echo htmlspecialchars($nextUrl); ?>">Weiter &rarr;</a>
     <?php else: ?>
-      <a href="diagnostics.php?process=<?php echo urlencode($processId); ?>" data-process-complete="true">Abschließen</a>
+      <a href="diagnostics.php?process=<?php echo urlencode($canonicalProcessId); ?>" data-process-complete="true">Abschließen</a>
     <?php endif; ?>
   </nav>
 </main>
