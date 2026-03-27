@@ -11,7 +11,7 @@
 | File | Changes | Impact |
 |------|---------|--------|
 | `index.php` | Complete content overhaul: Removed all sections, rebuilt with neurodiversity education (4 main sections), hero update, and CTA | Homepage content change |
-| `diagnostics.php` | New hero image (Pixabay neurodiversity brain) + module icons (Flaticon/Pixabay) for each neurodivergence condition | Visual content update |
+| `diagnostics.php` | Vollständige Neustrukturierung: Hero, Fortschritt, modularer Filterscreen, Diagnostikgrenzen, Selbstbeschreibung, CTA | Modulbasierte Selbstentdeckung |
 | `about.php` | Added mindfulness image (Pixabay) | Visual content update |
 | `resources.php` | Added diversity brain image (Pixabay) | Visual content update |
 | `contact.php` | Added neural connection image (Pixabay) | Visual content update |

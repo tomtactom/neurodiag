@@ -77,8 +77,58 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.feature-card, .module-card, .resource-card').forEach(el => {
+  document.querySelectorAll('.feature-card, .module-card, .resource-card, .info-card').forEach(el => {
     el.classList.add('animated-hidden');
     observer.observe(el);
   });
+
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const moduleCards = document.querySelectorAll('.module-card');
+  const statusCount = document.getElementById('statusCount');
+  const progressFill = document.getElementById('progressFill');
+
+  const updateProgress = () => {
+    const completed = window.localStorage.getItem('completedModules');
+    const count = completed ? Number(completed) : 0;
+    statusCount.textContent = count > 0 ? `${count} von 8 Modulen ausgewählt` : 'Noch kein Modul gestartet';
+    const pct = Math.min(100, Math.round((count / 8) * 100));
+    if (progressFill) {
+      progressFill.style.width = `${pct}%`;
+    }
+  };
+
+  const setModuleCompleted = () => {
+    const completed = window.localStorage.getItem('completedModules');
+    const count = completed ? Number(completed) : 0;
+    const newCount = Math.min(8, count + 1);
+    window.localStorage.setItem('completedModules', newCount);
+    updateProgress();
+  };
+
+  moduleCards.forEach(card => {
+    const link = card.querySelector('a.btn-secondary');
+    if (link) {
+      link.addEventListener('click', () => setModuleCompleted());
+    }
+  });
+
+  if (filterButtons.length) {
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tag = this.getAttribute('data-filter');
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        moduleCards.forEach(card => {
+          if (tag === 'all' || card.dataset.category === tag) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  updateProgress();
 });
