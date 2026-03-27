@@ -10,7 +10,7 @@
 
 | File | Changes | Impact |
 |------|---------|--------|
-| `index.php` | Complete hero section redesign + empowerment messaging + self-check widget + module icon image references (Flaticon/Pixabay) | Homepage behavior change |
+| `index.php` | Complete hero section redesign + empowerment messaging + self-check widget + consistent module icon image references (Flaticon/Pixabay) | Homepage behavior change |
 | `diagnostics.php` | New hero image (Pixabay neurodiversity brain) + module icons (Flaticon/Pixabay) for each neurodivergence condition | Visual content update |
 | `about.php` | Added mindfulness image (Pixabay) | Visual content update |
 | `resources.php` | Added diversity brain image (Pixabay) | Visual content update |

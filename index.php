@@ -46,14 +46,14 @@
   <h2>Fokusbereiche</h2>
   <p>Kurze Orientierung, schnelle Auswahl – über 8 Module, die dich gezielt weiterbringen.</p>
   <div class="cards">
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/2770/2770932.png" alt="Autismus Icon" class="card-icon"><h3>Autismus</h3><p>Wahrnehmung, Reizverarbeitung & soziale Dynamik</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/4775/4775917.png" alt="ADHS Icon" class="card-icon"><h3>AD(H)S</h3><p>Aufmerksamkeit, Impulssteuerung & Arbeitsgedächtnis</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/3159/3159664.png" alt="Dyslexie Icon" class="card-icon"><h3>Dyslexie</h3><p>Lese- und Texterkennung</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/7678/7678075.png" alt="Dysgraphie Icon" class="card-icon"><h3>Dysgraphie</h3><p>Schreibmotorik und Schriftbild</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/13322/13322428.png" alt="Dyskalkulie Icon" class="card-icon"><h3>Dyskalkulie</h3><p>Zahlenverständnis und Mustererkennung</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/14290/14290752.png" alt="Dyspraxie Icon" class="card-icon"><h3>Dyspraxie</h3><p>Bewegungskoordination und Motorik</p></article>
-    <article class="feature-card"><img src="https://cdn.pixabay.com/photo/2024/10/13/12/34/brain-9117107_1280.png" alt="Tic/Tourette Icon" class="card-icon"><h3>Tic/Tourette</h3><p>Impulskontrolle und Auslöser</p></article>
-    <article class="feature-card"><img src="https://cdn.pixabay.com/photo/2022/04/13/21/48/brain-7131241_640.png" alt="Sprachstörung Icon" class="card-icon"><h3>Sprachstörung</h3><p>Sprachverarbeitung und -produktion</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/9990/9990347.png" alt="Autismus Icon" class="card-icon"><h3>Autismus</h3><p>Wahrnehmung, Reizverarbeitung & soziale Dynamik</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/10371/10371961.png" alt="ADHS Icon" class="card-icon"><h3>AD(H)S</h3><p>Aufmerksamkeit, Impulssteuerung & Arbeitsgedächtnis</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/1993/1993497.png" alt="Dyslexie Icon" class="card-icon"><h3>Dyslexie</h3><p>Lese- und Texterkennung</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/18448/18448228.png" alt="Dysgraphie Icon" class="card-icon"><h3>Dysgraphie</h3><p>Schreibmotorik und Schriftbild</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/5090/5090298.png" alt="Dyskalkulie Icon" class="card-icon"><h3>Dyskalkulie</h3><p>Zahlenverständnis und Mustererkennung</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/8320/8320277.png" alt="Dyspraxie Icon" class="card-icon"><h3>Dyspraxie</h3><p>Bewegungskoordination und Motorik</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" class="card-icon"><h3>Tic/Tourette</h3><p>Impulskontrolle und Auslöser</p></article>
+    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/8984/8984825.png" alt="Sprachstörung Icon" class="card-icon"><h3>Sprachstörung</h3><p>Sprachverarbeitung und -produktion</p></article>
   </div>
 </section>
 
