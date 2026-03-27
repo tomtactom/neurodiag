@@ -1,28 +1,36 @@
 <?php $pageTitle = 'Startseite'; include 'includes/header.php'; ?>
 
-        <section class="hero">
-            <h2>Verstehe deine eigene neurodivergente Natur</h2>
-            <p>Neurodivergenz ist eine neurobiologische Variation – kein Defizit. NeuroDiag unterstützt dich bei der selbstbestimmten Erkundung deiner Stärken und Verarbeitungsmuster.</p>
-            <p class="hero-note">Diese Selbstchecks ersetzen keine Diagnose, sondern unterstützen deine Selbsterkenntnis.</p>
-        </section>
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-pretitle">NeuroDiag</p>
+    <h1>Dein moderner Zugang zur neurodivergenten Selbsterkennung</h1>
+    <p>Mit datenbasierten Modulen, klaren Auswertungen und UX, die Rücksicht nimmt, entdeckst du Stärke, Verarbeitung und Potenzial.</p>
+    <a href="diagnostics.php" class="btn btn-primary">Jetzt Selbstchecks starten</a>
+  </div>
+  <div class="hero-illustration" aria-hidden="true"></div>
+</section>
 
-        <section class="features">
-            <h3>Erkunde die Bereiche, die für dich relevant sind</h3>
-            <ul>
-                <li><strong>Autismus-Spektrum (ASS)</strong> – Wahrnehmung & soziale Verarbeitung</li>
-                <li><strong>AD(H)S</strong> – Aufmerksamkeit & Aktivierungsstile</li>
-                <li><strong>Dyslexie / LRS</strong> – Lese- & Schreibmuster</li>
-                <li><strong>Dysgraphie</strong> – Schrift- & Feinmotorik</li>
-                <li><strong>Dyskalkulie</strong> – Mathematische Denkweisen</li>
-                <li><strong>Dyspraxie / DCD</strong> – Koordinationsstile</li>
-                <li><strong>Tic-Störungen / Tourette</strong> – Reaktionsmuster</li>
-                <li><strong>Sprachentwicklungsstörung (DLD)</strong> – Sprachverarbeitung</li>
-            </ul>
-        </section>
+<section class="features-grid">
+  <h2>Fokusbereiche</h2>
+  <p>Kurze Orientierung, schnelle Auswahl – über 8 Module, die dich gezielt weiterbringen.</p>
+  <div class="cards">
+    <article class="feature-card"><h3>Autismus</h3><p>Wahrnehmung, Reizverarbeitung & soziale Dynamik</p></article>
+    <article class="feature-card"><h3>AD(H)S</h3><p>Aufmerksamkeit, Impulssteuerung & Arbeitsgedächtnis</p></article>
+    <article class="feature-card"><h3>Dyslexie</h3><p>Lese- und Texterkennung</p></article>
+    <article class="feature-card"><h3>Dysgraphie</h3><p>Schreibmotorik und Schriftbild</p></article>
+    <article class="feature-card"><h3>Dyskalkulie</h3><p>Zahlenverständnis und Mustererkennung</p></article>
+    <article class="feature-card"><h3>Dyspraxie</h3><p>Bewegungskoordination und Motorik</p></article>
+    <article class="feature-card"><h3>Tic/Tourette</h3><p>Impulskontrolle und Auslöser</p></article>
+    <article class="feature-card"><h3>Sprachstörung</h3><p>Sprachverarbeitung und -produktion</p></article>
+  </div>
+</section>
 
-        <section class="call-to-action">
-            <a href="diagnostics.php" class="btn btn-large">Selbstchecks durchführen</a>
-            <p class="cta-note">Kostenlos und anonym</p>
-        </section>
+<section class="cta-strip">
+  <div>
+    <h2>Bereit für den nächsten Schritt?</h2>
+    <p>Konsequent anonym, belastbar und für alle Endgeräte optimiert.</p>
+  </div>
+  <a href="diagnostics.php" class="btn btn-secondary">Selbstcheck starten</a>
+</section>
 
 <?php include 'includes/footer.php'; ?>
