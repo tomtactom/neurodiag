@@ -145,7 +145,7 @@
         <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ. Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
       </div>
       <button class="btn-preview" data-module="dld-test" aria-label="Vorschau des Sprachstörungs-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=dld-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="diagnostics-process.php?module=dld-test&phase=1=dld-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
   </div>
 </section>
