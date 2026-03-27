@@ -1,76 +1,76 @@
 <?php $pageTitle = 'Startseite'; include 'includes/header.php'; ?>
 
         <section class="hero">
-            <h2>Du bist der Experte für dich selbst</h2>
-            <p>Neurodivergenz ist nicht pathologisch – sie ist einfach eine andere Art, die Welt wahrzunehmen und zu verarbeiten. NeuroDiag gibt dir Werkzeuge zur <strong>Selbstentdeckung</strong> in deinem eigenem Tempo. Ohne Abhängigkeit von Autoritäten.</p>
-            <p class="hero-emphasis">💡 Diese Tests ersetzen keine professionelle Diagnose. Aber: Du kennst dich selbst am besten.</p>
+            <h2>Verstehe deine eigene neurodivergente Natur</h2>
+            <p>Neurodivergenz ist eine neurobiologische Variation – kein Defizit. NeuroDiag unterstützt dich bei der selbstbestimmten Erkundung deiner Stärken und Verarbeitungsmuster. In deinem Tempo, ohne externe Gatekeeper.</p>
+            <p class="hero-emphasis">Diese Selbstchecks ersetzen keine Diagnose, aber: Du kennst deine eigenen Muster am besten.</p>
         </section>
 
         <section class="empowerment-section">
-            <h3>Deine Selbstwirksamkeit</h3>
-            <p>Erkenne deine neurodivergenten Stärken und Verarbeitungsstile eigenverantwortlich. Das ist nicht Pathologie – es ist Wirklichkeit.</p>
+            <h3>Selbstverständnis entwickeln</h3>
+            <p>Erkenne deine neurodivergenten Stärken und Verarbeitungsstile durch systematische Selbstreflexion. Evidenzbasiert und ressourcenorientiert.</p>
             
             <article class="empowerment-card">
-                <h4>🧠 Was bedeutet Neurodivergenz wirklich?</h4>
-                <p>Neurodivergenz ist eine neurobiologische Variation. Menschen mit Neurodivergenz:</p>
+                <h4>Neurodivergenz als Variation</h4>
+                <p>Neurodivergenz beschreibt unterschiedliche neurologische Verarbeitungsmuster. Menschen mit Neurodivergenz:</p>
                 <ul class="empowerment-list">
-                    <li>Verarbeiten Informationen auf unterschiedliche Weise</li>
-                    <li>Haben einzigartige Stärken und Herausforderungen</li>
-                    <li>Sind genauso wertvoll wie neurotypische Menschen</li>
-                    <li>Können ihre eigenen Erfahrungen selbst beschreiben</li>
+                    <li>verarbeiten Informationen in charakteristischen Mustern</li>
+                    <li>verfügen über spezifische Stärken und Herausforderungen</li>
+                    <li>haben denselben Wert wie alle anderen Menschen</li>
+                    <li>können ihre eigenen Erfahrungen selbst beschreiben und deuten</li>
                 </ul>
             </article>
 
             <article class="empowerment-card">
-                <h4>✨ Warum Selbstdiagnose wichtig ist</h4>
-                <p><strong>Viele neurodivergente Menschen erkennen sich selbst BEVOR ein Fachmann sie diagnostiziert.</strong></p>
+                <h4>Selbsterkenntnis im Fokus</h4>
+                <p>Viele neurodivergente Menschen entwickeln Selbstverständnis, bevor eine formale Diagnose erfolgt. Dies ist ein legitimer Weg zu Selbsterkenntnis:</p>
                 <ul class="empowerment-list">
-                    <li>Du hast gelebt mit deiner Neurodivergenz – du kennst sie am besten</li>
-                    <li>Professionelle Diagnose kann später kommen (wenn gewünscht)</li>
-                    <li>Selbstverständnis ist der erste Schritt zur Selbstakzeptanz</li>
-                    <li>Deine Perspektive ist legitim – ohne externe Validierung</li>
+                    <li>deine persönliche Erfahrung liefert zuverlässige Informationen über deine Muster</li>
+                    <li>professionelle Diagnostik ist optional und kann später folgen</li>
+                    <li>Selbsterkenntnis ist Grundlage für gezielte Unterstützung</li>
+                    <li>deine Selbstbeschreibung hat Aussagekraft – unabhängig von externen Bestätigungen</li>
                 </ul>
             </article>
         </section>
 
         <section class="interactive-check">
-            <h3>Erste Orientierung: Selbstcheck</h3>
-            <p>Diese 4 Fragen helfen dir, dich selbst besser zu verstehen. Es geht nicht um Ja/Nein, sondern um Selbstreflexion.</p>
+            <h3>Selbstreflexion: Erste Orientierung</h3>
+            <p>Erkenne Muster in deinen Verarbeitungsstilen. Diese Fragen unterstützen deine Selbstreflexion:</p>
             
             <div class="check-widget" id="selfCheckWidget">
                 <div class="check-item">
                     <input type="checkbox" id="check1" class="check-input">
                     <label for="check1" class="check-label">
-                        <span class="check-text">Ich verarbeite Informationen anders als die meisten um mich herum</span>
+                        <span class="check-text">Meine Informationsverarbeitung unterscheidet sich von typischen Mustern</span>
                     </label>
                 </div>
                 <div class="check-item">
                     <input type="checkbox" id="check2" class="check-input">
                     <label for="check2" class="check-label">
-                        <span class="check-text">Ich habe stabile Patterns in meinem Denken, meiner Aufmerksamkeit oder meiner Motorik</span>
+                        <span class="check-text">Ich erkenne stabile Muster in meinem Denken, meiner Aufmerksamkeit oder meiner Motorik</span>
                     </label>
                 </div>
                 <div class="check-item">
                     <input type="checkbox" id="check3" class="check-input">
                     <label for="check3" class="check-label">
-                        <span class="check-text">Diese Unterschiede sind ein Teil meiner Identität (keine Krankheit)</span>
+                        <span class="check-text">Diese Muster sind Teil meiner Identität und Funktionsweise</span>
                     </label>
                 </div>
                 <div class="check-item">
                     <input type="checkbox" id="check4" class="check-input">
                     <label for="check4" class="check-label">
-                        <span class="check-text">Ich möchte diese Unterschiede besser verstehen</span>
+                        <span class="check-text">Ich möchte diese Muster systematisch verstehen</span>
                     </label>
                 </div>
                 <div class="check-result" id="checkResult" style="display:none;">
-                    <p class="result-text">✨ Deine Selbstreflexion hat dir Klarheit gegeben. Die Tests unten können dir helfen, noch tiefer zu verstehen.</p>
+                    <p class="result-text">Deine Selbstreflexion hat Muster erkannt. Die detaillierten Tests unten bieten tiefere Einblicke in spezifische Bereiche.</p>
                 </div>
             </div>
         </section>
 
         <section class="features">
-            <h3>Neurodivergente Bereiche – erkunde deine Vielfalt</h3>
-            <p class="feature-intro">Wähle einen Bereich, der dich interessiert. Jeder Test bietet dir ressourcenorientierte Einblicke, nicht Urteile.</p>
+            <h3>Systematische Selbsterkundung</h3>
+            <p class="feature-intro">Erkunde die Bereiche, die für dich relevant sind. Jeder Test bietet detaillierte, ressourcenorientierte Auswertungen:</p>
             <ul>
                 <li><strong>Autismus-Spektrum (ASS)</strong> – Wahrnehmung & soziale Verarbeitung</li>
                 <li><strong>AD(H)S</strong> – Aufmerksamkeit & Aktivierungsstile</li>
@@ -81,12 +81,12 @@
                 <li><strong>Tic-Störungen / Tourette</strong> – Reaktionsmuster</li>
                 <li><strong>Sprachentwicklungsstörung (DLD)</strong> – Sprachverarbeitung</li>
             </ul>
-            <p class="feature-note">💙 <strong>Basierend auf Neurodiversitätsprinzipien:</strong> Unterschiede sind Variation, nicht Pathologie. Du bestimmst, was für dich relevant ist.</p>
+            <p class="feature-note"><strong>Neurodiversitätsperspektive:</strong> Neurologische Unterschiede sind Variation – nicht Mangel. Du entscheidest, welche Bereiche für deine Selbsterkenntnis relevant sind.</p>
         </section>
 
         <section class="call-to-action">
-            <a href="diagnostics.php" class="btn btn-large">Starte deine Selbstentdeckung</a>
-            <p class="cta-note">Eigenverantwortlich. In deinem Tempo. Ohne externe Validierung erforderlich.</p>
+            <a href="diagnostics.php" class="btn btn-large">Selbstchecks durchführen</a>
+            <p class="cta-note">Selbstbestimmt erkunden. Kostenlos und anonym.</p>
         </section>
 
 <?php include 'includes/footer.php'; ?>
