@@ -21,9 +21,6 @@ if (!preg_match('/^[a-z0-9_-]*$/', $requestedUnitId)) {
     $requestedUnitId = '';
 }
 
-$pageTitle = 'Diagnostischer Prozess';
-include 'includes/header.php';
-
 /**
  * @return array{0: ?array<string, mixed>, 1: ?string}
  */
@@ -103,6 +100,8 @@ function getUnitRefs(array $processDefinition): array
  */
 function renderError(string $message, array $unitRefs = []): void
 {
+    $pageTitle = 'Diagnostischer Prozess';
+    include 'includes/header.php';
     ?>
     <main class="process-page" aria-labelledby="process-error-title">
       <section class="process-error" role="alert">
@@ -121,6 +120,71 @@ function renderError(string $message, array $unitRefs = []): void
     exit;
 }
 
+/**
+ * @param array<int, array{id: string, file: string}> $unitRefs
+ * @return array{unit: string, answers: array<string, string>, updatedAt: int, completed: bool}|null
+ */
+function readResumeStateFromCookie(string $processId, array $unitRefs): ?array
+{
+    $cookieName = 'neurodiag_process_' . $processId;
+
+    if (!isset($_COOKIE[$cookieName]) || !is_string($_COOKIE[$cookieName]) || $_COOKIE[$cookieName] === '') {
+        return null;
+    }
+
+    $rawCookie = urldecode($_COOKIE[$cookieName]);
+    $decoded = json_decode($rawCookie, true);
+    if (!is_array($decoded)) {
+        return null;
+    }
+
+    $cookieUnit = isset($decoded['unit']) && is_string($decoded['unit']) ? strtolower(trim($decoded['unit'])) : '';
+    $updatedAt = isset($decoded['updatedAt']) && is_int($decoded['updatedAt']) ? $decoded['updatedAt'] : 0;
+    $completed = isset($decoded['completed']) && is_bool($decoded['completed']) ? $decoded['completed'] : false;
+
+    $validUnitIds = array_map(static fn(array $entry): string => $entry['id'], $unitRefs);
+    if ($cookieUnit === '' || !in_array($cookieUnit, $validUnitIds, true)) {
+        return null;
+    }
+
+    $answers = [];
+    if (isset($decoded['answers']) && is_array($decoded['answers'])) {
+        foreach ($decoded['answers'] as $questionId => $value) {
+            if (!is_string($questionId) || (!is_string($value) && !is_int($value) && !is_float($value) && !is_bool($value))) {
+                continue;
+            }
+
+            $cleanQuestionId = trim($questionId);
+            if ($cleanQuestionId === '') {
+                continue;
+            }
+
+            $answers[$cleanQuestionId] = (string) $value;
+        }
+    }
+
+    return [
+        'unit' => $cookieUnit,
+        'answers' => $answers,
+        'updatedAt' => $updatedAt,
+        'completed' => $completed,
+    ];
+}
+
+function clearResumeCookie(string $processId): void
+{
+    $isHttps = (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443);
+
+    setcookie('neurodiag_process_' . $processId, '', [
+        'expires' => time() - 3600,
+        'path' => '/',
+        'samesite' => 'Lax',
+        'secure' => $isHttps,
+        'httponly' => false,
+    ]);
+}
+
 if ($processId === '' || !in_array($processId, $allowedProcesses, true)) {
     renderError('Bitte wähle einen gültigen Prozess über den Parameter "process" (z. B. aq oder dld).');
 }
@@ -134,6 +198,16 @@ if ($processDefinition === null) {
 $unitRefs = getUnitRefs($processDefinition);
 if (empty($unitRefs)) {
     renderError('Die Prozessdefinition enthält keine Units. Bitte ergänze im JSON ein Feld "units" mit Unit-IDs.');
+}
+
+$resumeState = readResumeStateFromCookie($processId, $unitRefs);
+if (isset($_COOKIE['neurodiag_process_' . $processId]) && $resumeState === null) {
+    clearResumeCookie($processId);
+}
+
+if ($requestedUnitId === '' && $resumeState !== null && !$resumeState['completed']) {
+    header('Location: process.php?process=' . urlencode($processId) . '&unit=' . urlencode($resumeState['unit']));
+    exit;
 }
 
 $unitIds = array_map(static fn(array $entry): string => $entry['id'], $unitRefs);
@@ -195,9 +269,12 @@ $nextUrl = null;
 if ($activeUnitIndex < count($unitRefs) - 1) {
     $nextUrl = 'process.php?process=' . urlencode($processId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex + 1]['id']);
 }
+
+$pageTitle = 'Diagnostischer Prozess';
+include 'includes/header.php';
 ?>
 
-<main class="process-page" aria-labelledby="process-title">
+<main class="process-page" aria-labelledby="process-title" data-process-id="<?php echo htmlspecialchars($processId); ?>" data-unit-id="<?php echo htmlspecialchars($activeUnitId); ?>">
   <header class="process-header">
     <p class="process-overline">Diagnostischer Prozess: <?php echo htmlspecialchars(strtoupper($processId)); ?></p>
     <h1 id="process-title"><?php echo htmlspecialchars($processTitle); ?></h1>
@@ -314,7 +391,7 @@ if ($activeUnitIndex < count($unitRefs) - 1) {
     <?php if ($nextUrl !== null): ?>
       <a href="<?php echo htmlspecialchars($nextUrl); ?>">Weiter &rarr;</a>
     <?php else: ?>
-      <a href="diagnostics.php?process=<?php echo urlencode($processId); ?>">Abschließen</a>
+      <a href="diagnostics.php?process=<?php echo urlencode($processId); ?>" data-process-complete="true">Abschließen</a>
     <?php endif; ?>
   </nav>
 </main>
