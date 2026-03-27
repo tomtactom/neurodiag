@@ -10,7 +10,7 @@
     </div>
     <div class="preview-actions">
       <button id="previewStartBtn" class="btn btn-primary">Test starten</button>
-      <button class="preview-cancel-btn" class="btn btn-secondary">Schließen</button>
+      <button class="preview-cancel-btn btn btn-secondary">Schließen</button>
     </div>
   </div>
 </div>
@@ -18,9 +18,9 @@
 <section class="diagnostics-hero">
   <div class="hero-content">
     <p class="hero-pretitle">NeuroDiag</p>
-    <h1>Selbstentdeckung in einer neurodiversen Welt</h1>
-    <p>Neurodivergenz ist Teil menschlicher Vielfalt. Kein Defizitmodell – vielmehr Orientierung, Empowerment und praktische Klarheit.</p>
-    <a href="#module-selector" class="btn btn-primary">Module entdecken</a>
+    <h1>Fokussierte Selbstorientierung in 8 Neurodivergenz-Bereichen</h1>
+    <p>Klar, reduziert und praxisnah: Wähle einen Bereich, lies die Details und starte bei Bedarf direkt mit einer Vorschau.</p>
+    <a href="#module-selector" class="btn btn-primary">8 Bereiche ansehen</a>
   </div>
   <div class="hero-illustration" aria-hidden="true">
     <img src="https://cdn.pixabay.com/photo/2022/04/13/21/48/brain-7131241_640.png" alt="Abstrakte Darstellung eines Gehirns mit neuralen Verbindungen" loading="lazy">
@@ -39,27 +39,8 @@
 </section>
 
 <section id="module-selector" class="module-selector">
-  <h2>Modul-Auswahl</h2>
-  <p>Wähle aus acht spezialisierten Punkten – jeder Selbsttest beleuchtet ein anderes neurodivergentes Profil.</p>
-  
-  <div class="quick-check">
-    <h3>Schnelle Orientierung</h3>
-    <p>Was trifft auf dich zu? (Optional – hilft bei der Auswahl)</p>
-    <div class="check-options">
-      <label><input type="checkbox" name="quickcheck" value="social" class="quick-check-input"> Herausforderungen in sozialen Situationen</label>
-      <label><input type="checkbox" name="quickcheck" value="attention" class="quick-check-input"> Fokus/Aufmerksamkeit ist schwierig</label>
-      <label><input type="checkbox" name="quickcheck" value="motor" class="quick-check-input"> Bewegung/Motorik/Schreiben</label>
-      <label><input type="checkbox" name="quickcheck" value="language" class="quick-check-input"> Lesen, Sprechen oder Zahlen</label>
-    </div>
-  </div>
-
-  <div class="module-filters" role="group" aria-label="Modulfilter">
-    <button class="filter-btn active" data-filter="all">Alle</button>
-    <button class="filter-btn" data-filter="social">Sozial</button>
-    <button class="filter-btn" data-filter="attention">Aufmerksamkeit</button>
-    <button class="filter-btn" data-filter="motor">Motorik</button>
-    <button class="filter-btn" data-filter="language">Sprache</button>
-  </div>
+  <h2>Die 8 Neurodivergenz-Bereiche</h2>
+  <p>Jede Karte zeigt kurz den Fokus, in <strong>Details</strong> konkrete alltagsnahe Hinweise und in der <strong>Vorschau</strong> typische Fragen.</p>
   <div class="module-grid">
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/9990/9990347.png" alt="Autismus Icon" loading="lazy">
@@ -67,7 +48,8 @@
       <p class="brief">Klare, intensive Wahrnehmung und direkter Ausdruck. Struktur und tiefes Verstehen sind zentral.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Autismus">Details</button>
       <div class="module-details" hidden>
-        <p>Viele autistische Menschen erleben die Welt klar, intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich, mit starkem Bedürfnis nach Struktur und Sinnzusammenhängen. Interessen geben Freude, Orientierung und Identität.</p>
+        <p><strong>Fokus:</strong> Reizverarbeitung, soziale Signale und Bedürfnis nach Klarheit.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Vor sozialen Situationen ein kurzes "Wenn-dann"-Skript notieren (z. B. "Wenn es laut wird, dann mache ich 2 Minuten Pause").</p>
       </div>
       <button class="btn-preview" data-module="aq-test" aria-label="Vorschau des Autismus-Tests">📋 Vorschau</button>
       <a href="process.php?process=aq-test" class="btn btn-secondary">Starten</a>
@@ -78,7 +60,8 @@
       <p class="brief">Innere Bewegung, schnelle Gedankensprünge, Kreativität. Flexibilität statt starrer Struktur.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über ADHS">Details</button>
       <div class="module-details" hidden>
-        <p>Erleben ist geprägt von Bewegung, innerer Aktivität und schneller Gedankenkopplung. Aufmerksamkeit folgt oft dem, was lebendig ist. Kreativität und Spontaneität sind stark. Der Alltag verlangt häufig flexible Strukturen.</p>
+        <p><strong>Fokus:</strong> Aufmerksamkeit, Impulssteuerung und innere Unruhe.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Aufgaben in 10-Minuten-Blöcke teilen, Startbarrieren mit einem sichtbaren ersten Minischritt reduzieren.</p>
       </div>
       <button class="btn-preview" data-module="asrs-test" aria-label="Vorschau des ADHS-Tests">📋 Vorschau</button>
       <a href="process.php?process=asrs-test" class="btn btn-secondary">Starten</a>
@@ -89,7 +72,8 @@
       <p class="brief">Ganzheitliche, bildhaft-zusammenhängende Wahrnehmung. Schrift braucht andere Wege.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyslexie">Details</button>
       <div class="module-details" hidden>
-        <p>Sprache wird oft ganzheitlich, bildhaft und zusammenhängend aufgenommen. Schrift kann sich weniger automatisch erschließen. Gedankengänge sind reich und vielschichtig.</p>
+        <p><strong>Fokus:</strong> Lesefluss, Rechtschreibung und sprachliche Verarbeitung unter Zeitdruck.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Reframing bei Fehlern: "Fehler sind Daten" und anschließend 1 konkrete Anpassung für den nächsten Versuch festhalten.</p>
       </div>
       <button class="btn-preview" data-module="dyslexia-test" aria-label="Vorschau des Dyslexie-Tests">📋 Vorschau</button>
       <a href="process.php?process=dyslexia-test" class="btn btn-secondary">Starten</a>
@@ -100,7 +84,8 @@
       <p class="brief">Gedanken sind da, Schreiben braucht Zeit. Mündlich, visuell oder digital oft einfacher.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dysgraphie">Details</button>
       <div class="module-details" hidden>
-        <p>Gedanken können sehr differenziert sein, während das Aufschreiben anstrengender wirkt. Schreiben ist oft Übersetzungsprozess. Viele kommunizieren stark über mündlich, visuell oder digital.</p>
+        <p><strong>Fokus:</strong> Handschrift, Schreibtempo und motorische Belastung beim Schreiben.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Externe Hilfen fest einplanen (Sprachnotiz, Tastatur, Stichwortliste) statt perfektes Schreiben auf Anhieb zu erwarten.</p>
       </div>
       <button class="btn-preview" data-module="dysgraphia-test" aria-label="Vorschau des Dysgraphie-Tests">📋 Vorschau</button>
       <a href="process.php?process=dysgraphia-test" class="btn btn-secondary">Starten</a>
@@ -111,7 +96,8 @@
       <p class="brief">Zahlen über eigene Wege. Bilder, Kontext, Bedeutung geben Sicherheit.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyskalkulie">Details</button>
       <div class="module-details" hidden>
-        <p>Zahlen und Mengen werden häufig über eigene Strategien erschlossen. Denken läuft oft über Bilder, Situationen und Bedeutungen. Kontext und Sprache geben Orientierung.</p>
+        <p><strong>Fokus:</strong> Zahlenverständnis, Rechenwege und Sicherheit bei Mengen.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Rechenschritte laut oder schriftlich externalisieren und mit visuellen Ankern (Farben, Skizzen) stabilisieren.</p>
       </div>
       <button class="btn-preview" data-module="dyskalkulie-test" aria-label="Vorschau des Dyskalkulie-Tests">📋 Vorschau</button>
       <a href="process.php?process=dyskalkulie-test" class="btn btn-secondary">Starten</a>
@@ -122,8 +108,11 @@
       <p class="brief">Bewusste Bewegungssteuerung, feines Körpergefühl. Praktische Lösungen entstehen individuell.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyspraxie">Details</button>
       <div class="module-details" hidden>
-        <p>Bewegungen und Abläufe werden oft bewusster gesteuert. Automatische Abläufe erscheinen Schritt-für-Schritt. Viele entwickeln ein feines Körpergefühl und finden eigene, praktische Lösungen.</p>
-      </div>      <button class="btn-preview" data-module="dyspraxia-test" aria-label="Vorschau des Dyspraxie-Tests">📋 Vorschau</button>      <a href="process.php?process=dyspraxia-test" class="btn btn-secondary">Starten</a>
+        <p><strong>Fokus:</strong> Bewegungsplanung, Koordination und motorische Sequenzen.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Komplexe Handlungen in klar sichtbare Einzelschritte zerlegen und jede Teilhandlung kurz verstärken.</p>
+      </div>
+      <button class="btn-preview" data-module="dyspraxia-test" aria-label="Vorschau des Dyspraxie-Tests">📋 Vorschau</button>
+      <a href="process.php?process=dyspraxia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" loading="lazy">
@@ -131,7 +120,8 @@
       <p class="brief">Spontane Bewegungen und Laute. Körperbewusstsein entsteht durch inneres Geschehen.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Tic/Tourette">Details</button>
       <div class="module-details" hidden>
-        <p>Der Körper produziert spontane Bewegungen oder Laute. Das Zusammenspiel aus innerer Spannung und Entladung führt oft zu einem präzisen Körperbewusstsein.</p>
+        <p><strong>Fokus:</strong> Tic-Häufigkeit, Auslöser und Anspannungskurve.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Trigger-Tagebuch mit Situation, Spannung (0–10) und hilfreicher Reaktion führen, um Muster sichtbar zu machen.</p>
       </div>
       <button class="btn-preview" data-module="tic-test" aria-label="Vorschau des Tics/Tourette-Tests">📋 Vorschau</button>
       <a href="process.php?process=tic-test" class="btn btn-secondary">Starten</a>
@@ -142,7 +132,8 @@
       <p class="brief">Sprache über Bilder und Situationen. Bedeutung entsteht durch Kontext und Ausdruck.</p>
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Sprachstörung">Details</button>
       <div class="module-details" hidden>
-        <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ. Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
+        <p><strong>Fokus:</strong> Sprachverständnis, Wortfindung und alltagsnahe Kommunikation.</p>
+        <p><strong>VT-orientierte Mikrostrategie:</strong> Vor wichtigen Gesprächen Kernbotschaften in 3 kurzen Sätzen vorbereiten und nach dem Gespräch kurz reflektieren.</p>
       </div>
       <button class="btn-preview" data-module="dld-test" aria-label="Vorschau des Sprachstörungs-Tests">📋 Vorschau</button>
       <a href="process.php?process=dld-test" class="btn btn-secondary">Starten</a>
@@ -150,61 +141,6 @@
   </div>
 </section>
 
-<section class="info-section">
-  <h2>Diagnostik: Chancen und Grenzen</h2>
-  <div class="info-grid">
-    <article class="info-card">
-      <h3>Diagnostik als Engpass</h3>
-      <ul>
-        <li>Späte oder falsche Diagnose, v.a. bei Frauen</li>
-        <li>Versorgungslücken und unklare Strukturen</li>
-      </ul>
-    </article>
-    <article class="info-card">
-      <h3>Kritik am Defizitmodell</h3>
-      <ul>
-        <li>Fokus auf Schwächen statt Ressourcen</li>
-        <li>Reduziert Selbst- und Fremdwahrnehmung</li>
-      </ul>
-    </article>
-    <article class="info-card">
-      <h3>Support und Umwelt</h3>
-      <ul>
-        <li>Diagnose kann Zugang geben, aber stigmatisieren</li>
-        <li>Umgebungsanpassung als Schlüssel</li>
-      </ul>
-    </article>
-  </div>
-  <blockquote>Paradox: Diagnosen sind hilfreich für Unterstützung, doch die Systeme sind oft unpassend oder ausschließend.</blockquote>
-</section>
-
-<section class="identity-section">
-  <h2>Selbstbeschreibung jenseits der Störung</h2>
-  <div class="info-grid">
-    <article class="info-card">
-      <h3>Identity-first</h3>
-      <ul>
-        <li>„Autistisch“, „ADHS“, „neurodivergent“ als Identität</li>
-        <li>Selbstwahrnehmung gewinnt an Gewicht</li>
-      </ul>
-    </article>
-    <article class="info-card">
-      <h3>Dynamisch und kontextabhängig</h3>
-      <ul>
-        <li>Neurodivergenz wirkt je nach Umfeld anders</li>
-        <li>Erfahrungen sind vielschichtig und flexibel</li>
-      </ul>
-    </article>
-  </div>
-  <blockquote>Selbstbeschreibung verlagert sich von „Ich habe eine Störung“ zu „Ich habe eine Art, die Welt zu erleben und zu verarbeiten“.</blockquote>
-</section>
-<section id="sequence-recommendations" class="sequence-recommendations" style="display:none;">
-  <h2>🎯 Deine personalisierten nächsten Schritte</h2>
-  <p>Basierend auf den Modulen, die du bereits getestet hast, könnten diese dir helfen:</p>
-  <div id="recommendedModulesContainer" class="sequence-grid">
-    <!-- Wird dynamisch gefüllt -->
-  </div>
-</section>
 <section class="cta-strip">
   <div>
     <h2>Bereit für einen nächsten Schritt?</h2>
