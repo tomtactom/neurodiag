@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
       item.innerHTML = `
         <h3>${moduleTitle}</h3>
         <p>Könnte weitere Einblicke geben, basierend auf deinen bisherigen Ergebnissen.</p>
-        <a href="tests/test.php?module=${moduleId}" class="btn btn-secondary">Modul starten</a>
+        <a href="process.php?process=${moduleId}" class="btn btn-secondary">Modul starten</a>
       `;
       container.appendChild(item);
     });
@@ -370,9 +370,9 @@ document.addEventListener('DOMContentLoaded', function() {
           questionsContainer.appendChild(qEl);
         });
         
-        startBtn.href = `tests/test.php?module=${moduleId}`;
+        startBtn.href = `process.php?process=${moduleId}`;
         startBtn.onclick = () => {
-          window.location.href = `tests/test.php?module=${moduleId}`;
+          window.location.href = `process.php?process=${moduleId}`;
         };
         
         previewModal.style.display = 'flex';

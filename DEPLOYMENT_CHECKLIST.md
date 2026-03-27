@@ -19,8 +19,7 @@
 | `js/script.js` | Removed self-check widget code; kept theme, consent, animations | Behavior cleanup |
 
 **No changes** to:
-- `tests/test.php`
-- `tests/results.php`
+- Testprozess jetzt über `process.php`
 - Test data (JSON modules)
 - `includes/test-functions.php`
 - Any other PHP files
