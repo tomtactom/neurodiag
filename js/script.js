@@ -81,18 +81,4 @@ document.addEventListener('DOMContentLoaded', function() {
     el.classList.add('animated-hidden');
     observer.observe(el);
   });
-
-  const lottieHero = document.getElementById('lottieHero');
-  if (window.lottie && lottieHero) {
-    lottie.loadAnimation({
-      container: lottieHero,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'https://assets8.lottiefiles.com/packages/lf20_bhw1ul4w.json',
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice'
-      }
-    });
-  }
 });
