@@ -2,9 +2,30 @@
   "id": "aq_process_v1",
   "title": "Autismus-Spektrum (AQ) Prozess",
   "description": "Niedrigschwelliger, verhaltenstherapeutisch orientierter Screening- und Reflexionsprozess zu autistischen Merkmalen im Alltag.",
-  "units": [
-    "aq_screening_v1",
-    "aq_selfreport_v1",
-    "aq_reflection_v1"
+  "phases": [
+    {
+      "id": "phase_assessment",
+      "title": "Assessment & Mustererhebung",
+      "instruments": [
+        {
+          "id": "aq_screening_v1",
+          "file": "aq_screening_v1.json"
+        },
+        {
+          "id": "aq_selfreport_v1",
+          "file": "aq_selfreport_v1.json"
+        }
+      ]
+    },
+    {
+      "id": "phase_intervention",
+      "title": "Interventionsplanung & Transfer",
+      "instruments": [
+        {
+          "id": "aq_reflection_v1",
+          "file": "aq_reflection_v1.json"
+        }
+      ]
+    }
   ]
 }

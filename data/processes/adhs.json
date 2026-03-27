@@ -2,9 +2,30 @@
   "id": "adhs_process_v1",
   "title": "ADHS Prozess",
   "description": "Strukturierter Prozess zur Erfassung von Aufmerksamkeits- und Impulsivitätsmustern mit Fokus auf Selbstbeobachtung und alltagsnahen VT-Strategien.",
-  "units": [
-    "adhs_screening_v1",
-    "adhs_daily_patterns_v1",
-    "adhs_coping_plan_v1"
+  "phases": [
+    {
+      "id": "phase_assessment",
+      "title": "Assessment & Mustererhebung",
+      "instruments": [
+        {
+          "id": "adhs_screening_v1",
+          "file": "adhs_screening_v1.json"
+        },
+        {
+          "id": "adhs_daily_patterns_v1",
+          "file": "adhs_daily_patterns_v1.json"
+        }
+      ]
+    },
+    {
+      "id": "phase_intervention",
+      "title": "Interventionsplanung & Transfer",
+      "instruments": [
+        {
+          "id": "adhs_coping_plan_v1",
+          "file": "adhs_coping_plan_v1.json"
+        }
+      ]
+    }
   ]
 }
