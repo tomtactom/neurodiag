@@ -105,6 +105,27 @@ document.addEventListener('DOMContentLoaded', function() {
     updateProgress();
   };
 
+  // Expandable panel toggle
+  const expandButtons = document.querySelectorAll('.expand-btn');
+  expandButtons.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const details = this.nextElementSibling;
+      if (details && details.classList.contains('module-details')) {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!isExpanded));
+        details.classList.toggle('show');
+        // Toggle the hidden attribute
+        if (details.hidden) {
+          details.removeAttribute('hidden');
+        } else {
+          details.setAttribute('hidden', '');
+        }
+        this.textContent = isExpanded ? 'Details anzeigen' : 'Details ausblenden';
+      }
+    });
+  });
+
   moduleCards.forEach(card => {
     const link = card.querySelector('a.btn-secondary');
     if (link) {
@@ -121,6 +142,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         moduleCards.forEach(card => {
           if (tag === 'all' || card.dataset.category === tag) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // Quick-check symptom filtering
+  const quickCheckInputs = document.querySelectorAll('.quick-check-input');
+  if (quickCheckInputs.length) {
+    quickCheckInputs.forEach(input => {
+      input.addEventListener('change', function() {
+        const selectedCategories = [];
+        quickCheckInputs.forEach(cb => {
+          if (cb.checked) {
+            selectedCategories.push(cb.value);
+          }
+        });
+
+        moduleCards.forEach(card => {
+          const cardCategory = card.dataset.category;
+          if (selectedCategories.length === 0) {
+            card.style.display = 'flex';
+          } else if (selectedCategories.includes(cardCategory)) {
             card.style.display = 'flex';
           } else {
             card.style.display = 'none';

@@ -26,6 +26,18 @@
 <section id="module-selector" class="module-selector">
   <h2>Modul-Auswahl</h2>
   <p>Wähle aus acht spezialisierten Punkten – jeder Selbsttest beleuchtet ein anderes neurodivergentes Profil.</p>
+  
+  <div class="quick-check">
+    <h3>Schnelle Orientierung</h3>
+    <p>Was trifft auf dich zu? (Optional – hilft bei der Auswahl)</p>
+    <div class="check-options">
+      <label><input type="checkbox" name="quickcheck" value="social" class="quick-check-input"> Herausforderungen in sozialen Situationen</label>
+      <label><input type="checkbox" name="quickcheck" value="attention" class="quick-check-input"> Fokus/Aufmerksamkeit ist schwierig</label>
+      <label><input type="checkbox" name="quickcheck" value="motor" class="quick-check-input"> Bewegung/Motorik/Schreiben</label>
+      <label><input type="checkbox" name="quickcheck" value="language" class="quick-check-input"> Lesen, Sprechen oder Zahlen</label>
+    </div>
+  </div>
+
   <div class="module-filters" role="group" aria-label="Modulfilter">
     <button class="filter-btn active" data-filter="all">Alle</button>
     <button class="filter-btn" data-filter="social">Sozial</button>
@@ -37,49 +49,81 @@
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/9990/9990347.png" alt="Autismus Icon" loading="lazy">
       <h3>Autismus</h3>
-      <p>Klare, intensive Wahrnehmung und direkter Ausdruck. Struktur und tiefes Verstehen sind zentral.</p>
+      <p class="brief">Klare, intensive Wahrnehmung und direkter Ausdruck. Struktur und tiefes Verstehen sind zentral.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Autismus">Details</button>
+      <div class="module-details" hidden>
+        <p>Viele autistische Menschen erleben die Welt klar, intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich, mit starkem Bedürfnis nach Struktur und Sinnzusammenhängen. Interessen geben Freude, Orientierung und Identität.</p>
+      </div>
       <a href="tests/test.php?module=aq-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/10371/10371961.png" alt="ADHS Icon" loading="lazy">
       <h3>AD(H)S</h3>
-      <p>Innere Bewegung, schnelle Gedankensprünge, Kreativität. Flexibilität statt starrer Struktur.</p>
+      <p class="brief">Innere Bewegung, schnelle Gedankensprünge, Kreativität. Flexibilität statt starrer Struktur.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über ADHS">Details</button>
+      <div class="module-details" hidden>
+        <p>Erleben ist geprägt von Bewegung, innerer Aktivität und schneller Gedankenkopplung. Aufmerksamkeit folgt oft dem, was lebendig ist. Kreativität und Spontaneität sind stark. Der Alltag verlangt häufig flexible Strukturen.</p>
+      </div>
       <a href="tests/test.php?module=asrs-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/1993/1993497.png" alt="Dyslexie Icon" loading="lazy">
       <h3>Dyslexie</h3>
-      <p>Ganzheitliche, bildhaft-zusammenhängende Wahrnehmung. Schrift braucht andere Wege.</p>
+      <p class="brief">Ganzheitliche, bildhaft-zusammenhängende Wahrnehmung. Schrift braucht andere Wege.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyslexie">Details</button>
+      <div class="module-details" hidden>
+        <p>Sprache wird oft ganzheitlich, bildhaft und zusammenhängend aufgenommen. Schrift kann sich weniger automatisch erschließen. Gedankengänge sind reich und vielschichtig.</p>
+      </div>
       <a href="tests/test.php?module=dyslexia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/18448/18448228.png" alt="Dysgraphie Icon" loading="lazy">
       <h3>Dysgraphie</h3>
-      <p>Gedanken sind da, Schreiben braucht Zeit. Mündlich, visuell oder digital oft einfacher.</p>
+      <p class="brief">Gedanken sind da, Schreiben braucht Zeit. Mündlich, visuell oder digital oft einfacher.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dysgraphie">Details</button>
+      <div class="module-details" hidden>
+        <p>Gedanken können sehr differenziert sein, während das Aufschreiben anstrengender wirkt. Schreiben ist oft Übersetzungsprozess. Viele kommunizieren stark über mündlich, visuell oder digital.</p>
+      </div>
       <a href="tests/test.php?module=dysgraphia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/5090/5090298.png" alt="Dyskalkulie Icon" loading="lazy">
       <h3>Dyskalkulie</h3>
-      <p>Zahlen über eigene Wege. Bilder, Kontext, Bedeutung geben Sicherheit.</p>
+      <p class="brief">Zahlen über eigene Wege. Bilder, Kontext, Bedeutung geben Sicherheit.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyskalkulie">Details</button>
+      <div class="module-details" hidden>
+        <p>Zahlen und Mengen werden häufig über eigene Strategien erschlossen. Denken läuft oft über Bilder, Situationen und Bedeutungen. Kontext und Sprache geben Orientierung.</p>
+      </div>
       <a href="tests/test.php?module=dyskalkulie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/8320/8320277.png" alt="Dyspraxie Icon" loading="lazy">
       <h3>Dyspraxie</h3>
-      <p>Bewusste Bewegungssteuerung, feines Körpergefühl. Praktische Lösungen entstehen individuell.</p>
+      <p class="brief">Bewusste Bewegungssteuerung, feines Körpergefühl. Praktische Lösungen entstehen individuell.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyspraxie">Details</button>
+      <div class="module-details" hidden>
+        <p>Bewegungen und Abläufe werden oft bewusster gesteuert. Automatische Abläufe erscheinen Schritt-für-Schritt. Viele entwickeln ein feines Körpergefühl und finden eigene, praktische Lösungen.</p>
+      </div>
       <a href="tests/test.php?module=dyspraxie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" loading="lazy">
       <h3>Tic/Tourette</h3>
-      <p>Spontane Bewegungen und Laute. Körperbewusstsein entsteht durch inneres Geschehen.</p>
+      <p class="brief">Spontane Bewegungen und Laute. Körperbewusstsein entsteht durch inneres Geschehen.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Tic/Tourette">Details</button>
+      <div class="module-details" hidden>
+        <p>Der Körper produziert spontane Bewegungen oder Laute. Das Zusammenspiel aus innerer Spannung und Entladung führt oft zu einem präzisen Körperbewusstsein.</p>
+      </div>
       <a href="tests/test.php?module=tic-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/8984/8984825.png" alt="Sprachstörung Icon" loading="lazy">
       <h3>Sprachstörung (DLD)</h3>
-      <p>Sprache über Bilder und Situationen. Bedeutung entsteht durch Kontext und Ausdruck.</p>
+      <p class="brief">Sprache über Bilder und Situationen. Bedeutung entsteht durch Kontext und Ausdruck.</p>
+      <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Sprachstörung">Details</button>
+      <div class="module-details" hidden>
+        <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ. Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
+      </div>
       <a href="tests/test.php?module=dld-test" class="btn btn-secondary">Starten</a>
     </article>
   </div>
