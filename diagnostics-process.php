@@ -14,9 +14,65 @@
 // Load module configuration
 $moduleConfig = json_decode(file_get_contents('data/module-config.json'), true);
 
+/**
+ * Parse process resume cookie defensively.
+ *
+ * Expected payload:
+ * {
+ *   "processId": "aq-test",
+ *   "currentUnit": 3,
+ *   "answers": { "screening": {}, "main": {}, "reflection": {} },
+ *   "updatedAt": 1710000000000,
+ *   "completed": false
+ * }
+ */
+function readResumeCookie(string $module, int $maxPhase = 5): ?array
+{
+    $cookieKey = 'neurodiag_process_' . $module;
+    if (!isset($_COOKIE[$cookieKey])) {
+        return null;
+    }
+
+    $decoded = json_decode(urldecode($_COOKIE[$cookieKey]), true);
+    if (!is_array($decoded)) {
+        return null;
+    }
+
+    $unit = $decoded['currentUnit'] ?? null;
+    $answers = $decoded['answers'] ?? null;
+    $updatedAt = $decoded['updatedAt'] ?? null;
+    $completed = $decoded['completed'] ?? false;
+
+    if (!is_int($unit) || $unit < 1 || $unit > $maxPhase) {
+        return null;
+    }
+    if (!is_array($answers)) {
+        return null;
+    }
+    foreach (['screening', 'main', 'reflection'] as $answerGroup) {
+        if (isset($answers[$answerGroup]) && !is_array($answers[$answerGroup])) {
+            return null;
+        }
+    }
+    if (!is_int($updatedAt) && !is_float($updatedAt)) {
+        return null;
+    }
+    if (!is_bool($completed)) {
+        return null;
+    }
+
+    return [
+        'currentUnit' => $unit,
+        'answers' => $answers,
+        'updatedAt' => (int) $updatedAt,
+        'completed' => $completed
+    ];
+}
+
 // Get module and phase from URL
 $module = isset($_GET['module']) ? $_GET['module'] : 'aq-test';
-$phase = isset($_GET['phase']) ? (int)$_GET['phase'] : 1;
+$phaseFromRequest = $_GET['phase'] ?? $_GET['unit'] ?? null;
+$phase = $phaseFromRequest !== null ? (int) $phaseFromRequest : 1;
 
 // Validate module exists
 if (!isset($moduleConfig['modules'][$module])) {
@@ -26,6 +82,18 @@ if (!isset($moduleConfig['modules'][$module])) {
 
 $moduleData = $moduleConfig['modules'][$module];
 $pageTitle = $moduleData['name'] . ' - Diagnostik';
+
+$resumeData = readResumeCookie($module, 5);
+$requestHasUnit = isset($_GET['phase']) || isset($_GET['unit']);
+
+// Resume only when request does not explicitly define current unit/phase.
+if (!$requestHasUnit && $resumeData !== null) {
+    $phase = $resumeData['currentUnit'];
+}
+
+if ($phase < 1 || $phase > 5) {
+    $phase = 1;
+}
 
 // Session initialization
 session_start();

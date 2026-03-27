@@ -70,7 +70,7 @@
         <p>Viele autistische Menschen erleben die Welt klar, intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich, mit starkem Bedürfnis nach Struktur und Sinnzusammenhängen. Interessen geben Freude, Orientierung und Identität.</p>
       </div>
       <button class="btn-preview" data-module="aq-test" aria-label="Vorschau des Autismus-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=aq-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=aq-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/10371/10371961.png" alt="ADHS Icon" loading="lazy">
@@ -81,7 +81,7 @@
         <p>Erleben ist geprägt von Bewegung, innerer Aktivität und schneller Gedankenkopplung. Aufmerksamkeit folgt oft dem, was lebendig ist. Kreativität und Spontaneität sind stark. Der Alltag verlangt häufig flexible Strukturen.</p>
       </div>
       <button class="btn-preview" data-module="asrs-test" aria-label="Vorschau des ADHS-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=asrs-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=asrs-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/1993/1993497.png" alt="Dyslexie Icon" loading="lazy">
@@ -92,7 +92,7 @@
         <p>Sprache wird oft ganzheitlich, bildhaft und zusammenhängend aufgenommen. Schrift kann sich weniger automatisch erschließen. Gedankengänge sind reich und vielschichtig.</p>
       </div>
       <button class="btn-preview" data-module="dyslexia-test" aria-label="Vorschau des Dyslexie-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=dyslexia-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=dyslexia-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/18448/18448228.png" alt="Dysgraphie Icon" loading="lazy">
@@ -103,7 +103,7 @@
         <p>Gedanken können sehr differenziert sein, während das Aufschreiben anstrengender wirkt. Schreiben ist oft Übersetzungsprozess. Viele kommunizieren stark über mündlich, visuell oder digital.</p>
       </div>
       <button class="btn-preview" data-module="dysgraphia-test" aria-label="Vorschau des Dysgraphie-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=dysgraphia-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=dysgraphia-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/5090/5090298.png" alt="Dyskalkulie Icon" loading="lazy">
@@ -114,7 +114,7 @@
         <p>Zahlen und Mengen werden häufig über eigene Strategien erschlossen. Denken läuft oft über Bilder, Situationen und Bedeutungen. Kontext und Sprache geben Orientierung.</p>
       </div>
       <button class="btn-preview" data-module="dyskalkulie-test" aria-label="Vorschau des Dyskalkulie-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=dyskalkulie-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=dyskalkulie-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/8320/8320277.png" alt="Dyspraxie Icon" loading="lazy">
@@ -123,7 +123,7 @@
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyspraxie">Details</button>
       <div class="module-details" hidden>
         <p>Bewegungen und Abläufe werden oft bewusster gesteuert. Automatische Abläufe erscheinen Schritt-für-Schritt. Viele entwickeln ein feines Körpergefühl und finden eigene, praktische Lösungen.</p>
-      </div>      <button class="btn-preview" data-module="dyspraxia-test" aria-label="Vorschau des Dyspraxie-Tests">📋 Vorschau</button>      <a href="diagnostics-process.php?module=dyspraxia-test&phase=1" class="btn btn-secondary">Starten</a>
+      </div>      <button class="btn-preview" data-module="dyspraxia-test" aria-label="Vorschau des Dyspraxie-Tests">📋 Vorschau</button>      <a href="process.php?module=dyspraxia-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" loading="lazy">
@@ -134,7 +134,7 @@
         <p>Der Körper produziert spontane Bewegungen oder Laute. Das Zusammenspiel aus innerer Spannung und Entladung führt oft zu einem präzisen Körperbewusstsein.</p>
       </div>
       <button class="btn-preview" data-module="tic-test" aria-label="Vorschau des Tics/Tourette-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=tic-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=tic-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/8984/8984825.png" alt="Sprachstörung Icon" loading="lazy">
@@ -145,7 +145,7 @@
         <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ. Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
       </div>
       <button class="btn-preview" data-module="dld-test" aria-label="Vorschau des Sprachstörungs-Tests">📋 Vorschau</button>
-      <a href="diagnostics-process.php?module=dld-test&phase=1=dld-test&phase=1" class="btn btn-secondary">Starten</a>
+      <a href="process.php?module=dld-test&phase=1=dld-test&phase=1" class="btn btn-secondary">Starten</a>
     </article>
   </div>
 </section>
