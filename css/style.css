@@ -200,25 +200,100 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
+  padding: 0.5rem;
 }
 
-.module,
-.resource-card {
-  position: relative;
-  padding: 1rem;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
+.modern-grid {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(79, 141, 169, 0.2);
+  border-radius: var(--radius-base);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-soft-sm);
 }
 
-.module:hover,
-.resource-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-soft);
+.module-card {
+  background: rgba(255,255,255,0.87);
+  border: 1px solid rgba(69, 123, 157, 0.25);
+  border-radius: 1rem;
+  padding: 1.15rem;
+  box-shadow: 0 8px 22px rgba(22, 37, 56, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.module h3 {
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(24, 44, 68, 0.18);
+  border-color: var(--color-accent);
+}
+
+.module-card h3 {
+  color: var(--color-primary);
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+}
+
+.module-card p {
+  color: var(--color-text);
+  margin: 0 0 1rem 0;
+}
+
+.diagnostics-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(130deg, rgba(69,123,157,0.22), rgba(255,255,255,0.03));
+  border: 1px solid rgba(69, 123, 157, 0.2);
+  border-radius: var(--radius-base);
+  padding: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.diagnostics-hero .hero-pretitle {
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.diagnostics-hero h1 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+}
+
+.diagnostics-hero .hero-subtitle {
+  color: var(--color-muted);
+  margin: 0.6rem 0 0 0;
+}
+
+.progress-box {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(69, 123, 157, 0.17);
+  border-radius: 0.85rem;
+  padding: 0.9rem 1rem;
+  min-width: 220px;
+}
+
+.progress-box strong {
+  display: block;
+  margin-bottom: 0.5rem;
   color: var(--color-primary);
 }
+
+.progress-box ol {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--color-text);
+}
+
+.progress-box li {
+  margin-bottom: 0.35rem;
+}
+
 
 .btn {
   display: inline-flex;
@@ -528,6 +603,73 @@ blockquote {
   padding: 1rem;
   background: rgba(69, 123, 157, 0.06);
   border-radius: 0.75rem;
+}
+
+.page-section {
+  max-width: 1060px;
+  margin: 1.6rem auto;
+  padding: 0 1rem;
+}
+
+.page-card {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(34, 88, 112, 0.15);
+  border-radius: var(--radius-base);
+  box-shadow: 0 12px 28px rgba(16, 32, 49, 0.08);
+  padding: 1.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.page-card h2,
+.page-card h3 {
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+.page-section.overview .page-card {
+  border-left: 4px solid var(--color-accent);
+}
+
+.page-section.contact-overview .contact-form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.page-section.contact-overview .contact-form label {
+  font-weight: 600;
+}
+
+.page-section.contact-overview .contact-form input,
+.page-section.contact-overview .contact-form textarea {
+  border: 1px solid var(--color-border);
+  border-radius: 0.65rem;
+  padding: 0.8rem;
+}
+
+.page-section.contact-overview .success {
+  margin-top: 0.9rem;
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.page-section.resources-overview .resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.page-section.resources-overview .resource-card {
+  padding: 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(79, 141, 169, 0.2);
+  background: rgba(255,255,255,0.78);
+  box-shadow: 0 10px 22px rgba(18, 37, 56, 0.07);
+}
+
+.page-section.resources-overview .resource-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-primary);
 }
 
 /* Responsive */

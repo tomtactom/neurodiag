@@ -1,17 +1,31 @@
 <?php $pageTitle = 'Selbstentdeckung'; include 'includes/header.php'; ?>
 
-        <h2>Neurodivergenz-Module</h2>
-        <p>Wählen Sie einen Bereich aus, um Ihre neurodivergenten Stärken und eigenen Verarbeitungstendenzen zu erkunden.</p>
-        <div class="diagnostic-modules">
-            <div class="module"><h3>Autismus-Spektrum (ASS)</h3><p>Selbsteinschätzung und Stärkeprofil.</p><a href="tests/test.php?module=aq-test" class="btn">Starten</a></div>
-            <div class="module"><h3>AD(H)S</h3><p>Fokus auf Aufmerksamkeits- und Aktivitätsmuster.</p><a href="tests/test.php?module=asrs-test" class="btn">Starten</a></div>
-            <div class="module"><h3>Dyslexie / LRS</h3><p>Schreib- und Lesemuster anonym erkunden.</p><a href="tests/test.php?module=dyslexia-test" class="btn">Starten</a></div>
-            <div class="module"><h3>Dysgraphie</h3><p>Schrift- und Feinmotorik-Perspektive.</p><a href="tests/test.php?module=dysgraphia-test" class="btn">Starten</a></div>
-            <div class="module"><h3>Dyskalkulie</h3><p>Mathematische Denkweisen analysieren.</p><a href="tests/test.php?module=dyskalkulie-test" class="btn">Starten</a></div>
-            <div class="module"><h3>Dyspraxie / DCD</h3><p>Koordinationsstile visualisieren.</p><a href="tests/test.php?module=dyspraxie-test" class="btn">Starten</a></div>
-            <div class="module"><h3>Tic-Störungen / Tourette</h3><p>Reaktions- und Stressmuster erkunden.</p><a href="tests/test.php?module=tic-test" class="btn">Starten</a></div>
-            <div class="module"><h3>DLD (Sprachentwicklung)</h3><p>Sprachverarbeitung und Ausdruck bewerten.</p><a href="tests/test.php?module=dld-test" class="btn">Starten</a></div>
-            <div class="module"><h3>Neurodivergenz Interview</h3><p>Offene Reflexion Ihres Erlebens.</p><a href="interviews/neurodivergence-interview.php" class="btn">Starten</a></div>
-        </div>
+<section class="diagnostics-hero">
+  <div>
+    <p class="hero-pretitle">Selbstentdeckung</p>
+    <h1>Wähle dein Modul für präzises Feedback</h1>
+    <p class="hero-subtitle">Ein klarer Startpunkt mit intelligenten Tests, die dich durch deinen neurodivergenten Prozess begleiten.</p>
+  </div>
+  <div class="progress-box">
+    <strong>So geht es</strong>
+    <ol>
+      <li>Modul wählen</li>
+      <li>Fragen beantworten</li>
+      <li>Auswertung erhalten</li>
+    </ol>
+  </div>
+</section>
+
+<section class="diagnostic-modules modern-grid">
+  <article class="module-card"><h3>Autismus</h3><p>Stärken & Verarbeitungsmuster.</p><a href="tests/test.php?module=aq-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>AD(H)S</h3><p>Fokus, Impuls & Struktur.</p><a href="tests/test.php?module=asrs-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Dyslexie</h3><p>Lesen, Schreiben, Dekodierung.</p><a href="tests/test.php?module=dyslexia-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Dysgraphie</h3><p>Schriftmotorik & Ausdruck.</p><a href="tests/test.php?module=dysgraphia-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Dyskalkulie</h3><p>Zahlen und logisches Denken.</p><a href="tests/test.php?module=dyskalkulie-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Dyspraxie</h3><p>Koordination & Planung.</p><a href="tests/test.php?module=dyspraxie-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Tic/Tourette</h3><p>Impulskontrolle & Reizverarbeitung.</p><a href="tests/test.php?module=tic-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Sprachstörung (DLD)</h3><p>Verstehen & Sprachproduktion.</p><a href="tests/test.php?module=dld-test" class="btn btn-primary">Starten</a></article>
+  <article class="module-card"><h3>Interview</h3><p>Reflexions-Call, psychologische Einsichten.</p><a href="interviews/neurodivergence-interview.php" class="btn btn-secondary">Starten</a></article>
+</section>
 
 <?php include 'includes/footer.php'; ?>
