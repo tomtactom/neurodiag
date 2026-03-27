@@ -11,6 +11,35 @@
     <img src="https://cdn.pixabay.com/photo/2020/07/22/00/32/brain-5427670_1280.png" alt="Abstrakte Darstellung eines Gehirns mit bunten Verbindungen" loading="lazy">
   </div>
 </section>
+
+<section class="empowerment-section">
+  <h2>Du bist der Experte für dich selbst</h2>
+  <p>Neurodivergenz ist eine natürliche Variation des menschlichen Geistes – keine Krankheit, sondern eine andere Art zu denken, fühlen und wahrnehmen.</p>
+  <div class="empowerment-cards">
+    <article class="empowerment-card">
+      <h3>Warum Selbstentdeckung?</h3>
+      <p>Du kennst dich selbst am besten. Unsere Tests helfen dir, Muster zu erkennen und dein Potenzial zu entfalten – ohne externe Validierung.</p>
+    </article>
+    <article class="empowerment-card">
+      <h3>Humanistisch & Anonym</h3>
+      <p>Keine Diagnosen, nur Einsichten. Alle Daten bleiben bei dir, und du gehst in deinem eigenen Tempo voran.</p>
+    </article>
+  </div>
+</section>
+
+<section class="self-check-widget">
+  <h2>Schneller Selbstcheck</h2>
+  <p>Beantworte diese 4 Fragen, um zu sehen, ob unsere Module für dich relevant sein könnten.</p>
+  <form id="selfCheckForm">
+    <label><input type="checkbox" name="q1"> Ich fühle mich oft überstimuliert in sozialen Situationen.</label>
+    <label><input type="checkbox" name="q2"> Ich habe Schwierigkeiten, meine Aufmerksamkeit zu fokussieren.</label>
+    <label><input type="checkbox" name="q3"> Ich mache häufig Rechtschreibfehler beim Schreiben.</label>
+    <label><input type="checkbox" name="q4"> Ich habe Probleme mit der Koordination von Bewegungen.</label>
+    <button type="button" id="checkBtn" class="btn btn-primary">Auswerten</button>
+  </form>
+  <div id="resultMessage" style="display: none;">
+    <p>Basierend auf deinen Antworten könnten unsere Module hilfreich für dich sein. Starte jetzt deine Selbstentdeckung!</p>
+  </div>
 </section>
 
 <section class="features-grid">

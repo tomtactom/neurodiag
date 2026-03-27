@@ -10,13 +10,13 @@
 
 | File | Changes | Impact |
 |------|---------|--------|
-| `index.php` | Complete hero section redesign + empowerment messaging + module icon image references (Flaticon/Pixabay) | Homepage behavior change |
+| `index.php` | Complete hero section redesign + empowerment messaging + self-check widget + module icon image references (Flaticon/Pixabay) | Homepage behavior change |
 | `diagnostics.php` | New hero image (Pixabay neurodiversity brain) + module icons (Flaticon/Pixabay) for each neurodivergence condition | Visual content update |
 | `about.php` | Added mindfulness image (Pixabay) | Visual content update |
 | `resources.php` | Added diversity brain image (Pixabay) | Visual content update |
 | `contact.php` | Added neural connection image (Pixabay) | Visual content update |
-| `css/style.css` | Added 120+ lines of modern UI + responsive improvements | Visual styling only |
-| `js/script.js` | Dark mode + consent + intersection animation | Behavior improvements |
+| `css/style.css` | Added 120+ lines of modern UI + responsive improvements + empowerment and self-check styles | Visual styling only |
+| `js/script.js` | Dark mode + consent + intersection animation + self-check widget | Behavior improvements |
 
 **No changes** to:
 - `tests/test.php`
