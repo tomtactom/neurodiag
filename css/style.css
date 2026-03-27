@@ -472,7 +472,8 @@ main {
   padding: 0.45rem 0.8rem;
   border-radius: 0.55rem;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
 }
 
 .filter-btn.active,
@@ -480,6 +481,30 @@ main {
   background: var(--color-accent);
   color: #fff;
   border-color: transparent;
+  box-shadow: 0 4px 12px rgba(247, 127, 0, 0.25);
+}
+
+@media (max-width: 960px) {
+  .module-filters {
+    gap: 0.6rem;
+  }
+  .filter-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .module-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.6rem;
+  }
+  .filter-btn {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
 }
 
 .module-grid {

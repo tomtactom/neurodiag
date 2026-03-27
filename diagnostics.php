@@ -18,7 +18,7 @@
     <p>Verfolge den Testfortschritt, finde passende Angebote und erkenne Muster in deinem Erleben.</p>
   </div>
   <div class="status-progress" aria-live="polite" aria-atomic="true">
-    <span id="statusCount">Noch kein Modul gestartet</span>
+    <span id="statusCount">Bereit für deine Selbstentdeckung? Starten wir!</span>
     <div class="progress-bar" aria-hidden="true"><div id="progressFill"></div></div>
   </div>
 </section>
@@ -37,49 +37,49 @@
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/9990/9990347.png" alt="Autismus Icon" loading="lazy">
       <h3>Autismus</h3>
-      <p>Viele autistische Menschen erleben die Welt klar, intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich, mit starkem Bedürfnis nach Struktur und Sinnzusammenhängen.</p>
+      <p>Klare, intensive Wahrnehmung und direkter Ausdruck. Struktur und tiefes Verstehen sind zentral.</p>
       <a href="tests/test.php?module=aq-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/10371/10371961.png" alt="ADHS Icon" loading="lazy">
       <h3>AD(H)S</h3>
-      <p>Erleben ist geprägt von Bewegung, innerer Aktivität und schneller Gedankenkopplung. Aufmerksamkeit folgt oft dem, was lebendig ist. Kreativität und Spontaneität sind stark, und der Alltag verlangt häufig flexible Strukturen.</p>
+      <p>Innere Bewegung, schnelle Gedankensprünge, Kreativität. Flexibilität statt starrer Struktur.</p>
       <a href="tests/test.php?module=asrs-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/1993/1993497.png" alt="Dyslexie Icon" loading="lazy">
       <h3>Dyslexie</h3>
-      <p>Sprache wird oft ganzheitlich, bildhaft und zusammenhängend aufgenommen. Schrift kann sich weniger automatisch erschließen, Gedankengänge sind reich und vielschichtig.</p>
+      <p>Ganzheitliche, bildhaft-zusammenhängende Wahrnehmung. Schrift braucht andere Wege.</p>
       <a href="tests/test.php?module=dyslexia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/18448/18448228.png" alt="Dysgraphie Icon" loading="lazy">
       <h3>Dysgraphie</h3>
-      <p>Gedanken können sehr differenziert sein, während das Aufschreiben anstrengender wirkt. Schreiben ist oft Übersetzungsprozess – viele kommunizieren stark über mündlich, visuell oder digital.</p>
+      <p>Gedanken sind da, Schreiben braucht Zeit. Mündlich, visuell oder digital oft einfacher.</p>
       <a href="tests/test.php?module=dysgraphia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/5090/5090298.png" alt="Dyskalkulie Icon" loading="lazy">
       <h3>Dyskalkulie</h3>
-      <p>Zahlen und Mengen werden häufig über eigene Strategien erschlossen. Denken läuft oft über Bilder, Situationen und Bedeutungen – Kontext und Sprache geben Orientierung.</p>
+      <p>Zahlen über eigene Wege. Bilder, Kontext, Bedeutung geben Sicherheit.</p>
       <a href="tests/test.php?module=dyskalkulie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/8320/8320277.png" alt="Dyspraxie Icon" loading="lazy">
       <h3>Dyspraxie</h3>
-      <p>Bewegungen und Abläufe werden oft bewusster gesteuert, automatische Abläufe erscheinen Schritt-für-Schritt. Viele entwickeln ein feines Körpergefühl und finden eigene, praktische Lösungen.</p>
+      <p>Bewusste Bewegungssteuerung, feines Körpergefühl. Praktische Lösungen entstehen individuell.</p>
       <a href="tests/test.php?module=dyspraxie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" loading="lazy">
       <h3>Tic/Tourette</h3>
-      <p>Der Körper produziert spontane Bewegungen oder Laute. Das Zusammenspiel aus innerer Spannung und Entladung führt oft zu einem präzisen Körperbewusstsein.</p>
+      <p>Spontane Bewegungen und Laute. Körperbewusstsein entsteht durch inneres Geschehen.</p>
       <a href="tests/test.php?module=tic-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/8984/8984825.png" alt="Sprachstörung Icon" loading="lazy">
       <h3>Sprachstörung (DLD)</h3>
-      <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ, und Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
+      <p>Sprache über Bilder und Situationen. Bedeutung entsteht durch Kontext und Ausdruck.</p>
       <a href="tests/test.php?module=dld-test" class="btn btn-secondary">Starten</a>
     </article>
   </div>
