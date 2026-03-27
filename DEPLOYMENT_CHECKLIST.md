@@ -10,12 +10,15 @@
 
 | File | Changes | Impact |
 |------|---------|--------|
-| `index.php` | Complete hero section redesign + empowerment messaging | Homepage behavior change |
-| `css/style.css` | Added 120+ lines of new empowerment & interactive styles | Visual styling only |
-| `EMPOWERMENT_UPDATE.md` | Documentation (reference only) | No deployment impact |
+| `index.php` | Complete hero section redesign + empowerment messaging + module icon image references (Flaticon/Pixabay) | Homepage behavior change |
+| `diagnostics.php` | New hero image (Pixabay neurodiversity brain) + module icons (Flaticon/Pixabay) for each neurodivergence condition | Visual content update |
+| `about.php` | Added mindfulness image (Pixabay) | Visual content update |
+| `resources.php` | Added diversity brain image (Pixabay) | Visual content update |
+| `contact.php` | Added neural connection image (Pixabay) | Visual content update |
+| `css/style.css` | Added 120+ lines of modern UI + responsive improvements | Visual styling only |
+| `js/script.js` | Dark mode + consent + intersection animation | Behavior improvements |
 
 **No changes** to:
-- `diagnostics.php`
 - `tests/test.php`
 - `tests/results.php`
 - Test data (JSON modules)
@@ -67,13 +70,15 @@ Key phrases integrated throughout:
 
 ---
 
-## Security Checklist
+## Security & Licensing Checklist
 
 ✅ No user input from homepage (read-only forms)  
 ✅ No database queries added  
 ✅ No new server dependencies  
 ✅ HTML properly escaped (PHP automatic)  
 ✅ CSS/JS contained, no external loads  
+✅ Bilder aus Pixabay (freie Lizenz, CC0) und Flaticon (freie Icons mit Attribution erforderlich)  
+✅ Quellen im Code und Dokumentation vermerkt  
 
 ---
 

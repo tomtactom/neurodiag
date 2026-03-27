@@ -4,6 +4,10 @@
   <div class="page-card">
     <h2>Kontaktieren Sie uns</h2>
     <p>Haben Sie Fragen oder Feedback? Kontaktieren Sie uns!</p>
+    <figure>
+      <img src="https://cdn.pixabay.com/photo/2022/03/04/12/51/neuron-7047268_640.jpg" alt="Neuronen-Verknüpfung als Symbol für Verbindung und Unterstützung" loading="lazy">
+      <figcaption>Vertrieb & Support für Ihre neurodivergente Reise</figcaption>
+    </figure>
     <form action="contact.php" method="post" class="contact-form">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required>

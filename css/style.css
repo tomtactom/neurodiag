@@ -308,6 +308,13 @@ main {
   margin: 0 0 1rem 0;
 }
 
+.module-card img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+
 .diagnostics-hero {
   display: flex;
   justify-content: space-between;
