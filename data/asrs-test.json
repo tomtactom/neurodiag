@@ -16,10 +16,9 @@
     }
   ],
   "norms": {
-    "threshold": 24,
     "ranges": {
-      "0-23": "Kein Hinweis auf ADHS",
-      "24-72": "Möglicher Hinweis auf ADHS"
+      "0-30": "Ihre Aufmerksamkeit und Energie sind oft stabil; nutzen Sie Ihren Fokus gezielt.",
+      "31-72": "Ihre Impulsivität kann Kreativität fördern; arbeiten Sie mit Stärken und Schutzräumen."
     },
     "reliability": 0.88,
     "validity": 0.82

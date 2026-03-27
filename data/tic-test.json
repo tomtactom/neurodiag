@@ -1,0 +1,23 @@
+{
+  "title": "Tic-Test (inkl. Tourette)",
+  "description": "Reflektieren Sie Ihre Gewohnheiten und Muster bei Tics.",
+  "questions": [
+    {
+      "id": 1,
+      "text": "Nehmen Sie häufig automatische Bewegungen oder Laute wahr, die Ihnen schwer kontrollierbar erscheinen?",
+      "options": [
+        {"text": "Sehr oft", "score": 2},
+        {"text": "Oft", "score": 1},
+        {"text": "Manchmal", "score": 1},
+        {"text": "Selten", "score": 0},
+        {"text": "Nie", "score": 0}
+      ]
+    }
+  ],
+  "norms": {
+    "ranges": {
+      "0-1": "Ihr Tic-Erleben scheint gut reguliert; achten Sie weiter auf Wohlbefinden.",
+      "2-4": "Achten Sie auf Stressfaktoren und Selbstfürsorge, die Ihre Energie stabilisieren."
+    }
+  }
+}

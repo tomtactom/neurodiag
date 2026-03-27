@@ -1,0 +1,23 @@
+{
+  "title": "Dyskalkulie Selbstentdeckung",
+  "description": "Erkunden Sie Ihre Wahrnehmung von Zahlen und mathematischen Konzepten.",
+  "questions": [
+    {
+      "id": 1,
+      "text": "Haben Sie Schwierigkeiten, sich mathematische Fakten zu merken?",
+      "options": [
+        {"text": "Stark", "score": 2},
+        {"text": "Ziemlich", "score": 1},
+        {"text": "Manchmal", "score": 1},
+        {"text": "Selten", "score": 0},
+        {"text": "Nie", "score": 0}
+      ]
+    }
+  ],
+  "norms": {
+    "ranges": {
+      "0-1": "Zahlenverständnis ist gut ausgeprägt; nutzen Sie intuitive Strategien.",
+      "2-4": "Sie denken möglicherweise stärker in Bildern oder Geschichten – das ist eine Stärke!"
+    }
+  }
+}

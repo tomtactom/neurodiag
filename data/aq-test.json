@@ -27,10 +27,9 @@
     }
   ],
   "norms": {
-    "threshold": 32,
     "ranges": {
-      "0-31": "Kein Hinweis auf Autismus-Merkmale",
-      "32-50": "Möglicher Hinweis auf Autismus-Merkmale. Konsultieren Sie einen Fachmann."
+      "0-25": "Ihre Wahrnehmung bietet viele Stärken. Nutzen Sie Ihr Detailbewusstsein für kreative Lösungen.",
+      "26-50": "Ihre Wahrnehmung ist einzigartig; das ist eine Ressource der Vielfalt, nicht eine Störung."
     },
     "reliability": 0.85,
     "validity": 0.78

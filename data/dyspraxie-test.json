@@ -1,0 +1,23 @@
+{
+  "title": "Dyspraxie / DCD Selbstentdeckung",
+  "description": "Erkunden Sie Ihre Bewegungskoordination und Körperwahrnehmung.",
+  "questions": [
+    {
+      "id": 1,
+      "text": "Fühlen Sie sich häufig unbeholfen bei feinen Bewegungsabläufen?",
+      "options": [
+        {"text": "Sehr oft", "score": 2},
+        {"text": "Oft", "score": 1},
+        {"text": "Manchmal", "score": 1},
+        {"text": "Selten", "score": 0},
+        {"text": "Nie", "score": 0}
+      ]
+    }
+  ],
+  "norms": {
+    "ranges": {
+      "0-1": "Ihre motorischen Fähigkeiten sind stabil. Nutzen Sie die gewonnenen Erkenntnisse als Stärke.",
+      "2-4": "Ihre Körperwahrnehmung ist individuell. Mit gezielter Selbstreflexion finden Sie funktionale Anpassungen."
+    }
+  }
+}
