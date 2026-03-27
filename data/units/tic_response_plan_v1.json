@@ -1,0 +1,33 @@
+{
+  "id": "tic_response_plan_v1",
+  "type": "instruction",
+  "title": "Tic Reaktionsplan",
+  "description": "Dummy-Plan mit VT-Elementen (z. B. Gegenreaktion, Reizmanagement, Selbstmonitoring).",
+  "instructions": "Lege einen Wochenplan mit 1 Hauptstrategie und täglichem Kurz-Check fest.",
+  "questions": [
+    {
+      "id": "tic_r_1",
+      "text": "Welche Hauptstrategie testest du diese Woche?",
+      "options": [
+        "Habit-Reversal",
+        "Achtsamkeitsfokus",
+        "Stressmanagement",
+        "Schlafhygiene"
+      ]
+    },
+    {
+      "id": "tic_r_2",
+      "text": "Wie dokumentierst du den Verlauf?",
+      "options": [
+        "Tagebuch",
+        "App",
+        "Checkliste",
+        "Partner-Feedback"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "weekly_adherence",
+    "rule": "Adhärenz = umgesetzte Tage / 7."
+  }
+}

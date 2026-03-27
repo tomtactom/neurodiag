@@ -1,0 +1,31 @@
+{
+  "id": "dld_language_profile_v1",
+  "type": "questionnaire",
+  "title": "DLD Sprachprofil",
+  "description": "Erfassung von Sprachverständnis und sprachlichem Ausdruck im Alltag.",
+  "instructions": "Beantworte die Fragen mit Blick auf Schule, Arbeit und soziale Situationen.",
+  "questions": [
+    {
+      "id": "dld_l_1",
+      "text": "Ich brauche oft länger, um gesprochene Informationen zu verarbeiten.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    },
+    {
+      "id": "dld_l_2",
+      "text": "Ich finde in Gesprächen nicht schnell die passenden Wörter.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "dyskalkulie_number_sense_v1",
+  "type": "questionnaire",
+  "title": "Dyskalkulie Zahlenverständnis",
+  "description": "Erste Einschätzung des subjektiven Zahlen- und Mengenverständnisses.",
+  "instructions": "Antworte bezogen auf Alltagssituationen wie Einkaufen oder Zeitplanung.",
+  "questions": [
+    {
+      "id": "dysk_n_1",
+      "text": "Ich verwechsle häufig Rechenzeichen oder Rechenschritte.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    },
+    {
+      "id": "dysk_n_2",
+      "text": "Überschlagsrechnungen fallen mir schwer.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "dyskalkulie_error_patterns_v1",
+  "type": "questionnaire",
+  "title": "Dyskalkulie Fehlerprofile",
+  "description": "Erfassung typischer Fehlerquellen unter verschiedenen Bedingungen.",
+  "instructions": "Wähle Antworten, die in den letzten 2 Wochen am besten passen.",
+  "questions": [
+    {
+      "id": "dysk_f_1",
+      "text": "Wann passieren die meisten Rechenfehler?",
+      "options": [
+        "unter Zeitdruck",
+        "bei mehrschrittigen Aufgaben",
+        "bei Textaufgaben",
+        "bei Kopfrechnen",
+        "unabhängig von Situation"
+      ]
+    },
+    {
+      "id": "dysk_f_2",
+      "text": "Welche Hilfen wirken entlastend?",
+      "options": [
+        "Rechenrahmen",
+        "farbliche Markierungen",
+        "Schritt-für-Schritt-Plan",
+        "Lautes Mitsprechen",
+        "Pausen"
+      ]
+    }
+  ],
+  "norms": {
+    "sample": "Dummy-Lernambulanz",
+    "age_groups": [
+      "7-10",
+      "11-14",
+      "15+"
+    ]
+  }
+}

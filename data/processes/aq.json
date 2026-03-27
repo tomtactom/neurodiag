@@ -1,0 +1,10 @@
+{
+  "id": "aq_process_v1",
+  "title": "Autismus-Spektrum (AQ) Prozess",
+  "description": "Niedrigschwelliger, verhaltenstherapeutisch orientierter Screening- und Reflexionsprozess zu autistischen Merkmalen im Alltag.",
+  "units": [
+    "aq_screening_v1",
+    "aq_selfreport_v1",
+    "aq_reflection_v1"
+  ]
+}

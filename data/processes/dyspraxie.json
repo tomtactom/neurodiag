@@ -1,0 +1,10 @@
+{
+  "id": "dyspraxie_process_v1",
+  "title": "Dyspraxie Prozess",
+  "description": "Alltagsorientierte Erfassung von Handlungsplanung und Koordination mit VT-Elementen zu Reizkontrolle und graduierter Übung.",
+  "units": [
+    "dyspraxie_motor_planning_v1",
+    "dyspraxie_task_breakdown_v1",
+    "dyspraxie_confidence_building_v1"
+  ]
+}

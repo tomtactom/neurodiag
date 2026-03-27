@@ -1,0 +1,38 @@
+{
+  "id": "adhs_screening_v1",
+  "type": "questionnaire",
+  "title": "ADHS Basisscreening",
+  "description": "Erste Erfassung von Unaufmerksamkeit und Impulsivität.",
+  "instructions": "Bewerte jedes Item für die letzten 6 Monate.",
+  "questions": [
+    {
+      "id": "adhs_s_1",
+      "text": "Ich lasse mich leicht von Nebengeräuschen ablenken.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    },
+    {
+      "id": "adhs_s_2",
+      "text": "Ich handle häufig, bevor ich über Konsequenzen nachdenke.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "domain_sum",
+    "domains": [
+      "aufmerksamkeit",
+      "impulsivitaet"
+    ]
+  }
+}

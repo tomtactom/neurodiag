@@ -1,0 +1,30 @@
+{
+  "id": "tic_trigger_map_v1",
+  "type": "questionnaire",
+  "title": "Tic Trigger-Mapping",
+  "description": "Identifikation interner und externer Auslöser zur Verhaltensanalyse.",
+  "instructions": "Wähle die wichtigsten Auslöser und priorisiere die Top-2.",
+  "questions": [
+    {
+      "id": "tic_t_1",
+      "text": "Welche Faktoren verstärken Tics am ehesten?",
+      "options": [
+        "Stress",
+        "Müdigkeit",
+        "Aufregung",
+        "Langeweile",
+        "soziale Anspannung"
+      ]
+    },
+    {
+      "id": "tic_t_2",
+      "text": "Welche Entlastung hilft kurzfristig?",
+      "options": [
+        "Atemfokus",
+        "Bewegungspause",
+        "Reizreduktion",
+        "Habit-Reversal-Übung"
+      ]
+    }
+  ]
+}

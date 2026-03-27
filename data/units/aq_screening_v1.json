@@ -1,0 +1,35 @@
+{
+  "id": "aq_screening_v1",
+  "type": "questionnaire",
+  "title": "AQ Kurzscreening",
+  "description": "Erste Einschätzung autismusbezogener Merkmale.",
+  "instructions": "Beantworte die Fragen bezogen auf die letzten 4 Wochen. Nutze eine ruhige Umgebung und antworte spontan.",
+  "questions": [
+    {
+      "id": "aq_s_1",
+      "text": "Ich bevorzuge vorhersehbare Routinen im Alltag.",
+      "options": [
+        "trifft gar nicht zu",
+        "trifft eher nicht zu",
+        "teils/teils",
+        "trifft eher zu",
+        "trifft voll zu"
+      ]
+    },
+    {
+      "id": "aq_s_2",
+      "text": "Unerwartete Planänderungen stressen mich stark.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "fast immer"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "sum_likert",
+    "rule": "Höhere Werte deuten auf stärkere Ausprägung der abgefragten Merkmale hin."
+  }
+}
