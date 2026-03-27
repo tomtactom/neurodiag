@@ -254,6 +254,50 @@ document.addEventListener('DOMContentLoaded', function() {
     renderSequenceRecommendations();
   }
 
+  // Resources Filter Logic
+  const resourceFilterButtons = document.querySelectorAll('.resources-filters .filter-btn');
+  const resourceCategories = document.querySelectorAll('.resource-category');
+
+  if (resourceFilterButtons.length) {
+    resourceFilterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        
+        resourceFilterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        resourceCategories.forEach(category => {
+          const categoryFilter = category.getAttribute('data-category');
+          if (filter === 'all' || categoryFilter === filter) {
+            category.style.display = 'block';
+            category.style.animation = 'fadeIn 0.3s ease-out';
+          } else {
+            category.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // FAQ Toggle Logic
+  const faqToggles = document.querySelectorAll('.faq-toggle');
+  faqToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      const content = this.nextElementSibling;
+
+      this.setAttribute('aria-expanded', String(!isExpanded));
+      
+      if (content) {
+        if (isExpanded) {
+          content.setAttribute('hidden', '');
+        } else {
+          content.removeAttribute('hidden');
+        }
+      }
+    });
+  });
+
   // Test Preview Modal Logic
   const previewButtons = document.querySelectorAll('.btn-preview');
   const previewModal = document.getElementById('previewModal');
