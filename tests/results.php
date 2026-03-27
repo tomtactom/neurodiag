@@ -34,6 +34,7 @@ $score = calculateScore($testData);
 $stats = getScoreStats($score, $testData);
 $interpretation = interpretScore($score, $testData['norms']);
 $details = getAnswerDetails($testData);
+$recommendations = getSmartRecommendations($module, $score, $stats['percentage']);
 ?>
 
 <section class="result-container">
@@ -82,6 +83,27 @@ $details = getAnswerDetails($testData);
             <?php endforeach; ?>
         </div>
     </article>
+
+    <?php if (!empty($recommendations['recommendations'])): ?>
+    <article class="result-card recommendations-box">
+        <h3>🎯 Empfohlene nächste Module</h3>
+        <p class="rec-intro">Basierend auf Ihrem Profil könnten diese Module aufschlussreich sein:</p>
+        <div class="rec-grid">
+            <?php foreach ($recommendations['recommendations'] as $rec): ?>
+            <div class="rec-card">
+                <div class="rec-header">
+                    <h4><?php echo getModuleTitle($rec['module']); ?></h4>
+                </div>
+                <p class="rec-reason"><?php echo htmlspecialchars($rec['reason']); ?></p>
+                <a href="test.php?module=<?php echo htmlspecialchars($rec['module']); ?>" class="btn btn-secondary">Modul starten</a>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php if ($recommendations['hasMore']): ?>
+        <p class="rec-note">💡 Weitere Module finden Sie in der <a href="../diagnostics.php">Modul-Übersicht</a>.</p>
+        <?php endif; ?>
+    </article>
+    <?php endif; ?>
 
     <article class="result-card resources-box">
         <h3>🌱 Nächste Schritte</h3>

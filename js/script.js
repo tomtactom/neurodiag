@@ -129,9 +129,32 @@ document.addEventListener('DOMContentLoaded', function() {
   moduleCards.forEach(card => {
     const link = card.querySelector('a.btn-secondary');
     if (link) {
-      link.addEventListener('click', () => setModuleCompleted());
+      link.addEventListener('click', () => {
+        setModuleCompleted();
+        // Track which module was started for sequencing recommendations
+        const moduleTitle = card.querySelector('h3');
+        if (moduleTitle) {
+          const completedModules = JSON.parse(window.localStorage.getItem('completedModulesHistory') || '[]');
+          if (!completedModules.includes(moduleTitle.textContent)) {
+            completedModules.push(moduleTitle.textContent);
+            window.localStorage.setItem('completedModulesHistory', JSON.stringify(completedModules));
+          }
+        }
+      });
     }
   });
+
+  // Module Sequencing: Show recommended next modules based on diagnostic history
+  const sequenceRecommendations = {
+    'aq-test': ['asrs-test', 'dyspraxia-test', 'dld-test'],
+    'asrs-test': ['aq-test', 'dyslexia-test', 'dyspraxia-test'],
+    'dyslexia-test': ['dysgraphia-test', 'dyskalkulie-test', 'dld-test'],
+    'dysgraphia-test': ['dyslexia-test', 'dyspraxia-test', 'dld-test'],
+    'dyskalkulie-test': ['dyslexia-test', 'asrs-test', 'dld-test'],
+    'dyspraxia-test': ['aq-test', 'dysgraphia-test', 'asrs-test'],
+    'tic-test': ['asrs-test', 'aq-test', 'dld-test'],
+    'dld-test': ['dyslexia-test', 'aq-test', 'asrs-test']
+  };
 
   if (filterButtons.length) {
     filterButtons.forEach(btn => {
@@ -174,6 +197,156 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       });
+    });
+  }
+
+  // Module Sequencing: Display recommended next modules
+  const renderSequenceRecommendations = () => {
+    const completedHistory = JSON.parse(window.localStorage.getItem('completedModulesHistory') || '[]');
+    if (completedHistory.length === 0) return; // Don't show if no modules started yet
+
+    const sequenceSection = document.getElementById('sequence-recommendations');
+    const container = document.getElementById('recommendedModulesContainer');
+    
+    if (!sequenceSection || !container) return;
+
+    // Get module titles that were completed
+    const moduleIdMap = {
+      'Autismus': 'aq-test',
+      'ADHS': 'asrs-test',
+      'Dyslexie': 'dyslexia-test',
+      'Dysgraphie': 'dysgraphia-test',
+      'Dyskalkulie': 'dyskalkulie-test',
+      'Dyspraxie': 'dyspraxia-test',
+      'Tics/Tourette': 'tic-test',
+      'Sprachstörung': 'dld-test'
+    };
+
+    // Get the last completed module
+    const lastModule = completedHistory[completedHistory.length - 1];
+    const lastModuleId = moduleIdMap[lastModule];
+    
+    if (!lastModuleId || !sequenceRecommendations[lastModuleId]) return;
+
+    const recommended = sequenceRecommendations[lastModuleId];
+    const moduleTitleMap = Object.fromEntries(
+      Object.entries(moduleIdMap).map(([k, v]) => [v, k])
+    );
+
+    container.innerHTML = '';
+    recommended.slice(0, 3).forEach(moduleId => {
+      const moduleTitle = moduleTitleMap[moduleId] || moduleId;
+      const item = document.createElement('div');
+      item.className = 'seq-item';
+      item.innerHTML = `
+        <h3>${moduleTitle}</h3>
+        <p>Könnte weitere Einblicke geben, basierend auf deinen bisherigen Ergebnissen.</p>
+        <a href="tests/test.php?module=${moduleId}" class="btn btn-secondary">Modul starten</a>
+      `;
+      container.appendChild(item);
+    });
+
+    sequenceSection.style.display = 'block';
+  };
+
+  // Render sequencing recommendations on page load
+  if (document.location.pathname.includes('diagnostics.php')) {
+    renderSequenceRecommendations();
+  }
+
+  // Test Preview Modal Logic
+  const previewButtons = document.querySelectorAll('.btn-preview');
+  const previewModal = document.getElementById('previewModal');
+  const previewClose = document.querySelector('.preview-close');
+  const previewCancelBtn = document.querySelector('.preview-cancel-btn');
+
+  if (previewButtons.length && previewModal) {
+    // Mock test questions for preview (in real implementation, fetch from API)
+    const previewQuestions = {
+      'aq-test': [
+        'Ich bevorzuge es, meine Zeit allein zu verbringen oder mit nur sehr engen Personen.',
+        'Ich habe eine lebhafte innere Welt mit großem Detailreichtum.',
+        'Ich mag es, wenn Dinge vorhersehbar und strukturiert sind.'
+      ],
+      'asrs-test': [
+        'Ich zappele oder bin in Bewegung, auch wenn ich sitzen sollte.',
+        'Ich habe Schwierigkeiten, mich auf eine Aufgabe zu konzentrieren.',
+        'Ich bin impulsiv und handle manchmal ohne viel zu überlegen.'
+      ],
+      'dyslexia-test': [
+        'Ich habe Schwierigkeiten mit schnellem Lesen oder Rechtschreibung.',
+        'Ich lese gerne, aber es braucht länger, um Wörter zu erkennen.',
+        'Ich verstehe besser durch Hören oder Bilder als durch Lesen.'
+      ],
+      'dysgraphia-test': [
+        'Schreiben fällt mir deutlich schwerer als Sprechen.',
+        'Meine Handschrift ist manchmal schwer zu lesen.',
+        'Ich drücke meine Gedanken lieber mündlich aus.'
+      ],
+      'dyskalkulie-test': [
+        'Ich habe Schwierigkeiten mit Rechnen oder Zahlenverständnis.',
+        'Mathematik ist für mich besonders anstrengend.',
+        'Ich zähle oft an den Fingern oder brauche andere Hilfsmittel.'
+      ],
+      'dyspraxia-test': [
+        'Ich habe Schwierigkeiten mit Bewegungskoordination.',
+        'Einfache motorische Aufgaben erfordern bewusste Planung.',
+        'Ich bin manchmal ungeschickt oder stoße gegen Dinge.'
+      ],
+      'tic-test': [
+        'Ich habe unwillkürliche Bewegungen oder Geräusche.',
+        'Diese Bewegungen/Laute entstehen aus innerer Spannung.',
+        'Ich kann diese Bewegungen/Laute nur begrenzt kontrollieren.'
+      ],
+      'dld-test': [
+        'Ich habe Schwierigkeiten mit Sprache oder Sprachverarbeitung.',
+        'Ich verstehe besser, wenn langsam und deutlich gesprochen wird.',
+        'Ich drücke mich schwerer aus als ich verstehe.'
+      ]
+    };
+
+    previewButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const moduleId = this.getAttribute('data-module');
+        const moduleTitle = this.closest('.module-card').querySelector('h3').textContent;
+        
+        const title = document.getElementById('previewTitle');
+        const questionsContainer = document.getElementById('previewQuestions');
+        const startBtn = document.getElementById('previewStartBtn');
+        
+        title.textContent = `Vorschau: ${moduleTitle}`;
+        questionsContainer.innerHTML = '';
+        
+        const questions = previewQuestions[moduleId] || [];
+        questions.forEach(q => {
+          const qEl = document.createElement('div');
+          qEl.className = 'preview-question';
+          qEl.innerHTML = `<p>${q}</p>`;
+          questionsContainer.appendChild(qEl);
+        });
+        
+        startBtn.href = `tests/test.php?module=${moduleId}`;
+        startBtn.onclick = () => {
+          window.location.href = `tests/test.php?module=${moduleId}`;
+        };
+        
+        previewModal.style.display = 'flex';
+      });
+    });
+
+    previewClose.addEventListener('click', () => {
+      previewModal.style.display = 'none';
+    });
+
+    previewCancelBtn.addEventListener('click', () => {
+      previewModal.style.display = 'none';
+    });
+
+    previewModal.addEventListener('click', (e) => {
+      if (e.target === previewModal) {
+        previewModal.style.display = 'none';
+      }
     });
   }
 

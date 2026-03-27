@@ -1,5 +1,20 @@
 <?php $pageTitle = 'Selbstentdeckung'; include 'includes/header.php'; ?>
 
+<!-- Test Preview Modal -->
+<div id="previewModal" class="preview-modal" style="display:none;">
+  <div class="preview-modal-content">
+    <button class="preview-close" aria-label="Modal schließen">&times;</button>
+    <h2 id="previewTitle">Test-Vorschau</h2>
+    <div id="previewQuestions" class="preview-questions">
+      <!-- Wird dynamisch gefüllt -->
+    </div>
+    <div class="preview-actions">
+      <button id="previewStartBtn" class="btn btn-primary">Test starten</button>
+      <button class="preview-cancel-btn" class="btn btn-secondary">Schließen</button>
+    </div>
+  </div>
+</div>
+
 <section class="diagnostics-hero">
   <div class="hero-content">
     <p class="hero-pretitle">NeuroDiag</p>
@@ -54,6 +69,7 @@
       <div class="module-details" hidden>
         <p>Viele autistische Menschen erleben die Welt klar, intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich, mit starkem Bedürfnis nach Struktur und Sinnzusammenhängen. Interessen geben Freude, Orientierung und Identität.</p>
       </div>
+      <button class="btn-preview" data-module="aq-test" aria-label="Vorschau des Autismus-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=aq-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
@@ -64,6 +80,7 @@
       <div class="module-details" hidden>
         <p>Erleben ist geprägt von Bewegung, innerer Aktivität und schneller Gedankenkopplung. Aufmerksamkeit folgt oft dem, was lebendig ist. Kreativität und Spontaneität sind stark. Der Alltag verlangt häufig flexible Strukturen.</p>
       </div>
+      <button class="btn-preview" data-module="asrs-test" aria-label="Vorschau des ADHS-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=asrs-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
@@ -74,6 +91,7 @@
       <div class="module-details" hidden>
         <p>Sprache wird oft ganzheitlich, bildhaft und zusammenhängend aufgenommen. Schrift kann sich weniger automatisch erschließen. Gedankengänge sind reich und vielschichtig.</p>
       </div>
+      <button class="btn-preview" data-module="dyslexia-test" aria-label="Vorschau des Dyslexie-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=dyslexia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
@@ -84,6 +102,7 @@
       <div class="module-details" hidden>
         <p>Gedanken können sehr differenziert sein, während das Aufschreiben anstrengender wirkt. Schreiben ist oft Übersetzungsprozess. Viele kommunizieren stark über mündlich, visuell oder digital.</p>
       </div>
+      <button class="btn-preview" data-module="dysgraphia-test" aria-label="Vorschau des Dysgraphie-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=dysgraphia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
@@ -94,6 +113,7 @@
       <div class="module-details" hidden>
         <p>Zahlen und Mengen werden häufig über eigene Strategien erschlossen. Denken läuft oft über Bilder, Situationen und Bedeutungen. Kontext und Sprache geben Orientierung.</p>
       </div>
+      <button class="btn-preview" data-module="dyskalkulie-test" aria-label="Vorschau des Dyskalkulie-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=dyskalkulie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
@@ -103,8 +123,7 @@
       <button class="expand-btn" aria-expanded="false" aria-label="Mehr über Dyspraxie">Details</button>
       <div class="module-details" hidden>
         <p>Bewegungen und Abläufe werden oft bewusster gesteuert. Automatische Abläufe erscheinen Schritt-für-Schritt. Viele entwickeln ein feines Körpergefühl und finden eigene, praktische Lösungen.</p>
-      </div>
-      <a href="tests/test.php?module=dyspraxie-test" class="btn btn-secondary">Starten</a>
+      </div>      <button class="btn-preview" data-module="dyspraxia-test" aria-label="Vorschau des Dyspraxie-Tests">📋 Vorschau</button>      <a href="tests/test.php?module=dyspraxie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" loading="lazy">
@@ -114,6 +133,7 @@
       <div class="module-details" hidden>
         <p>Der Körper produziert spontane Bewegungen oder Laute. Das Zusammenspiel aus innerer Spannung und Entladung führt oft zu einem präzisen Körperbewusstsein.</p>
       </div>
+      <button class="btn-preview" data-module="tic-test" aria-label="Vorschau des Tics/Tourette-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=tic-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
@@ -124,6 +144,7 @@
       <div class="module-details" hidden>
         <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ. Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
       </div>
+      <button class="btn-preview" data-module="dld-test" aria-label="Vorschau des Sprachstörungs-Tests">📋 Vorschau</button>
       <a href="tests/test.php?module=dld-test" class="btn btn-secondary">Starten</a>
     </article>
   </div>
@@ -177,7 +198,13 @@
   </div>
   <blockquote>Selbstbeschreibung verlagert sich von „Ich habe eine Störung“ zu „Ich habe eine Art, die Welt zu erleben und zu verarbeiten“.</blockquote>
 </section>
-
+<section id="sequence-recommendations" class="sequence-recommendations" style="display:none;">
+  <h2>🎯 Deine personalisierten nächsten Schritte</h2>
+  <p>Basierend auf den Modulen, die du bereits getestet hast, könnten diese dir helfen:</p>
+  <div id="recommendedModulesContainer" class="sequence-grid">
+    <!-- Wird dynamisch gefüllt -->
+  </div>
+</section>
 <section class="cta-strip">
   <div>
     <h2>Bereit für einen nächsten Schritt?</h2>
