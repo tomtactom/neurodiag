@@ -34,5 +34,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js" integrity="sha512-CTCk3cGvrJdOpHec6R3Gga2x9VzIYpZQd5lmU4jT41O28+oz2usn0JKYiFJb1Vi8dJRF8YVsvqz2lAHa7wJC2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/script.js"></script>
+    <script src="js/diagnostics-process.js"></script>
 </body>
 </html>

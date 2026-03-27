@@ -1,0 +1,880 @@
+/* ========================================
+   DIAGNOSTICS PROCESS FRAMEWORK STYLES
+   5-Phase System: Intro → Screening → Main → Reflection → Results
+   ======================================== */
+
+/* Phase Navigation Indicator */
+.diagnostic-phases-indicator {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+  border-bottom: 3px solid var(--color-primary);
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 80px;
+  z-index: 40;
+}
+
+.phase-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1160px;
+  margin: 0 auto 1.5rem;
+}
+
+.phase-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.phase-step::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  width: 100%;
+  height: 2px;
+  background: var(--color-border);
+  z-index: -1;
+}
+
+.phase-step:last-child::before {
+  display: none;
+}
+
+.phase-step .step-number {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--step-color, var(--color-primary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.phase-step:hover .step-number {
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.phase-step .step-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.phase-progress {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.4s ease-out;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Responsive: Stack phases at smaller screens */
+@media (max-width: 960px) {
+  .phase-steps {
+    gap: 0.5rem;
+  }
+
+  .phase-step .step-label {
+    font-size: 0.75rem;
+  }
+
+  .phase-step .step-number {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ========================================
+   DIAGNOSTIC CONTAINER & PHASES
+   ======================================== */
+
+.diagnostic-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.diagnostic-phase {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Phase Header */
+.phase-header {
+  margin-bottom: 2rem;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+  border-left: 5px solid;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.phase-header .header-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.phase-header h1,
+.phase-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.phase-header .subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ========================================
+   PHASE 1: INTRO
+   ======================================== */
+
+.phase-content {
+  animation: slideDown 0.4s ease-out;
+}
+
+.intro-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.intro-card h2 {
+  margin-top: 0;
+  color: var(--color-text);
+}
+
+.intro-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.info-box h3 {
+  margin-top: 0;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-box li {
+  padding: 0.4rem 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.info-box li::before {
+  content: '✓ ';
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+/* Process Map */
+.intro-process-map {
+  background: linear-gradient(135deg, var(--color-primary)08 0%, var(--color-primary)04 100%);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-primary)20;
+  margin-bottom: 2rem;
+}
+
+.intro-process-map h3 {
+  margin-top: 0;
+  color: var(--color-text);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.process-step {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--color-primary);
+  position: relative;
+}
+
+.process-step .step-num {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  text-align: center;
+  line-height: 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.process-step h4 {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.process-step p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.intro-cta {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.consent-text {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* ========================================
+   PHASE 2: SCREENING
+   ======================================== */
+
+.screening-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.screening-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.screening-form legend {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.screening-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.screening-item {
+  display: flex;
+  align-items: center;
+}
+
+.screening-item input[type="radio"] {
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: all 0.2s;
+}
+
+.screening-item input[type="radio"]:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary)15;
+}
+
+.screening-item input[type="radio"]:checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary)25;
+}
+
+.question-text {
+  font-size: 1rem;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.screening-note {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  padding: 1rem;
+  background: var(--color-info)10;
+  border-left: 3px solid var(--color-info);
+  border-radius: 0.3rem;
+  margin-top: 1.5rem;
+}
+
+/* ========================================
+   PHASE 3: MAIN TEST
+   ======================================== */
+
+.test-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.test-info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-radius: 0.3rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.test-format,
+.test-items {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.main-test-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-test-form legend {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.test-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.test-question-group {
+  padding: 1.5rem;
+  background: var(--color-surface);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--color-primary);
+}
+
+.question-number {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.test-question-group .question-text {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.question-options label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 0.3rem;
+  transition: background 0.2s;
+}
+
+.question-options label:hover {
+  background: var(--color-primary)10;
+}
+
+.question-options input[type="radio"] {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  transition: all 0.2s;
+}
+
+.question-options input[type="radio"]:checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.question-options span {
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.test-pause-notice {
+  padding: 1rem;
+  background: var(--color-info)10;
+  border-left: 3px solid var(--color-info);
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-top: 1.5rem;
+}
+
+/* ========================================
+   PHASE 4: REFLECTION
+   ======================================== */
+
+.reflection-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+
+.reflection-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reflection-form legend {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.reflection-item {
+  margin-bottom: 1.75rem;
+}
+
+.reflection-item label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.reflection-prompt {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.reflection-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.reflection-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary)15;
+}
+
+.reflection-note {
+  padding: 1rem;
+  background: var(--color-info)10;
+  border-left: 3px solid var(--color-info);
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-top: 1.5rem;
+}
+
+/* ========================================
+   PHASE 5: RESULTS
+   ======================================== */
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.results-summary {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border-left: 5px solid;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.results-summary .module-icon {
+  flex-shrink: 0;
+}
+
+.results-summary h3 {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.summary-message {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.results-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.chart-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.chart-container h3 {
+  margin-top: 0;
+  color: var(--color-text);
+  font-size: 1.1rem;
+}
+
+.chart-placeholder {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chart-placeholder p {
+  margin: 0;
+}
+
+/* Results Findings */
+.results-findings {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.results-findings h3 {
+  margin-top: 0;
+  color: var(--color-text);
+}
+
+.findings-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.finding-item {
+  padding: 1.5rem;
+  background: var(--color-surface);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--color-primary);
+}
+
+.finding-item h4 {
+  margin-top: 0;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.finding-item p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Results Actions */
+.results-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.results-actions .btn {
+  min-width: 200px;
+}
+
+/* Next Steps */
+.results-next-steps {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.results-next-steps h3 {
+  margin-top: 0;
+  color: var(--color-text);
+}
+
+.next-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.step-card {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-alt) 100%);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.step-card h4 {
+  margin: 0 0 0.75rem;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.step-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Results Navigation */
+.results-navigation {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.results-navigation .btn {
+  min-width: 180px;
+}
+
+/* ========================================
+   PHASE NAVIGATION
+   ======================================== */
+
+.phase-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.phase-navigation .btn {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 960px) {
+  .diagnostic-phases-indicator {
+    padding: 1.5rem 1rem;
+  }
+
+  .phase-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .phase-header h1,
+  .phase-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .intro-info-grid,
+  .process-steps,
+  .findings-list,
+  .next-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .results-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .phase-navigation {
+    flex-direction: column;
+  }
+
+  .phase-navigation .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .diagnostic-phases-indicator {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .phase-steps {
+    gap: 0.25rem;
+  }
+
+  .phase-step .step-label {
+    display: none;
+  }
+
+  .phase-header {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .phase-header .header-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .phase-header h1,
+  .phase-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .test-info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .results-actions {
+    flex-direction: column;
+  }
+
+  .results-actions .btn {
+    width: 100%;
+  }
+
+  .results-navigation {
+    flex-direction: column;
+  }
+
+  .results-navigation .btn {
+    width: 100%;
+  }
+}
+
+/* ========================================
+   PRINT STYLES (PDF)
+   ======================================== */
+
+@media print {
+  .diagnostic-phases-indicator,
+  .phase-navigation,
+  .btn,
+  button {
+    display: none;
+  }
+
+  .diagnostic-phase {
+    page-break-inside: avoid;
+    page-break-after: always;
+  }
+
+  .results-container {
+    color: black;
+    background: white;
+  }
+
+  .chart-container {
+    page-break-inside: avoid;
+  }
+}

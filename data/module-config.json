@@ -1,0 +1,316 @@
+{
+  "modules": {
+    "aq-test": {
+      "id": "aq-test",
+      "name": "Autismus",
+      "shortName": "AQ-Test",
+      "icon": "🧩",
+      "color": "#6366F1",
+      "description": "Autistische Wahrnehmung ist klar, intensiv, detailreich.",
+      "intro": {
+        "title": "Autismus-Diagnostik",
+        "subtitle": "Klare Wahrnehmung, intensive Fokussierung, strukturelles Denken",
+        "text": "Viele autistische Menschen erleben die Welt intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich. Dieser diagnostische Prozess beleuchtet dein autistisches Erleben – nicht als Defizit, sondern als eigene neurologische Neurodiversity.",
+        "duration": "25-35 Minuten",
+        "requirements": ["Ruhiger Raum", "Ehrliche Antworten", "Zeit für Reflexion"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 5,
+        "description": "Diese 5 Fragen helfen, dich auf den Test vorzubereiten."
+      },
+      "main": {
+        "title": "AQ-50 Test",
+        "description": "Der Autism-Spectrum Quotient (AQ) ist ein anerkannter Screening-Test.",
+        "items": 50,
+        "format": "50 Aussagen, 4er-Likert-Skala"
+      },
+      "reflection": {
+        "title": "Reflexion",
+        "prompts": [
+          "Wie wirken sich diese Muster in deinem beruflichen Leben aus?",
+          "Welche Stärken erkennst du in deinem autistischen Erleben?",
+          "In welchen Situationen zeigen sich deine größten Herausforderungen?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["aq-score", "profile-comparison"],
+        "report": "autism-report.php"
+      }
+    },
+    "asrs-test": {
+      "id": "asrs-test",
+      "name": "ADHS",
+      "shortName": "ASRS-v1.1",
+      "icon": "⚡",
+      "color": "#EC4899",
+      "description": "Innere Bewegung, schnelle Gedankensprünge, hohe Energie.",
+      "intro": {
+        "title": "ADHS-Diagnostik",
+        "subtitle": "Bewegliche Aufmerksamkeit, schnelle Gedankenkopplung, innere Aktivität",
+        "text": "ADHS ist geprägt von innerer Aktivität, schnellen Gedankensprüngen und flexibler Aufmerksamkeit. Menschen mit ADHS erleben oft Kreativität, Spontaneität und Intensität. Dieser Prozess beleuchtet dein ADHS-Profil als neurobiologische Unterschiedlichkeit mit eigenen Stärken.",
+        "duration": "20-30 Minuten",
+        "requirements": ["Ehrliche Selbsteinschätzung", "Ruhiger Raum", "Zeit zum Nachdenken"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 6,
+        "description": "Diese 6 Fragen geben erste Hinweise."
+      },
+      "main": {
+        "title": "ASRS-v1.1 Screening",
+        "description": "Der Adult ADHD Self-Report Scale ist ein validiertes Screening-Instrument.",
+        "items": 18,
+        "format": "18 Fragen zur Aufmerksamkeit und Hyperaktivität"
+      },
+      "reflection": {
+        "title": "Dein ADHS-Profil reflektieren",
+        "prompts": [
+          "Wann merkst du deine beste Aufmerksamkeit?",
+          "Wie nutzt du deine Kreativität und Spontaneität?",
+          "Welche Unterstützungen helfen dir im Alltag?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["asrs-score", "symptom-profile"],
+        "report": "adhs-report.php"
+      }
+    },
+    "dyslexia-test": {
+      "id": "dyslexia-test",
+      "name": "Dyslexie",
+      "shortName": "Lese-Screening",
+      "icon": "📖",
+      "color": "#F59E0B",
+      "description": "Ganzheitliche Wahrnehmung, bildhaftes Denken, andere Lesewege.",
+      "intro": {
+        "title": "Dyslexie-Diagnostik",
+        "subtitle": "Ganzheitlich-bildhafte Wahrnehmung, alternative Lesewege",
+        "text": "Dyslexie bedeutet, dass dein Gehirn Schrift anders verarbeitet – oft ganzheitlicher und bildlicher. Das eröffnet Stärken in Kreativität und räumlichem Denken. Dieser Prozess untersucht dein Schrift- und Leseverarbeitung auf fundierte Weise.",
+        "duration": "30-40 Minuten",
+        "requirements": ["Ruhiger Raum", "Keine Ablenkung", "Normale Sehhärfe oder Brille"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 4,
+        "description": "4 Fragen zu deinem Leseverhalten."
+      },
+      "main": {
+        "title": "Dyslexie-Screening",
+        "description": "Phonologische Verarbeitung, Lesgeschwindigkeit und Verständnis.",
+        "items": 40,
+        "format": "Verschiedene Aufgabentypen"
+      },
+      "reflection": {
+        "title": "Dein Leseverhalten verstehen",
+        "prompts": [
+          "Welche Textsorten sind dir leichter?",
+          "Wie liest du am liebsten?",
+          "Wo zeigen sich Herausforderungen beim Lesen?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["reading-profile", "processing-speed"],
+        "report": "dyslexia-report.php"
+      }
+    },
+    "dysgraphia-test": {
+      "id": "dysgraphia-test",
+      "name": "Dysgraphie",
+      "shortName": "Schreib-Screening",
+      "icon": "✍️",
+      "color": "#10B981",
+      "description": "Gedanken sind da, Schreiben braucht Zeit und Energie.",
+      "intro": {
+        "title": "Dysgraphie-Diagnostik",
+        "subtitle": "Schreiben als Übersetzungsprozess, motorische oder kognitive Herausforderungen",
+        "text": "Dysgraphie bedeutet, dass das Aufschreiben schwieriger ist als das Denken. Es kann fein-motorisch, kognitiv oder organisatorisch bedingt sein. Viele Menschen mit Dysgraphie kommunizieren stärker mündlich oder digital. Dieser Prozess untersucht dein Schreib-Profil.",
+        "duration": "25-35 Minuten",
+        "requirements": ["Papier und Stift", "Ruhiger Raum", "Keine Zeitpressung"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 4,
+        "description": "4 Fragen zu deinem Schreiben."
+      },
+      "main": {
+        "title": "Dysgraphie-Screening",
+        "description": "Schreibgeschwindigkeit, Motorik und kognitive Belastung.",
+        "items": 35,
+        "format": "Schreib- und Beobachtungsaufgaben"
+      },
+      "reflection": {
+        "title": "Dein Schreib-Profil verstehen",
+        "prompts": [
+          "Wann schreibst du gerne?",
+          "Was macht Schreiben anstrengend?",
+          "Wie kommunizierst du am liebsten?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["writing-profile", "motor-cognition"],
+        "report": "dysgraphia-report.php"
+      }
+    },
+    "dyskalkulie-test": {
+      "id": "dyskalkulie-test",
+      "name": "Dyskalkulie",
+      "shortName": "Zahlen-Screening",
+      "icon": "🔢",
+      "color": "#8B5CF6",
+      "description": "Zahlen über eigene Wege, bilder- und kontextgestützt.",
+      "intro": {
+        "title": "Dyskalkulie-Diagnostik",
+        "subtitle": "Alternative Zahlenverarbeitung, kontextabhängig, bildhaft",
+        "text": "Dyskalkulie bedeutet, dass Zahlen und Mengen über andere, individuellere Wege zu dir durchdringen. Viele Menschen mit Dyskalkulie denken räumlich und bildhaft. Sie können Mengen oft intuitiv erfassen, aber abstrakte Rechenoperationen sind anstrengend. Dieser Prozess untersucht dein Zahlen-Profil.",
+        "duration": "30-40 Minuten",
+        "requirements": ["Papier und Stift", "Ruhiger Raum", "Keine Taschenrechner"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 5,
+        "description": "5 Fragen zu deinem Zahlverständnis."
+      },
+      "main": {
+        "title": "Dyskalkulie-Screening",
+        "description": "Zahlensinn, Rechenfähigkeit und mathematisches Denken.",
+        "items": 45,
+        "format": "Verschiedene Aufgabentypen"
+      },
+      "reflection": {
+        "title": "Dein Zahlen-Profil verstehen",
+        "prompts": [
+          "Welche Mathe-Aufgaben sind dir leichter?",
+          "Wie stellst du dir Zahlen vor?",
+          "Wo haben Zahlen für dich Sinn?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["number-sense", "calculation-profile"],
+        "report": "dyskalkulie-report.php"
+      }
+    },
+    "dyspraxia-test": {
+      "id": "dyspraxia-test",
+      "name": "Dyspraxie",
+      "shortName": "Bewegungs-Screening",
+      "icon": "🎯",
+      "color": "#06B6D4",
+      "description": "Bewegungen bewusst, feines Körpergefühl, eigene Lösungswege.",
+      "intro": {
+        "title": "Dyspraxie-Diagnostik",
+        "subtitle": "Bewusste Bewegungssteuerung, propriozeeptive Wahrnehmung",
+        "text": "Dyspraxie bedeutet, dass Bewegungen und Abläufe bewusster gesteuert werden, manchmal in Schritt-für-Schritt Sequenzen. Viele Menschen mit Dyspraxie entwickeln ein feines Körpergefühl und kreative, individuelle Lösungen. Dieser Prozess untersucht dein Bewegungs- und Koordinationsprofil.",
+        "duration": "25-35 Minuten",
+        "requirements": ["Raum für Bewegung", "Ruhige Umgebung", "Offenheit für Körper-Awareness"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 4,
+        "description": "4 Fragen zu deiner Bewegungskoordination."
+      },
+      "main": {
+        "title": "Dyspraxie-Screening",
+        "description": "Motorische Koordination, Raumorientierung und Körperbewusstsein.",
+        "items": 40,
+        "format": "Selbstbericht und Aufgaben"
+      },
+      "reflection": {
+        "title": "Dein Bewegungs-Profil verstehen",
+        "prompts": [
+          "Welche Bewegungen sind dir natürlich?",
+          "Wo brauchst du bewusste Steuerung?",
+          "Welche Fähigkeiten hast du entwickelt?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["coordination-profile", "proprioception"],
+        "report": "dyspraxia-report.php"
+      }
+    },
+    "tic-test": {
+      "id": "tic-test",
+      "name": "Tic/Tourette",
+      "shortName": "Tic-Screening",
+      "icon": "⚙️",
+      "color": "#EF4444",
+      "description": "Spontane Bewegungen und Laute, Körperbewusstsein durch innere Spannung.",
+      "intro": {
+        "title": "Tic/Tourette-Diagnostik",
+        "subtitle": "Spontane motorische/vokale Entladungen, Prä-Merk-Empfindungen",
+        "text": "Tics sind unwillkürliche, schnelle, wiederholte Bewegungen oder Laute. Tourette ist das komplexe Zusammenspiel. Viele Menschen mit Tics entwickeln ein hohes Körperbewusstsein und Verständnis für ihre inneren Prozesse. Dieser Prozess untersucht dein Tic-Profil und die damit verbundenen Erfahrungen.",
+        "duration": "20-30 Minuten",
+        "requirements": ["Ruhiger Raum", "Ehrliche Selbstbeobachtung", "Körper-Awareness"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 6,
+        "description": "6 Fragen zu deinen Tics."
+      },
+      "main": {
+        "title": "Tic-Screening",
+        "description": "Tic-Häufigkeit, -Intensität und prämotorische Empfindungen.",
+        "items": 35,
+        "format": "Selbstbericht und Logging"
+      },
+      "reflection": {
+        "title": "Dein Tic-Profil verstehen",
+        "prompts": [
+          "Was merkst du vor einem Tic?",
+          "Wie beeinflussen Tics dein Alltag?",
+          "Welche Strategien helfen dir?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["tic-frequency", "severity-profile"],
+        "report": "tic-report.php"
+      }
+    },
+    "dld-test": {
+      "id": "dld-test",
+      "name": "Sprachstörung (DLD)",
+      "shortName": "Sprach-Screening",
+      "icon": "🗣️",
+      "color": "#F97316",
+      "description": "Sprache über Bilder und Situationen, kreative Kommunikation.",
+      "intro": {
+        "title": "Developmental Language Disorder (DLD) Diagnostik",
+        "subtitle": "Sprachverarbeitung, semantisch-pragmatisches Profil",
+        "text": "DLD bedeutet, dass Sprache sich über andere Wege offenbart – oft visuell, situativ, pragmatisch. Viele Menschen mit DLD kommunizieren kreativ und emotional. Dieser Prozess untersucht dein Sprachverarbeitungs-Profil und deine individuellen Kommunikationsstärken.",
+        "duration": "25-35 Minuten",
+        "requirements": ["Ruhiger Raum", "Zeit zum Nachdenken", "Offenheit für unterschiedliche Fragen"]
+      },
+      "screening": {
+        "title": "Schnelle Orientierung",
+        "questions": 5,
+        "description": "5 Fragen zu deiner Sprachverarbeitung."
+      },
+      "main": {
+        "title": "DLD-Screening",
+        "description": "Sprachverständnis, Wortfindung und pragmatische Kommunikation.",
+        "items": 42,
+        "format": "Verschiedene Aufgabentypen"
+      },
+      "reflection": {
+        "title": "Dein Sprach-Profil verstehen",
+        "prompts": [
+          "Wie verstehst du Sprache am besten?",
+          "Welche Worte oder Strukturen sind dir schwierig?",
+          "Wie kommunizierst du am liebsten?"
+        ]
+      },
+      "results": {
+        "title": "Deine Ergebnisse",
+        "charts": ["language-profile", "pragmatic-skills"],
+        "report": "dld-report.php"
+      }
+    }
+  }
+}
