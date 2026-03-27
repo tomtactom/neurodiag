@@ -2,9 +2,30 @@
   "id": "dyslexia_process_v1",
   "title": "Dyslexie Prozess",
   "description": "Orientierende Abklärung von Leseverarbeitungs-Schwierigkeiten mit ressourcen- und verhaltensfokussierten Übungen.",
-  "units": [
-    "dyslexia_reading_profile_v1",
-    "dyslexia_load_triggers_v1",
-    "dyslexia_strategy_reflection_v1"
+  "phases": [
+    {
+      "id": "phase_assessment",
+      "title": "Assessment & Mustererhebung",
+      "instruments": [
+        {
+          "id": "dyslexia_reading_profile_v1",
+          "file": "dyslexia_reading_profile_v1.json"
+        },
+        {
+          "id": "dyslexia_load_triggers_v1",
+          "file": "dyslexia_load_triggers_v1.json"
+        }
+      ]
+    },
+    {
+      "id": "phase_intervention",
+      "title": "Interventionsplanung & Transfer",
+      "instruments": [
+        {
+          "id": "dyslexia_strategy_reflection_v1",
+          "file": "dyslexia_strategy_reflection_v1.json"
+        }
+      ]
+    }
   ]
 }

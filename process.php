@@ -51,54 +51,145 @@ function loadJsonFile(string $path): array
 
 /**
  * @param array<string, mixed> $processDefinition
- * @return array<int, array{id: string, file: string}>
+ * @return array{0: array<int, array{id: string, file: string}>, 1: ?string}
  */
-function getUnitRefs(array $processDefinition): array
+function getInstrumentRefs(array $processDefinition): array
 {
-    $unitRefs = [];
+    $instrumentRefs = [];
+    $knownIds = [];
 
-    if (!isset($processDefinition['units']) || !is_array($processDefinition['units'])) {
-        return $unitRefs;
+    if (!isset($processDefinition['phases']) || !is_array($processDefinition['phases']) || empty($processDefinition['phases'])) {
+        return [[], 'Die Prozessdefinition enthält keine Phasen. Bitte ergänze im JSON das Feld "phases".'];
     }
 
-    foreach ($processDefinition['units'] as $unitEntry) {
-        if (is_string($unitEntry)) {
-            $unitId = trim($unitEntry);
-            if ($unitId !== '') {
-                $unitRefs[] = [
-                    'id' => $unitId,
-                    'file' => $unitId . '.json',
+    foreach ($processDefinition['phases'] as $phaseIndex => $phaseEntry) {
+        if (!is_array($phaseEntry)) {
+            return [[], 'Phase ' . ($phaseIndex + 1) . ' ist ungültig. Jede Phase muss ein JSON-Objekt sein.'];
+        }
+
+        $instruments = isset($phaseEntry['instruments']) && is_array($phaseEntry['instruments'])
+            ? $phaseEntry['instruments']
+            : [];
+
+        if (empty($instruments)) {
+            return [[], 'Phase ' . ($phaseIndex + 1) . ' enthält keine Instrument-Referenzen.'];
+        }
+
+        foreach ($instruments as $instrumentEntry) {
+            if (is_string($instrumentEntry)) {
+                $instrumentId = trim($instrumentEntry);
+                if ($instrumentId === '') {
+                    continue;
+                }
+
+                $instrumentRefs[] = [
+                    'id' => $instrumentId,
+                    'file' => $instrumentId . '.json',
                 ];
+                continue;
+            }
+
+            if (!is_array($instrumentEntry)) {
+                continue;
+            }
+
+            $instrumentId = isset($instrumentEntry['id']) && is_string($instrumentEntry['id']) ? trim($instrumentEntry['id']) : '';
+            $instrumentFile = isset($instrumentEntry['file']) && is_string($instrumentEntry['file']) ? trim($instrumentEntry['file']) : '';
+
+            if ($instrumentId === '' && $instrumentFile !== '') {
+                $instrumentId = pathinfo($instrumentFile, PATHINFO_FILENAME);
+            }
+
+            if ($instrumentId === '') {
+                continue;
+            }
+
+            if ($instrumentFile === '') {
+                $instrumentFile = $instrumentId . '.json';
+            }
+
+            $instrumentRefs[] = [
+                'id' => $instrumentId,
+                'file' => $instrumentFile,
+            ];
+        }
+    }
+
+    if (empty($instrumentRefs)) {
+        return [[], 'Die Prozessdefinition enthält keine gültigen Instrument-Referenzen.'];
+    }
+
+    foreach ($instrumentRefs as $instrumentRef) {
+        if (isset($knownIds[$instrumentRef['id']])) {
+            return [[], 'Die Instrument-ID "' . $instrumentRef['id'] . '" ist mehrfach vorhanden.'];
+        }
+
+        $knownIds[$instrumentRef['id']] = true;
+    }
+
+    return [$instrumentRefs, null];
+}
+
+/**
+ * @param array<string, mixed> $instrumentDefinition
+ */
+function validateQuestionStructure(array $instrumentDefinition): ?string
+{
+    if (!isset($instrumentDefinition['questions']) || !is_array($instrumentDefinition['questions']) || empty($instrumentDefinition['questions'])) {
+        return 'Das Instrument enthält keine gültigen Fragen.';
+    }
+
+    foreach ($instrumentDefinition['questions'] as $index => $questionEntry) {
+        if (is_string($questionEntry)) {
+            if (trim($questionEntry) === '') {
+                return 'Frage ' . ($index + 1) . ' ist leer.';
             }
             continue;
         }
 
-        if (!is_array($unitEntry)) {
-            continue;
+        if (!is_array($questionEntry)) {
+            return 'Frage ' . ($index + 1) . ' hat ein ungültiges Format.';
         }
 
-        $unitId = isset($unitEntry['id']) && is_string($unitEntry['id']) ? trim($unitEntry['id']) : '';
-        $unitFile = isset($unitEntry['file']) && is_string($unitEntry['file']) ? trim($unitEntry['file']) : '';
-
-        if ($unitId === '' && $unitFile !== '') {
-            $unitId = pathinfo($unitFile, PATHINFO_FILENAME);
+        $questionText = '';
+        if (isset($questionEntry['text']) && is_string($questionEntry['text'])) {
+            $questionText = trim($questionEntry['text']);
+        } elseif (isset($questionEntry['title']) && is_string($questionEntry['title'])) {
+            $questionText = trim($questionEntry['title']);
         }
 
-        if ($unitId === '') {
-            continue;
+        if ($questionText === '') {
+            return 'Frage ' . ($index + 1) . ' benötigt ein Feld "text" oder "title".';
         }
 
-        if ($unitFile === '') {
-            $unitFile = $unitId . '.json';
+        if (isset($questionEntry['options']) && !is_array($questionEntry['options'])) {
+            return 'Frage ' . ($index + 1) . ' enthält ein ungültiges "options"-Format.';
         }
-
-        $unitRefs[] = [
-            'id' => $unitId,
-            'file' => $unitFile,
-        ];
     }
 
-    return $unitRefs;
+    return null;
+}
+
+/**
+ * @param array{id: string, file: string} $instrumentRef
+ * @return array{0: ?array<string, mixed>, 1: ?string}
+ */
+function loadAndValidateInstrument(string $baseDir, array $instrumentRef): array
+{
+    $instrumentFileName = basename($instrumentRef['file']);
+    $instrumentPath = rtrim($baseDir, '/') . '/' . $instrumentFileName;
+
+    [$instrumentDefinition, $instrumentError] = loadJsonFile($instrumentPath);
+    if ($instrumentDefinition === null) {
+        return [null, 'Die Instrument-Datei "data/units/' . $instrumentFileName . '" konnte nicht geladen werden: ' . $instrumentError];
+    }
+
+    $questionError = validateQuestionStructure($instrumentDefinition);
+    if ($questionError !== null) {
+        return [null, 'Die Fragenstruktur von "data/units/' . $instrumentFileName . '" ist ungültig: ' . $questionError];
+    }
+
+    return [$instrumentDefinition, null];
 }
 
 /**
@@ -210,9 +301,9 @@ if ($processDefinition === null) {
     renderError('Die Prozessdatei "' . $definitionFile . '" konnte nicht geladen werden: ' . $processError);
 }
 
-$unitRefs = getUnitRefs($processDefinition);
-if (empty($unitRefs)) {
-    renderError('Die Prozessdefinition enthält keine Units. Bitte ergänze im JSON ein Feld "units" mit Unit-IDs.');
+[$unitRefs, $phaseError] = getInstrumentRefs($processDefinition);
+if ($phaseError !== null) {
+    renderError($phaseError);
 }
 
 $resumeState = readResumeStateFromCookie($canonicalProcessId, $unitRefs);
@@ -234,12 +325,9 @@ if ($activeUnitIndex === false) {
 }
 
 $activeUnitRef = $unitRefs[$activeUnitIndex];
-$unitFileName = basename($activeUnitRef['file']);
-$unitPath = __DIR__ . '/data/units/' . $unitFileName;
-
-[$unitDefinition, $unitError] = loadJsonFile($unitPath);
+[$unitDefinition, $instrumentValidationError] = loadAndValidateInstrument(__DIR__ . '/data/units', $activeUnitRef);
 if ($unitDefinition === null) {
-    renderError('Die Unit-Datei "data/units/' . $unitFileName . '" konnte nicht geladen werden: ' . $unitError, $unitRefs);
+    renderError((string) $instrumentValidationError, $unitRefs);
 }
 
 $processTitle = isset($processDefinition['title']) && is_string($processDefinition['title'])

@@ -2,9 +2,30 @@
   "id": "tic_process_v1",
   "title": "Tic-Prozess",
   "description": "Orientierender Prozess zur Beobachtung von Tic-Mustern, Auslösern und umsetzbaren verhaltenstherapeutischen Entlastungsstrategien.",
-  "units": [
-    "tic_pattern_logging_v1",
-    "tic_trigger_map_v1",
-    "tic_response_plan_v1"
+  "phases": [
+    {
+      "id": "phase_assessment",
+      "title": "Assessment & Mustererhebung",
+      "instruments": [
+        {
+          "id": "tic_pattern_logging_v1",
+          "file": "tic_pattern_logging_v1.json"
+        },
+        {
+          "id": "tic_trigger_map_v1",
+          "file": "tic_trigger_map_v1.json"
+        }
+      ]
+    },
+    {
+      "id": "phase_intervention",
+      "title": "Interventionsplanung & Transfer",
+      "instruments": [
+        {
+          "id": "tic_response_plan_v1",
+          "file": "tic_response_plan_v1.json"
+        }
+      ]
+    }
   ]
 }
