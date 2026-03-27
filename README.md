@@ -151,6 +151,62 @@ neurodiag/
 
 Dieses Projekt ist Open-Source. Beiträge sind willkommen!
 
+## Autorenhinweise: VT-kompatible Instrument-JSONs
+
+Neue Instrumente unter `data/units/*.json` sollen verhaltenstherapeutisch nutzbar, ressourcenorientiert und konkret beobachtbar aufgebaut sein.
+
+### Pflichtfelder (bestehender Renderer)
+- `id` (string, eindeutig)
+- `title` (string)
+- `description` (string)
+- `instructions` (string **oder** Array aus Strings)
+- `questions` (Array)
+
+### Optionale VT-Felder (werden in `process.php` als eigene Abschnitte gerendert)
+- `goal`: Ziel in überprüfbarer Form (z. B. „3x pro Woche 10 Minuten Fokusarbeit“)
+- `self_monitoring`: Hinweise zur Selbstbeobachtung (Situation, Verhalten, Ergebnis)
+- `trigger_context`: typische Auslöser/Kontexte (wann, wo, mit wem, unter welchen Bedingungen)
+- `coping_exercise`: konkrete Coping-Übung in kleinen Schritten
+- `transfer_task`: alltagsnaher Transferauftrag zwischen zwei Sitzungen/Einheiten
+- `reflection`: kurze Auswertung mit Blick auf Lernfortschritt und nächste Schritte
+
+Jedes Feld kann als String oder als Liste (`Array`) aus kurzen Stichpunkten geschrieben werden.
+
+### Sprachliche Leitlinien (verpflichtend)
+- **Ressourcenorientiert** formulieren: Fokus auf Kompetenzen, Lernschritte und Selbstwirksamkeit.
+- **Konkret beobachtbar** schreiben: keine vagen Begriffe; lieber „2 Unterbrechungen in 30 Minuten“ statt „war unkonzentriert“.
+- **Nicht pathologisierend** formulieren: keine abwertenden Labels, keine defizitorientierten Generalisierungen.
+- **Kleine, realistische Schritte** bevorzugen: Interventionen so formulieren, dass sie im Alltag testbar sind.
+
+### Mini-Beispiel
+```json
+{
+  "id": "example_unit_v1",
+  "title": "Beispiel Einheit",
+  "description": "Kurze verhaltensorientierte Einheit.",
+  "instructions": [
+    "Wähle eine konkrete Alltagssituation der letzten 48 Stunden.",
+    "Notiere Situation, Handlung und direkt sichtbares Ergebnis."
+  ],
+  "goal": "An 3 Tagen je 10 Minuten eine priorisierte Aufgabe ohne Medienwechsel bearbeiten.",
+  "self_monitoring": [
+    "Startzeit und Endzeit dokumentieren.",
+    "Anzahl Unterbrechungen pro Durchgang notieren."
+  ],
+  "trigger_context": "Häufige Ablenkung bei offenen Browser-Tabs und Push-Benachrichtigungen.",
+  "coping_exercise": "Vor Start 2 Minuten Atemfokus + Benachrichtigungen für 15 Minuten stummschalten.",
+  "transfer_task": "Strategie in einer realen Arbeits- oder Lernsituation an zwei Tagen testen.",
+  "reflection": "Was hat messbar funktioniert? Was ist der kleinste nächste Schritt für morgen?",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Wie häufig konntest du den 10-Minuten-Block umsetzen?",
+      "options": ["0x", "1x", "2x", "3x oder mehr"]
+    }
+  ]
+}
+```
+
 ## Lizenz
 
 © 2026 NeuroDiag. Alle Rechte vorbehalten.

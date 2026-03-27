@@ -282,6 +282,41 @@ function clearResumeCookie(string $processId): void
     ]);
 }
 
+/**
+ * @param mixed $value
+ * @return array<int, string>
+ */
+function normalizeTextItems($value): array
+{
+    $items = [];
+
+    if (is_string($value)) {
+        $trimmed = trim($value);
+        if ($trimmed !== '') {
+            $items[] = $trimmed;
+        }
+
+        return $items;
+    }
+
+    if (!is_array($value)) {
+        return $items;
+    }
+
+    foreach ($value as $entry) {
+        if (!is_string($entry)) {
+            continue;
+        }
+
+        $trimmed = trim($entry);
+        if ($trimmed !== '') {
+            $items[] = $trimmed;
+        }
+    }
+
+    return $items;
+}
+
 if ($canonicalProcessId === '' || !isset($areas[$canonicalProcessId]) || !is_array($areas[$canonicalProcessId])) {
     renderError('Bitte wähle einen gültigen Prozess über den Parameter "process" (z. B. aq, aq-test oder dld).');
 }
@@ -346,14 +381,16 @@ $unitDescription = isset($unitDefinition['description']) && is_string($unitDefin
     ? $unitDefinition['description']
     : '';
 
-$instructions = [];
-if (isset($unitDefinition['instructions']) && is_array($unitDefinition['instructions'])) {
-    foreach ($unitDefinition['instructions'] as $instruction) {
-        if (is_string($instruction) && trim($instruction) !== '') {
-            $instructions[] = $instruction;
-        }
-    }
-}
+$instructions = normalizeTextItems($unitDefinition['instructions'] ?? null);
+
+$vtSections = [
+    'goal' => 'Ziel',
+    'self_monitoring' => 'Selbstbeobachtung',
+    'trigger_context' => 'Auslöser und Kontext',
+    'coping_exercise' => 'Coping-Übung',
+    'transfer_task' => 'Transferaufgabe',
+    'reflection' => 'Reflexion',
+];
 
 $questions = isset($unitDefinition['questions']) && is_array($unitDefinition['questions'])
     ? $unitDefinition['questions']
@@ -402,15 +439,29 @@ include 'includes/header.php';
           <?php endforeach; ?>
         </ul>
       <?php else: ?>
-        <p>Bitte beantworte die Fragen in einem ruhigen Moment. Beobachte Gedanken, Gefühle und Verhalten achtsam und ohne Selbstabwertung.</p>
+        <p>Nutze für diese Einheit eine kurze, ruhige Sequenz (ca. 10–15 Minuten). Notiere konkret beobachtbare Signale (z. B. Situation, Zeitpunkt, Handlung, Ergebnis) und formuliere mindestens einen nächsten, machbaren Schritt.</p>
       <?php endif; ?>
     </article>
+
+    <?php foreach ($vtSections as $vtFieldKey => $vtFieldLabel): ?>
+      <?php $vtItems = normalizeTextItems($unitDefinition[$vtFieldKey] ?? null); ?>
+      <?php if (!empty($vtItems)): ?>
+        <article aria-labelledby="unit-<?php echo htmlspecialchars($vtFieldKey); ?>-title">
+          <h3 id="unit-<?php echo htmlspecialchars($vtFieldKey); ?>-title"><?php echo htmlspecialchars($vtFieldLabel); ?></h3>
+          <ul>
+            <?php foreach ($vtItems as $vtItem): ?>
+              <li><?php echo htmlspecialchars($vtItem); ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </article>
+      <?php endif; ?>
+    <?php endforeach; ?>
 
     <form class="process-questions" method="post" action="#" aria-labelledby="questions-title">
       <h3 id="questions-title">Fragen</h3>
 
       <?php if (empty($questions)): ?>
-        <p>Für diese Unit sind aktuell keine Fragen hinterlegt.</p>
+        <p>Für diese Einheit sind noch keine Fragen hinterlegt. Du kannst stattdessen eine konkrete Alltagssituation wählen, drei beobachtbare Merkmale notieren und einen kleinen nächsten Handlungsschritt festlegen.</p>
       <?php else: ?>
         <?php foreach ($questions as $index => $question): ?>
           <?php
@@ -476,7 +527,7 @@ include 'includes/header.php';
                 </div>
               <?php endforeach; ?>
             <?php else: ?>
-              <p>Für diese Frage sind keine Antwortoptionen definiert.</p>
+              <p>Für diese Frage sind noch keine Antwortoptionen hinterlegt. Formuliere eine kurze eigene Beobachtung mit Situation, Verhalten und direkt sichtbarem Ergebnis.</p>
             <?php endif; ?>
           </fieldset>
         <?php endforeach; ?>
