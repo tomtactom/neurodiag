@@ -1,0 +1,38 @@
+{
+  "title": "Autismus-Spektrum Quotient (AQ) Test",
+  "description": "Dieser Test besteht aus 50 Fragen zur Bewertung von Merkmalen des Autismus-Spektrums. Beantworten Sie jede Frage ehrlich.",
+  "totalQuestions": 50,
+  "questions": [
+    {
+      "id": 1,
+      "text": "Ich bemerke kleine Veränderungen in einem vertrauten Bild oder Muster sofort.",
+      "options": [
+        {"text": "Definitiv einverstanden", "score": 1},
+        {"text": "Eher einverstanden", "score": 0},
+        {"text": "Unentschieden", "score": 0},
+        {"text": "Eher nicht einverstanden", "score": 0},
+        {"text": "Definitiv nicht einverstanden", "score": 0}
+      ]
+    },
+    {
+      "id": 2,
+      "text": "Ich bevorzuge es, Dinge nach einem festen Zeitplan zu tun.",
+      "options": [
+        {"text": "Definitiv einverstanden", "score": 1},
+        {"text": "Eher einverstanden", "score": 0},
+        {"text": "Unentschieden", "score": 0},
+        {"text": "Eher nicht einverstanden", "score": 0},
+        {"text": "Definitiv nicht einverstanden", "score": 0}
+      ]
+    }
+  ],
+  "norms": {
+    "threshold": 32,
+    "ranges": {
+      "0-31": "Kein Hinweis auf Autismus-Merkmale",
+      "32-50": "Möglicher Hinweis auf Autismus-Merkmale. Konsultieren Sie einen Fachmann."
+    },
+    "reliability": 0.85,
+    "validity": 0.78
+  }
+}

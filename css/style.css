@@ -1,0 +1,199 @@
+/* NeuroDiag Style - Professional Indie Design */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F1FAEE; /* Warm gray background */
+    color: #1D3557; /* Dark blue-gray text */
+    line-height: 1.6;
+}
+
+header {
+    background-color: #457B9D; /* Muted blue */
+    color: #F1FAEE;
+    padding: 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 300; /* Light for indie feel */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 1rem;
+}
+
+nav a {
+    color: #F1FAEE;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #A8DADC; /* Soft green accent */
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background-color: #A8DADC; /* Soft green */
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.hero h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #457B9D;
+    color: #F1FAEE;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1D3557;
+}
+
+.features {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.features h3 {
+    color: #457B9D;
+    margin-top: 0;
+}
+
+.features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #E9ECEF;
+}
+
+.features li:last-child {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #457B9D;
+    color: #F1FAEE;
+    margin-top: 2rem;
+}
+
+.diagnostic-modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.module {
+    background-color: #FFFFFF;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.module h3 {
+    color: #457B9D;
+    margin-top: 0;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #457B9D;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #E9ECEF;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.test-form {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.question {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #E9ECEF;
+}
+
+.question p {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.interview-form {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.interview-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #E9ECEF;
+    border-radius: 4px;
+    font-size: 1rem;
+}

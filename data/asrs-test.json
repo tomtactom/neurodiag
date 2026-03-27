@@ -1,0 +1,27 @@
+{
+  "title": "Adult ADHD Self-Report Scale (ASRS) Test",
+  "description": "Dieser Test bewertet Symptome von ADHS bei Erwachsenen.",
+  "totalQuestions": 18,
+  "questions": [
+    {
+      "id": 1,
+      "text": "Wie oft haben Sie Schwierigkeiten, Ihre Aufmerksamkeit bei Aufgaben oder Freizeitaktivitäten zu halten?",
+      "options": [
+        {"text": "Nie", "score": 0},
+        {"text": "Selten", "score": 1},
+        {"text": "Manchmal", "score": 2},
+        {"text": "Oft", "score": 3},
+        {"text": "Sehr oft", "score": 4}
+      ]
+    }
+  ],
+  "norms": {
+    "threshold": 24,
+    "ranges": {
+      "0-23": "Kein Hinweis auf ADHS",
+      "24-72": "Möglicher Hinweis auf ADHS"
+    },
+    "reliability": 0.88,
+    "validity": 0.82
+  }
+}
