@@ -7,7 +7,23 @@
     <p>Mit datenbasierten Modulen, klaren Auswertungen und UX, die Rücksicht nimmt, entdeckst du Stärke, Verarbeitung und Potenzial.</p>
     <a href="diagnostics.php" class="btn btn-primary">Jetzt Selbstchecks starten</a>
   </div>
-  <div class="hero-illustration" aria-hidden="true"></div>
+  <div class="hero-illustration" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="heroLight" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFF4E9" stop-opacity="0.65"/>
+          <stop offset="100%" stop-color="#CCEAF3" stop-opacity="0.25"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="480" height="360" fill="url(#heroLight)"/>
+      <circle cx="100" cy="240" r="48" fill="#F77F00" fill-opacity="0.22" />
+      <circle cx="360" cy="120" r="90" fill="#457B9D" fill-opacity="0.22" />
+      <path d="M120,210 Q190,70 300,190 T420,230" fill="none" stroke="#1D3557" stroke-width="3" stroke-opacity="0.35" stroke-linecap="round"/>
+      <circle cx="260" cy="220" r="6" fill="#F77F00"/>
+      <circle cx="320" cy="178" r="6" fill="#A8DADC"/>
+      <circle cx="180" cy="140" r="6" fill="#F1FAEE"/>
+    </svg>
+  </div>
 </section>
 
 <section class="features-grid">
