@@ -37,49 +37,49 @@
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/9990/9990347.png" alt="Autismus Icon" loading="lazy">
       <h3>Autismus</h3>
-      <p>Wahrnehmung, Reizverarbeitung und soziale Dynamik.</p>
+      <p>Viele autistische Menschen erleben die Welt klar, intensiv und detailreich. Dinge, die andere übersehen, springen sofort ins Auge. Kommunikation ist oft direkt und ehrlich, mit starkem Bedürfnis nach Struktur und Sinnzusammenhängen.</p>
       <a href="tests/test.php?module=aq-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/10371/10371961.png" alt="ADHS Icon" loading="lazy">
       <h3>AD(H)S</h3>
-      <p>Fokus, Impulssteuerung und Arbeitsgedächtnis.</p>
+      <p>Erleben ist geprägt von Bewegung, innerer Aktivität und schneller Gedankenkopplung. Aufmerksamkeit folgt oft dem, was lebendig ist. Kreativität und Spontaneität sind stark, und der Alltag verlangt häufig flexible Strukturen.</p>
       <a href="tests/test.php?module=asrs-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/1993/1993497.png" alt="Dyslexie Icon" loading="lazy">
       <h3>Dyslexie</h3>
-      <p>Lesefluss, Dekodierung und Texterkennung.</p>
+      <p>Sprache wird oft ganzheitlich, bildhaft und zusammenhängend aufgenommen. Schrift kann sich weniger automatisch erschließen, Gedankengänge sind reich und vielschichtig.</p>
       <a href="tests/test.php?module=dyslexia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/18448/18448228.png" alt="Dysgraphie Icon" loading="lazy">
       <h3>Dysgraphie</h3>
-      <p>Schriftmotorik und handschriftlicher Ausdruck.</p>
+      <p>Gedanken können sehr differenziert sein, während das Aufschreiben anstrengender wirkt. Schreiben ist oft Übersetzungsprozess – viele kommunizieren stark über mündlich, visuell oder digital.</p>
       <a href="tests/test.php?module=dysgraphia-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="attention">
       <img src="https://cdn-icons-png.flaticon.com/512/5090/5090298.png" alt="Dyskalkulie Icon" loading="lazy">
       <h3>Dyskalkulie</h3>
-      <p>Zahlenverständnis und Mustererkennung.</p>
+      <p>Zahlen und Mengen werden häufig über eigene Strategien erschlossen. Denken läuft oft über Bilder, Situationen und Bedeutungen – Kontext und Sprache geben Orientierung.</p>
       <a href="tests/test.php?module=dyskalkulie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="motor">
       <img src="https://cdn-icons-png.flaticon.com/512/8320/8320277.png" alt="Dyspraxie Icon" loading="lazy">
       <h3>Dyspraxie</h3>
-      <p>Koordination, Planung und Motorik.</p>
+      <p>Bewegungen und Abläufe werden oft bewusster gesteuert, automatische Abläufe erscheinen Schritt-für-Schritt. Viele entwickeln ein feines Körpergefühl und finden eigene, praktische Lösungen.</p>
       <a href="tests/test.php?module=dyspraxie-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="social">
       <img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" loading="lazy">
       <h3>Tic/Tourette</h3>
-      <p>Bewegungsimpulse, Kontrolle und Stressreaktion.</p>
+      <p>Der Körper produziert spontane Bewegungen oder Laute. Das Zusammenspiel aus innerer Spannung und Entladung führt oft zu einem präzisen Körperbewusstsein.</p>
       <a href="tests/test.php?module=tic-test" class="btn btn-secondary">Starten</a>
     </article>
     <article class="module-card" data-category="language">
       <img src="https://cdn-icons-png.flaticon.com/512/8984/8984825.png" alt="Sprachstörung Icon" loading="lazy">
       <h3>Sprachstörung (DLD)</h3>
-      <p>Sprachverstehen und -produktion.</p>
+      <p>Sprache arbeitet oft über Bilder, Situationen und Handlungen. Kommunikation entsteht bewusst, manchmal kreativ, und Bedeutung wird stark durch Kontext und Ausdruck vermittelt.</p>
       <a href="tests/test.php?module=dld-test" class="btn btn-secondary">Starten</a>
     </article>
   </div>
