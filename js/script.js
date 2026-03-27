@@ -81,20 +81,4 @@ document.addEventListener('DOMContentLoaded', function() {
     el.classList.add('animated-hidden');
     observer.observe(el);
   });
-
-  // Self-check widget functionality
-  const checkBtn = document.getElementById('checkBtn');
-  const resultMessage = document.getElementById('resultMessage');
-  if (checkBtn && resultMessage) {
-    checkBtn.addEventListener('click', function() {
-      const checkboxes = document.querySelectorAll('#selfCheckForm input[type="checkbox"]');
-      const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-      if (checkedCount >= 3) {
-        resultMessage.style.display = 'block';
-        resultMessage.classList.add('animated-visible');
-      } else {
-        resultMessage.style.display = 'none';
-      }
-    });
-  }
 });

@@ -10,13 +10,13 @@
 
 | File | Changes | Impact |
 |------|---------|--------|
-| `index.php` | Complete hero section redesign + empowerment messaging + self-check widget + consistent module icon image references (Flaticon/Pixabay) | Homepage behavior change |
+| `index.php` | Complete content overhaul: Removed all sections, rebuilt with neurodiversity education (4 main sections), hero update, and CTA | Homepage content change |
 | `diagnostics.php` | New hero image (Pixabay neurodiversity brain) + module icons (Flaticon/Pixabay) for each neurodivergence condition | Visual content update |
 | `about.php` | Added mindfulness image (Pixabay) | Visual content update |
 | `resources.php` | Added diversity brain image (Pixabay) | Visual content update |
 | `contact.php` | Added neural connection image (Pixabay) | Visual content update |
-| `css/style.css` | Added 120+ lines of modern UI + responsive improvements + empowerment and self-check styles | Visual styling only |
-| `js/script.js` | Dark mode + consent + intersection animation + self-check widget | Behavior improvements |
+| `css/style.css` | Added 50+ lines for new neurodiversity sections (info-grid, info-card, blockquote) + responsive styles | Visual styling only |
+| `js/script.js` | Removed self-check widget code; kept theme, consent, animations | Behavior cleanup |
 
 **No changes** to:
 - `tests/test.php`

@@ -3,66 +3,136 @@
 <section class="hero">
   <div class="hero-content">
     <p class="hero-pretitle">NeuroDiag</p>
-    <h1>Dein moderner Zugang zur neurodivergenten Selbsterkennung</h1>
-    <p>Mit datenbasierten Modulen, klaren Auswertungen und UX, die Rücksicht nimmt, entdeckst du Stärke, Verarbeitung und Potenzial.</p>
-    <a href="diagnostics.php" class="btn btn-primary">Jetzt Selbstchecks starten</a>
+    <h1>Neurodivergenz: Vielfalt statt Defizit</h1>
+    <p>Entdecke die natürlichen Variationen neurologischer Entwicklung – von Autismus bis ADHS. Erfahre, wie du deine einzigartige Art zu denken und fühlen als Stärke nutzen kannst.</p>
+    <a href="#neurodiversity-intro" class="btn btn-primary">Mehr erfahren</a>
   </div>
   <div class="hero-illustration" aria-hidden="true">
     <img src="https://cdn.pixabay.com/photo/2020/07/22/00/32/brain-5427670_1280.png" alt="Abstrakte Darstellung eines Gehirns mit bunten Verbindungen" loading="lazy">
   </div>
 </section>
 
-<section class="empowerment-section">
-  <h2>Du bist der Experte für dich selbst</h2>
-  <p>Neurodivergenz ist eine natürliche Variation des menschlichen Geistes – keine Krankheit, sondern eine andere Art zu denken, fühlen und wahrnehmen.</p>
-  <div class="empowerment-cards">
-    <article class="empowerment-card">
-      <h3>Warum Selbstentdeckung?</h3>
-      <p>Du kennst dich selbst am besten. Unsere Tests helfen dir, Muster zu erkennen und dein Potenzial zu entfalten – ohne externe Validierung.</p>
+<section id="neurodiversity-intro" class="neurodiversity-section">
+  <h2>Was ist Neurodivergenz?</h2>
+  <p>Neurodivergenz beschreibt natürliche Variationen neurologischer Entwicklung (z. B. Autismus, ADHS) – nicht primär als Defizit, sondern als Teil menschlicher Vielfalt.</p>
+  <div class="info-grid">
+    <article class="info-card">
+      <h3>Zentrale Verschiebung</h3>
+      <ul>
+        <li>Weg vom medizinischen Defizitmodell</li>
+        <li>Hin zum Neurodiversitäts-Paradigma (Diversität statt Krankheit)</li>
+      </ul>
     </article>
-    <article class="empowerment-card">
-      <h3>Humanistisch & Anonym</h3>
-      <p>Keine Diagnosen, nur Einsichten. Alle Daten bleiben bei dir, und du gehst in deinem eigenen Tempo voran.</p>
+    <article class="info-card">
+      <h3>Wissenschaftliche Einordnung</h3>
+      <ul>
+        <li>Neurodivergenz als Spektrum dimensionaler Unterschiede</li>
+        <li>Bedeutung entsteht im Zusammenspiel von Person und Umwelt</li>
+        <li>Gesellschaftliche Anpassung statt „Normalisierung“</li>
+      </ul>
     </article>
   </div>
+  <blockquote>
+    <p>👉 Kernidee: Unterschied ≠ Defizit. Probleme entstehen oft durch Passungsprobleme mit der Umwelt, nicht durch „Fehler im Individuum“.</p>
+  </blockquote>
 </section>
 
-<section class="self-check-widget">
-  <h2>Schneller Selbstcheck</h2>
-  <p>Beantworte diese 4 Fragen, um zu sehen, ob unsere Module für dich relevant sein könnten.</p>
-  <form id="selfCheckForm">
-    <label><input type="checkbox" name="q1"> Ich fühle mich oft überstimuliert in sozialen Situationen.</label>
-    <label><input type="checkbox" name="q2"> Ich habe Schwierigkeiten, meine Aufmerksamkeit zu fokussieren.</label>
-    <label><input type="checkbox" name="q3"> Ich mache häufig Rechtschreibfehler beim Schreiben.</label>
-    <label><input type="checkbox" name="q4"> Ich habe Probleme mit der Koordination von Bewegungen.</label>
-    <button type="button" id="checkBtn" class="btn btn-primary">Auswerten</button>
-  </form>
-  <div id="resultMessage" style="display: none;">
-    <p>Basierend auf deinen Antworten könnten unsere Module hilfreich für dich sein. Starte jetzt deine Selbstentdeckung!</p>
+<section class="impact-section">
+  <h2>Was bedeutet das für betroffene Menschen?</h2>
+  <div class="info-grid">
+    <article class="info-card">
+      <h3>🧩 Identität & Selbstverständnis</h3>
+      <ul>
+        <li>Viele sehen Neurodivergenz als Teil ihrer Identität</li>
+        <li>Neurodiversitäts-affirmative Sicht stärkt Selbstwert</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>⚖️ Ambivalenz bleibt</h3>
+      <ul>
+        <li>Spannung zwischen Diagnose und Identität</li>
+        <li>Labels können entlastend oder verunsichernd sein</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>😓 Belastung durch Umwelt</h3>
+      <ul>
+        <li>Stigma, fehlende Anpassungen, sozialer Druck</li>
+        <li>„Masking“ führt zu Erschöpfung und Identitätsverlust</li>
+      </ul>
+    </article>
   </div>
+  <blockquote>
+    <p>👉 Kernidee: Nicht die Neurodivergenz selbst ist oft das Problem, sondern wie Gesellschaft darauf reagiert.</p>
+  </blockquote>
 </section>
 
-<section class="features-grid">
-  <h2>Fokusbereiche</h2>
-  <p>Kurze Orientierung, schnelle Auswahl – über 8 Module, die dich gezielt weiterbringen.</p>
-  <div class="cards">
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/9990/9990347.png" alt="Autismus Icon" class="card-icon"><h3>Autismus</h3><p>Wahrnehmung, Reizverarbeitung & soziale Dynamik</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/10371/10371961.png" alt="ADHS Icon" class="card-icon"><h3>AD(H)S</h3><p>Aufmerksamkeit, Impulssteuerung & Arbeitsgedächtnis</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/1993/1993497.png" alt="Dyslexie Icon" class="card-icon"><h3>Dyslexie</h3><p>Lese- und Texterkennung</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/18448/18448228.png" alt="Dysgraphie Icon" class="card-icon"><h3>Dysgraphie</h3><p>Schreibmotorik und Schriftbild</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/5090/5090298.png" alt="Dyskalkulie Icon" class="card-icon"><h3>Dyskalkulie</h3><p>Zahlenverständnis und Mustererkennung</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/8320/8320277.png" alt="Dyspraxie Icon" class="card-icon"><h3>Dyspraxie</h3><p>Bewegungskoordination und Motorik</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/16779/16779640.png" alt="Tic/Tourette Icon" class="card-icon"><h3>Tic/Tourette</h3><p>Impulskontrolle und Auslöser</p></article>
-    <article class="feature-card"><img src="https://cdn-icons-png.flaticon.com/512/8984/8984825.png" alt="Sprachstörung Icon" class="card-icon"><h3>Sprachstörung</h3><p>Sprachverarbeitung und -produktion</p></article>
+<section class="diagnostics-section">
+  <h2>Was bedeutet das für Diagnostik (und ihre Grenzen)?</h2>
+  <div class="info-grid">
+    <article class="info-card">
+      <h3>⚠️ Diagnostik als Engpass</h3>
+      <ul>
+        <li>Viele werden zu spät oder falsch diagnostiziert</li>
+        <li>Fehlen passende Versorgungswege</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>🧠 Kritik am klassischen Diagnosesystem</h3>
+      <ul>
+        <li>Basierend auf Defizitlogik und Stereotypen</li>
+        <li>Erschwert Selbst- und Fremd-Erkennen</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>📉 Zugang zu Unterstützung</h3>
+      <ul>
+        <li>Viele erhalten keine Hilfe ohne Diagnose</li>
+        <li>Angst vor Stigma verhindert Offenlegung</li>
+      </ul>
+    </article>
   </div>
+  <blockquote>
+    <p>👉 Paradox: Diagnosen sind nötig für Unterstützung – aber die Systeme sind oft unpassend oder ausschließend.</p>
+  </blockquote>
+</section>
+
+<section class="self-description-section">
+  <h2>Was bedeutet das für Selbstbeschreibung (jenseits der Störung)?</h2>
+  <div class="info-grid">
+    <article class="info-card">
+      <h3>🌱 Neue Formen der Selbstbeschreibung</h3>
+      <ul>
+        <li>Als „autistisch“, „ADHS“, „neurodivergent“</li>
+        <li>Identity-first language wird identitätsstiftend</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>🧠 Subjektives Wissen gewinnt an Bedeutung</h3>
+      <ul>
+        <li>Eigene Erfahrung als gleichwertig zu klinischem Wissen</li>
+        <li>Lived experience wird anerkannt</li>
+      </ul>
+    </article>
+    <article class="info-card">
+      <h3>🔄 Dynamisches Selbstverständnis</h3>
+      <ul>
+        <li>Situativ, vielschichtig, nicht strikt kategorial</li>
+        <li>Kontextabhängig erlebt</li>
+      </ul>
+    </article>
+  </div>
+  <blockquote>
+    <p>👉 Kernidee: Selbstbeschreibung verschiebt sich von „Ich habe eine Störung“ zu „Ich habe eine bestimmte Art, die Welt zu erleben und zu verarbeiten“.</p>
+  </blockquote>
 </section>
 
 <section class="cta-strip">
   <div>
-    <h2>Bereit für den nächsten Schritt?</h2>
-    <p>Konsequent anonym, belastbar und für alle Endgeräte optimiert.</p>
+    <h2>Bereit für deine Selbstentdeckung?</h2>
+    <p>Erkunde unsere anonymen, humanistischen Module – ohne Diagnosen, nur Einsichten.</p>
   </div>
-  <a href="diagnostics.php" class="btn btn-secondary">Selbstcheck starten</a>
+  <a href="diagnostics.php" class="btn btn-secondary">Jetzt starten</a>
 </section>
 
 <?php include 'includes/footer.php'; ?>
