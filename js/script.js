@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(el);
   });
 
-  const filterButtons = document.querySelectorAll('.filter-btn');
   const moduleCards = document.querySelectorAll('.module-card');
   const statusCount = document.getElementById('statusCount');
   const progressFill = document.getElementById('progressFill');
@@ -144,116 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Module Sequencing: Show recommended next modules based on diagnostic history
-  const sequenceRecommendations = {
-    'aq-test': ['asrs-test', 'dyspraxia-test', 'dld-test'],
-    'asrs-test': ['aq-test', 'dyslexia-test', 'dyspraxia-test'],
-    'dyslexia-test': ['dysgraphia-test', 'dyskalkulie-test', 'dld-test'],
-    'dysgraphia-test': ['dyslexia-test', 'dyspraxia-test', 'dld-test'],
-    'dyskalkulie-test': ['dyslexia-test', 'asrs-test', 'dld-test'],
-    'dyspraxia-test': ['aq-test', 'dysgraphia-test', 'asrs-test'],
-    'tic-test': ['asrs-test', 'aq-test', 'dld-test'],
-    'dld-test': ['dyslexia-test', 'aq-test', 'asrs-test']
-  };
-
-  if (filterButtons.length) {
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const tag = this.getAttribute('data-filter');
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-
-        moduleCards.forEach(card => {
-          if (tag === 'all' || card.dataset.category === tag) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  // Quick-check symptom filtering
-  const quickCheckInputs = document.querySelectorAll('.quick-check-input');
-  if (quickCheckInputs.length) {
-    quickCheckInputs.forEach(input => {
-      input.addEventListener('change', function() {
-        const selectedCategories = [];
-        quickCheckInputs.forEach(cb => {
-          if (cb.checked) {
-            selectedCategories.push(cb.value);
-          }
-        });
-
-        moduleCards.forEach(card => {
-          const cardCategory = card.dataset.category;
-          if (selectedCategories.length === 0) {
-            card.style.display = 'flex';
-          } else if (selectedCategories.includes(cardCategory)) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  // Module Sequencing: Display recommended next modules
-  const renderSequenceRecommendations = () => {
-    const completedHistory = JSON.parse(window.localStorage.getItem('completedModulesHistory') || '[]');
-    if (completedHistory.length === 0) return; // Don't show if no modules started yet
-
-    const sequenceSection = document.getElementById('sequence-recommendations');
-    const container = document.getElementById('recommendedModulesContainer');
-    
-    if (!sequenceSection || !container) return;
-
-    // Get module titles that were completed
-    const moduleIdMap = {
-      'Autismus': 'aq-test',
-      'ADHS': 'asrs-test',
-      'Dyslexie': 'dyslexia-test',
-      'Dysgraphie': 'dysgraphia-test',
-      'Dyskalkulie': 'dyskalkulie-test',
-      'Dyspraxie': 'dyspraxia-test',
-      'Tics/Tourette': 'tic-test',
-      'Sprachstörung': 'dld-test'
-    };
-
-    // Get the last completed module
-    const lastModule = completedHistory[completedHistory.length - 1];
-    const lastModuleId = moduleIdMap[lastModule];
-    
-    if (!lastModuleId || !sequenceRecommendations[lastModuleId]) return;
-
-    const recommended = sequenceRecommendations[lastModuleId];
-    const moduleTitleMap = Object.fromEntries(
-      Object.entries(moduleIdMap).map(([k, v]) => [v, k])
-    );
-
-    container.innerHTML = '';
-    recommended.slice(0, 3).forEach(moduleId => {
-      const moduleTitle = moduleTitleMap[moduleId] || moduleId;
-      const item = document.createElement('div');
-      item.className = 'seq-item';
-      item.innerHTML = `
-        <h3>${moduleTitle}</h3>
-        <p>Könnte weitere Einblicke geben, basierend auf deinen bisherigen Ergebnissen.</p>
-        <a href="process.php?process=${moduleId}" class="btn btn-secondary">Modul starten</a>
-      `;
-      container.appendChild(item);
-    });
-
-    sequenceSection.style.display = 'block';
-  };
-
-  // Render sequencing recommendations on page load
-  if (document.location.pathname.includes('diagnostics.php')) {
-    renderSequenceRecommendations();
-  }
-
   // Resources Filter Logic
   const resourceFilterButtons = document.querySelectorAll('.resources-filters .filter-btn');
   const resourceCategories = document.querySelectorAll('.resource-category');
@@ -305,47 +194,47 @@ document.addEventListener('DOMContentLoaded', function() {
   const previewCancelBtn = document.querySelector('.preview-cancel-btn');
 
   if (previewButtons.length && previewModal) {
-    // Mock test questions for preview (in real implementation, fetch from API)
+    // Vorschaufragen für einen kurzen Eindruck der jeweiligen Module
     const previewQuestions = {
       'aq-test': [
-        'Ich bevorzuge es, meine Zeit allein zu verbringen oder mit nur sehr engen Personen.',
-        'Ich habe eine lebhafte innere Welt mit großem Detailreichtum.',
-        'Ich mag es, wenn Dinge vorhersehbar und strukturiert sind.'
+        'Wie belastend sind soziale Situationen mit unklaren Erwartungen für dich?',
+        'Wie stark beeinflussen Reize (Licht, Geräusche, Berührung) deinen Alltag?',
+        'Wie hilfreich sind feste Routinen für Ruhe und Selbststeuerung?'
       ],
       'asrs-test': [
-        'Ich zappele oder bin in Bewegung, auch wenn ich sitzen sollte.',
-        'Ich habe Schwierigkeiten, mich auf eine Aufgabe zu konzentrieren.',
-        'Ich bin impulsiv und handle manchmal ohne viel zu überlegen.'
+        'Wie oft fällt dir der Einstieg in wichtige Aufgaben schwer?',
+        'Wie häufig springt deine Aufmerksamkeit trotz Motivation weg?',
+        'Wie stark beeinflusst Impulsivität Entscheidungen im Alltag?'
       ],
       'dyslexia-test': [
-        'Ich habe Schwierigkeiten mit schnellem Lesen oder Rechtschreibung.',
-        'Ich lese gerne, aber es braucht länger, um Wörter zu erkennen.',
-        'Ich verstehe besser durch Hören oder Bilder als durch Lesen.'
+        'Wie anstrengend sind Lesen und Rechtschreibung unter Zeitdruck?',
+        'Wie oft vertauschst du Buchstaben, Silben oder Wortfolgen?',
+        'Wie sehr helfen dir auditive oder visuelle Strategien beim Verstehen?'
       ],
       'dysgraphia-test': [
-        'Schreiben fällt mir deutlich schwerer als Sprechen.',
-        'Meine Handschrift ist manchmal schwer zu lesen.',
-        'Ich drücke meine Gedanken lieber mündlich aus.'
+        'Wie stark weicht deine schriftliche von deiner mündlichen Ausdrucksfähigkeit ab?',
+        'Wie häufig bremsen Handschrift oder Schreibtempo deine Leistung?',
+        'Wie hilfreich sind alternative Ausdruckswege (Tippen, Sprechen, Skizzen)?'
       ],
       'dyskalkulie-test': [
-        'Ich habe Schwierigkeiten mit Rechnen oder Zahlenverständnis.',
-        'Mathematik ist für mich besonders anstrengend.',
-        'Ich zähle oft an den Fingern oder brauche andere Hilfsmittel.'
+        'Wie sicher fühlst du dich bei Mengen, Zahlenreihen und Grundrechenarten?',
+        'Wie oft brauchst du externe Hilfen für alltägliche Rechenaufgaben?',
+        'Wie stark steigen Fehler bei Zeitdruck oder Stress?'
       ],
       'dyspraxia-test': [
-        'Ich habe Schwierigkeiten mit Bewegungskoordination.',
-        'Einfache motorische Aufgaben erfordern bewusste Planung.',
-        'Ich bin manchmal ungeschickt oder stoße gegen Dinge.'
+        'Wie häufig benötigen Bewegungsabläufe bewusste Schritt-für-Schritt-Planung?',
+        'Wie oft passieren Koordinationsfehler im Alltag?',
+        'Wie sehr hilft dir strukturierte Vorbereitung bei motorischen Aufgaben?'
       ],
       'tic-test': [
-        'Ich habe unwillkürliche Bewegungen oder Geräusche.',
-        'Diese Bewegungen/Laute entstehen aus innerer Spannung.',
-        'Ich kann diese Bewegungen/Laute nur begrenzt kontrollieren.'
+        'Wie häufig treten unwillkürliche Bewegungen oder Laute auf?',
+        'Wie deutlich nimmst du eine innere Anspannung vor dem Tic wahr?',
+        'Wie gut helfen dir erlernte Strategien zur Spannungsregulation?'
       ],
       'dld-test': [
-        'Ich habe Schwierigkeiten mit Sprache oder Sprachverarbeitung.',
-        'Ich verstehe besser, wenn langsam und deutlich gesprochen wird.',
-        'Ich drücke mich schwerer aus als ich verstehe.'
+        'Wie oft sind längere sprachliche Anweisungen schwer verständlich?',
+        'Wie häufig treten Wortfindungsprobleme in Gesprächen auf?',
+        'Wie stark hilft dir visuelle Unterstützung bei Kommunikation?'
       ]
     };
 
@@ -361,6 +250,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         title.textContent = `Vorschau: ${moduleTitle}`;
         questionsContainer.innerHTML = '';
+
+        const intro = document.createElement('p');
+        intro.className = 'preview-intro';
+        intro.textContent = 'Kurzcheck mit Beispielitems zur Selbstorientierung (keine klinische Diagnose).';
+        questionsContainer.appendChild(intro);
         
         const questions = previewQuestions[moduleId] || [];
         questions.forEach(q => {
