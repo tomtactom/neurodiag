@@ -1,0 +1,31 @@
+{
+  "id": "dyspraxie_motor_planning_v1",
+  "type": "questionnaire",
+  "title": "Dyspraxie Handlungsplanung",
+  "description": "Erhebung von Schwierigkeiten in Planung und Ausführung von Bewegungsabläufen.",
+  "instructions": "Beziehe dich auf typische Tätigkeiten wie Anziehen, Kochen oder Sport.",
+  "questions": [
+    {
+      "id": "dysp_m_1",
+      "text": "Mehrschrittige Bewegungsabläufe bringen mich durcheinander.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    },
+    {
+      "id": "dysp_m_2",
+      "text": "Neue motorische Aufgaben lerne ich langsamer als erwartet.",
+      "options": [
+        "trifft nicht zu",
+        "trifft eher nicht zu",
+        "teils/teils",
+        "trifft eher zu",
+        "trifft zu"
+      ]
+    }
+  ]
+}

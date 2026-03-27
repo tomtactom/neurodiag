@@ -1,0 +1,10 @@
+{
+  "id": "dld_process_v1",
+  "title": "DLD Prozess",
+  "description": "Prozess zur strukturierten Erfassung von Sprachverständnis- und Ausdrucksprofilen mit verhaltenstherapeutisch unterstützter Kommunikationsplanung.",
+  "units": [
+    "dld_language_profile_v1",
+    "dld_context_barriers_v1",
+    "dld_communication_plan_v1"
+  ]
+}

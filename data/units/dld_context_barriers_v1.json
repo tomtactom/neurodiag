@@ -1,0 +1,39 @@
+{
+  "id": "dld_context_barriers_v1",
+  "type": "questionnaire",
+  "title": "DLD Kontextbarrieren",
+  "description": "Analyse situativer Sprachbarrieren und hilfreicher Rahmenbedingungen.",
+  "instructions": "Wähle Antworten, die am besten zu deinen häufigsten Kommunikationssituationen passen.",
+  "questions": [
+    {
+      "id": "dld_b_1",
+      "text": "In welchen Situationen sind Sprachprobleme am stärksten?",
+      "options": [
+        "Gruppengespräche",
+        "Telefonate",
+        "Zeitdruck",
+        "neue Themen",
+        "laute Umgebung"
+      ]
+    },
+    {
+      "id": "dld_b_2",
+      "text": "Welche Unterstützung hilft dir am meisten?",
+      "options": [
+        "einfache Sprache",
+        "visuelle Hinweise",
+        "mehr Antwortzeit",
+        "Zusammenfassungen",
+        "Rückfragen"
+      ]
+    }
+  ],
+  "norms": {
+    "sample": "Dummy-Sprachambulanz",
+    "age_groups": [
+      "6-9",
+      "10-13",
+      "14+"
+    ]
+  }
+}

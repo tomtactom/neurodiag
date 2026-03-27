@@ -1,0 +1,39 @@
+{
+  "id": "aq_selfreport_v1",
+  "type": "questionnaire",
+  "title": "AQ Selbstbericht Alltag",
+  "description": "Vertiefung typischer sozialer und sensorischer Alltagserfahrungen.",
+  "instructions": "Nimm dir Zeit und denke an konkrete Situationen aus Schule, Arbeit oder Freizeit.",
+  "questions": [
+    {
+      "id": "aq_sr_1",
+      "text": "Ich bemerke Details, die anderen oft entgehen.",
+      "options": [
+        "stimmt nicht",
+        "stimmt eher nicht",
+        "unentschieden",
+        "stimmt eher",
+        "stimmt"
+      ]
+    },
+    {
+      "id": "aq_sr_2",
+      "text": "Lautstärke, Licht oder Gerüche überfordern mich schnell.",
+      "options": [
+        "nie",
+        "selten",
+        "manchmal",
+        "oft",
+        "sehr oft"
+      ]
+    }
+  ],
+  "norms": {
+    "sample": "Dummy-Normstichprobe Erwachsene 18-45",
+    "age_groups": [
+      "12-17",
+      "18-45",
+      "46+"
+    ]
+  }
+}

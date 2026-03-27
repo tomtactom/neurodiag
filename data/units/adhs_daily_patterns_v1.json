@@ -1,0 +1,39 @@
+{
+  "id": "adhs_daily_patterns_v1",
+  "type": "questionnaire",
+  "title": "ADHS Tagesmuster",
+  "description": "Analyse typischer Hoch- und Tiefphasen über den Tag.",
+  "instructions": "Nutze konkrete Beispiele von gestern oder heute.",
+  "questions": [
+    {
+      "id": "adhs_d_1",
+      "text": "Wann fällt mir fokussiertes Arbeiten am leichtesten?",
+      "options": [
+        "morgens",
+        "mittags",
+        "nachmittags",
+        "abends",
+        "unregelmäßig"
+      ]
+    },
+    {
+      "id": "adhs_d_2",
+      "text": "Welche Auslöser verstärken meine Unruhe?",
+      "options": [
+        "Zeitdruck",
+        "Langeweile",
+        "Konflikte",
+        "Multitasking",
+        "unklar"
+      ]
+    }
+  ],
+  "norms": {
+    "sample": "Dummy-Community-Sample",
+    "age_groups": [
+      "10-13",
+      "14-17",
+      "18+"
+    ]
+  }
+}

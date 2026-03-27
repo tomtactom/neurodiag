@@ -1,0 +1,10 @@
+{
+  "id": "dysgraphia_process_v1",
+  "title": "Dysgraphie Prozess",
+  "description": "Prozess zur Einschätzung von Schreibfluss, Schriftmotorik und kognitiver Belastung inklusive verhaltenstherapeutischer Mikro-Interventionen.",
+  "units": [
+    "dysgraphia_writing_baseline_v1",
+    "dysgraphia_effort_tracking_v1",
+    "dysgraphia_skill_plan_v1"
+  ]
+}

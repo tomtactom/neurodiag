@@ -1,0 +1,40 @@
+{
+  "id": "dyspraxie_confidence_building_v1",
+  "type": "reflection",
+  "title": "Dyspraxie Selbstwirksamkeit",
+  "description": "Reflexion von Übungserfolgen zur Stärkung von Selbstvertrauen und Handlungssicherheit.",
+  "instructions": "Bewerte nach jeder Übung, was bereits besser gelingt und welcher nächste Mini-Schritt folgt.",
+  "questions": [
+    {
+      "id": "dysp_c_1",
+      "text": "Wie sicher hast du dich bei der Aufgabe gefühlt?",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    {
+      "id": "dysp_c_2",
+      "text": "Was ist dein nächster kleiner Übungsschritt?",
+      "options": [
+        "Tempo reduzieren",
+        "visuelle Anleitung nutzen",
+        "Schritt wiederholen",
+        "Unterstützung einholen"
+      ]
+    }
+  ],
+  "scoring": {
+    "method": "delta_confidence",
+    "rule": "Veränderung des Sicherheitsratings über 7 Tage."
+  }
+}
