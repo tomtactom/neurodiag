@@ -1,39 +1,52 @@
     </main>
 
     <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="footer-intro">
-                <h4>NeuroDiag</h4>
-                <p>Dein digitaler Begleiter zur ressourcenorientierten Selbsterkenntnis – mit klarer Sprache, achtsamer Struktur und alltagstauglichen Impulsen.</p>
-                <a class="footer-cta-link" href="diagnostics.php">Selbstentdeckung starten <span aria-hidden="true">→</span></a>
+        <div class="footer-shell">
+            <section class="footer-hero" aria-label="Abschlussbereich">
+                <div>
+                    <p class="footer-eyebrow">NeuroDiag · reflektiert, evidenznah, menschlich</p>
+                    <h2>Dein nächster klarer Schritt zählt mehr als Perfektion.</h2>
+                    <p>Mit verhaltenstherapeutisch orientierten Mikro-Impulsen unterstützt NeuroDiag dich dabei, Gedanken zu sortieren, hilfreiche Alternativen zu testen und Fortschritt sichtbar zu machen.</p>
+                </div>
+                <div class="footer-hero-actions">
+                    <a class="footer-cta-link" href="diagnostics.php">Selbstentdeckung starten <span aria-hidden="true">→</span></a>
+                    <a class="footer-secondary-link" href="resources.php">Werkzeugkiste öffnen</a>
+                </div>
+            </section>
+
+            <div class="footer-grid">
+                <div class="footer-intro">
+                    <h4>NeuroDiag</h4>
+                    <p>Ressourcenorientierte Orientierung für Alltag, Lernen und Selbstverständnis – ohne Schubladendenken, mit Fokus auf Handlungsspielräume.</p>
+                </div>
+                <div>
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.php">Startseite</a></li>
+                        <li><a href="diagnostics.php">Selbstentdeckung</a></li>
+                        <li><a href="resources.php">Ressourcen</a></li>
+                        <li><a href="about.php">Über uns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Begleitung</h4>
+                    <ul>
+                        <li><a href="contact.php">Kontakt</a></li>
+                        <li><a href="resources.php">Hilfsmaterialien</a></li>
+                        <li><a href="interviews/neurodivergence-interview.php">Interview</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Rechtliches</h4>
+                    <ul>
+                        <li><a href="impressum.php">Impressum</a></li>
+                        <li><a href="datenschutz.php">Datenschutz</a></li>
+                        <li><a href="#top">Nach oben</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4>Navigation</h4>
-                <ul>
-                    <li><a href="index.php">Startseite</a></li>
-                    <li><a href="diagnostics.php">Selbstentdeckung</a></li>
-                    <li><a href="resources.php">Ressourcen</a></li>
-                    <li><a href="about.php">Über uns</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="contact.php">Kontakt</a></li>
-                    <li><a href="resources.php">Hilfsmaterialien</a></li>
-                    <li><a href="interviews/neurodivergence-interview.php">Interview</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Rechtliches</h4>
-                <ul>
-                    <li><a href="impressum.php">Impressum</a></li>
-                    <li><a href="datenschutz.php">Datenschutz</a></li>
-                    <li><a href="#top">Nach oben</a></li>
-                </ul>
-            </div>
+            <p class="footer-small">&copy; <?php echo date('Y'); ?> NeuroDiag. Klarheit durch kleine, machbare Schritte.</p>
         </div>
-        <p class="footer-small">&copy; <?php echo date('Y'); ?> NeuroDiag. Alle Rechte vorbehalten.</p>
     </footer>
 
     <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Banner">
