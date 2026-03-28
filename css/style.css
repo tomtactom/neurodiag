@@ -2760,7 +2760,7 @@ blockquote {
 }
 
 .question-options--inline {
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
 .question-options--checkbox {
@@ -2813,6 +2813,9 @@ blockquote {
 }
 
 .question-option-label span {
+  min-width: 0;
+  white-space: normal;
+  word-break: break-word;
   overflow-wrap: anywhere;
 }
 
