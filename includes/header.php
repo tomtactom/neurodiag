@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header class="site-header">
+    <header class="site-header" id="top">
+        <div class="header-shell">
         <div class="brand">
             <a href="index.php" class="brand-link" aria-label="NeuroDiag Startseite">
                 <svg aria-hidden="true" width="44" height="44" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,11 +28,8 @@
                 <span>NeuroDiag</span>
             </a>
         </div>
-        <div class="user-controls">
-            <button id="themeToggle" class="theme-toggle" aria-label="Dark Mode umschalten" title="Dark Mode umschalten">🌙</button>
-            <button class="nav-toggle" aria-label="Navigation umschalten" aria-expanded="false">☰</button>
-        </div>
-        <nav class="navbar" aria-label="Hauptnavigation">
+
+        <nav class="navbar" aria-label="Hauptnavigation" id="primaryNav">
             <ul>
                 <li><a href="index.php">Startseite</a></li>
                 <li><a href="diagnostics.php">Selbstentdeckung</a></li>
@@ -40,6 +38,16 @@
                 <li><a href="contact.php">Kontakt</a></li>
             </ul>
         </nav>
+
+        <div class="user-controls" role="group" aria-label="Darstellungsoptionen">
+            <button id="themeToggle" class="theme-toggle" aria-label="Dark Mode umschalten" title="Dark Mode umschalten">🌙</button>
+            <button class="nav-toggle" aria-label="Navigation umschalten" aria-controls="primaryNav" aria-expanded="false">
+                <span class="nav-toggle-line"></span>
+                <span class="nav-toggle-line"></span>
+                <span class="nav-toggle-line"></span>
+            </button>
+        </div>
+        </div>
     </header>
 
     <main>
