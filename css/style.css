@@ -2960,6 +2960,95 @@ blockquote {
   color: #fff;
 }
 
+.process-admin {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.process-admin-upload {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: end;
+}
+
+.process-admin-upload label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.process-admin-upload input,
+.process-admin-order button,
+.process-admin-upload button {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+}
+
+.process-admin-dropzone {
+  border: 2px dashed rgba(69, 123, 157, 0.35);
+  border-radius: 12px;
+  background: rgba(69, 123, 157, 0.04);
+  padding: 0.85rem;
+  text-align: center;
+}
+
+.process-admin-dropzone.is-active {
+  border-color: rgba(69, 123, 157, 0.8);
+  background: rgba(69, 123, 157, 0.1);
+}
+
+.process-admin-list {
+  list-style: none;
+  margin: 0 0 0.8rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.process-admin-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 0.55rem 0.75rem;
+}
+
+.process-admin-list li.is-dragging {
+  opacity: 0.55;
+}
+
+.process-admin-drag-handle {
+  cursor: move;
+  color: var(--color-muted);
+}
+
+.process-admin-list button {
+  margin-left: auto;
+}
+
+.process-admin-status {
+  min-height: 1.3rem;
+}
+
+.process-admin-status.is-success {
+  color: var(--color-success);
+}
+
+.process-admin-status.is-error {
+  color: var(--color-danger);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
