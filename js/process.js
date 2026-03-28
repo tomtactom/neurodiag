@@ -70,13 +70,15 @@
             return;
           }
 
+          if (!field.checked) {
+            return;
+          }
+
           if (!Array.isArray(answers[questionId])) {
             answers[questionId] = [];
           }
 
-          if (field.checked) {
-            answers[questionId].push(field.value);
-          }
+          answers[questionId].push(field.value);
           return;
         }
       }

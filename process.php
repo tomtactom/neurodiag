@@ -23,9 +23,14 @@ if (!preg_match('/^[a-z0-9_-]*$/', $requestedUnitId)) {
     $requestedUnitId = '';
 }
 
-$canonicalProcessId = ($processInput !== '' && isset($aliases[$processInput]) && is_string($aliases[$processInput]))
-    ? $aliases[$processInput]
-    : '';
+$canonicalProcessId = '';
+if ($processInput !== '') {
+    if (isset($aliases[$processInput]) && is_string($aliases[$processInput])) {
+        $canonicalProcessId = $aliases[$processInput];
+    } elseif (isset($areas[$processInput]) && is_array($areas[$processInput])) {
+        $canonicalProcessId = $processInput;
+    }
+}
 
 /**
  * @return array{0: ?array<string, mixed>, 1: ?string}
@@ -668,7 +673,7 @@ include 'includes/header.php';
             <?php endif; ?>
 
             <?php if (in_array($controlType, ['radio', 'checkbox', 'likert'], true) && is_array($questionOptions) && !empty($questionOptions)): ?>
-              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?><?php echo $useInlineOptions ? ' question-options--inline' : ''; ?>">
+              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?><?php echo $useInlineOptions ? ' question-options--inline' : ''; ?><?php echo $controlType === 'checkbox' ? ' question-options--checkbox' : ''; ?>">
               <?php foreach ($questionOptions as $optionIndex => $option): ?>
                 <?php
                 $optionLabel = '';
