@@ -2764,12 +2764,21 @@ blockquote {
 }
 
 .question-options--checkbox {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
   align-items: start;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
 }
 
 .question-option {
   min-width: 0;
+}
+
+.question-options--checkbox .question-option {
+  flex: 0 0 auto;
+  min-width: 180px;
 }
 
 .question-option-label {
@@ -2938,7 +2947,8 @@ blockquote {
   }
 
   .question-options--checkbox {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
   }
 
   .process-navigation {
@@ -2948,7 +2958,8 @@ blockquote {
 
 @media (max-width: 480px) {
   .question-options--checkbox {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: nowrap;
   }
 }
 
