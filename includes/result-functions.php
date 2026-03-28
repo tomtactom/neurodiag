@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/bootstrap.php';
 require_once __DIR__ . '/process-repository.php';
 
 /**
@@ -57,9 +58,7 @@ function ndLoadAnswersFromCookie(string $processId): ?array
  */
 function ndLoadAnswersFromSession(string $processId): ?array
 {
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        @session_start();
-    }
+    ndStartSecureSession();
 
     $sessionKey = 'neurodiag_process_' . $processId;
     if (!isset($_SESSION[$sessionKey]) || !is_array($_SESSION[$sessionKey])) {

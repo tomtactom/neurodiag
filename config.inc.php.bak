@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Vorlage für eine produktive Konfiguration.
+ *
+ * WICHTIG:
+ * - Diese Datei ist nur eine Vorlage und darf nicht produktiv verwendet werden.
+ * - Die echte Datei `config.inc.php` muss außerhalb des Repositories liegen.
+ */
+return [
+    'ADMIN_PASSWORD_HASH' => 'ADMIN_PASSWORD_HASH',
+    'PROCESS_STORAGE_DIR' => 'PROCESS_STORAGE_DIR',
+    'ADMIN_SESSION_KEY' => 'ADMIN_SESSION_KEY',
+];
