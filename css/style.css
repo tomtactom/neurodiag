@@ -2359,3 +2359,186 @@ blockquote {
   --color-danger: #E63946;
   --color-success: #2A9D8F;
 }
+
+/* ========================================
+   PROCESS.PHP — ADAPTIVE UX DESIGN
+   ======================================== */
+
+.process-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.process-header,
+.process-unit {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(17, 24, 39, 0.06);
+}
+
+.process-header {
+  padding: 1.4rem 1.4rem 1.2rem;
+  margin-bottom: 1.25rem;
+}
+
+.process-overline {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.process-progress-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(69, 123, 157, 0.12), rgba(168, 218, 220, 0.2));
+  overflow: hidden;
+}
+
+.process-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary), #6db4bf);
+  transition: width 280ms ease;
+}
+
+.process-unit {
+  padding: 1.2rem;
+}
+
+.process-unit article {
+  padding: 1rem;
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(69, 123, 157, 0.05), rgba(168, 218, 220, 0.08));
+  margin-bottom: 0.9rem;
+}
+
+.process-unit h3 {
+  margin-top: 0;
+}
+
+.process-questions {
+  margin-top: 1rem;
+}
+
+.question-card {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 0.9rem;
+  margin-bottom: 0.95rem;
+  background: #fff;
+}
+
+.question-card legend {
+  width: 100%;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.7rem;
+}
+
+.question-hint {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.question-options {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.question-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  background: rgba(69, 123, 157, 0.05);
+}
+
+.likert-grid {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.question-option input[type="radio"],
+.question-option input[type="checkbox"] {
+  margin-top: 0.25rem;
+}
+
+.question-card select,
+.question-card input[type="text"],
+.question-card textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  color: var(--color-text);
+  background: #fff;
+}
+
+.question-card textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.range-control input[type="range"] {
+  width: 100%;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: 0.3rem;
+}
+
+.process-navigation {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.process-navigation a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.process-navigation a:last-child {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .process-navigation {
+    flex-direction: column;
+  }
+}

@@ -38,14 +38,51 @@
 
   function collectAnswers() {
     const answers = {};
+    const fields = form.querySelectorAll('input, select, textarea');
 
-    form.querySelectorAll('input[type="radio"]:checked').forEach((input) => {
-      const match = input.name.match(/^answers\[(.+)]$/);
-      if (!match || !match[1]) {
+    fields.forEach((field) => {
+      if (!(field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement)) {
         return;
       }
 
-      answers[match[1]] = input.value;
+      const keyMatch = field.name.match(/^answers\[([^\]]+)\](\[\])?$/);
+      if (!keyMatch || !keyMatch[1]) {
+        return;
+      }
+
+      const questionId = keyMatch[1];
+      const isList = Boolean(keyMatch[2]);
+
+      if (field instanceof HTMLInputElement) {
+        if (field.type === 'radio') {
+          if (field.checked) {
+            answers[questionId] = field.value;
+          }
+          return;
+        }
+
+        if (field.type === 'checkbox') {
+          if (!isList) {
+            if (field.checked) {
+              answers[questionId] = field.value;
+            }
+            return;
+          }
+
+          if (!Array.isArray(answers[questionId])) {
+            answers[questionId] = [];
+          }
+
+          if (field.checked) {
+            answers[questionId].push(field.value);
+          }
+          return;
+        }
+      }
+
+      if (field.value !== '') {
+        answers[questionId] = field.value;
+      }
     });
 
     return answers;
@@ -92,14 +129,36 @@
     }
 
     Object.entries(state.answers).forEach(([questionId, answerValue]) => {
+      if (Array.isArray(answerValue)) {
+        answerValue.forEach((value) => {
+          if (typeof value !== 'string') {
+            return;
+          }
+
+          const checkboxSelector = `input[type="checkbox"][name="answers[${CSS.escape(questionId)}][]"][value="${CSS.escape(value)}"]`;
+          const input = form.querySelector(checkboxSelector);
+          if (input instanceof HTMLInputElement) {
+            input.checked = true;
+          }
+        });
+        return;
+      }
+
       if (typeof answerValue !== 'string') {
         return;
       }
 
-      const selector = `input[type="radio"][name="answers[${CSS.escape(questionId)}]"][value="${CSS.escape(answerValue)}"]`;
-      const input = form.querySelector(selector);
-      if (input) {
-        input.checked = true;
+      const radioSelector = `input[type="radio"][name="answers[${CSS.escape(questionId)}]"][value="${CSS.escape(answerValue)}"]`;
+      const radioInput = form.querySelector(radioSelector);
+      if (radioInput instanceof HTMLInputElement) {
+        radioInput.checked = true;
+        return;
+      }
+
+      const inputSelector = `[name="answers[${CSS.escape(questionId)}]"]`;
+      const input = form.querySelector(inputSelector);
+      if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
+        input.value = answerValue;
       }
     });
   }
@@ -109,7 +168,7 @@
       return;
     }
 
-    if (event.target.type === 'radio' && event.target.name.startsWith('answers[')) {
+    if (event.target.name.startsWith('answers[')) {
       saveState(false);
     }
   });
