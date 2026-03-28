@@ -9,7 +9,6 @@
 
   const processId = (processRoot.dataset.processId || '').trim().toLowerCase();
   const currentUnit = (processRoot.dataset.unitId || '').trim().toLowerCase();
-
   if (!processId || !currentUnit) {
     return;
   }
@@ -17,11 +16,7 @@
   const cookieName = `neurodiag_process_${processId}`;
   const maxAgeSeconds = 60 * 60 * 24 * 30;
   const questionItems = Array.from(form.querySelectorAll('[data-question-item="true"]'));
-  const stepNavigation = form.querySelector('[data-question-step-navigation="true"]');
-  const backButton = stepNavigation ? stepNavigation.querySelector('[data-question-back]') : null;
-  const nextButton = stepNavigation ? stepNavigation.querySelector('[data-question-next]') : null;
-  const progressLabel = stepNavigation ? stepNavigation.querySelector('[data-question-progress]') : null;
-  let currentQuestionIndex = 0;
+  let smoothTransitionLock = false;
 
   function getCookie(name) {
     const cookieString = document.cookie || '';
@@ -174,7 +169,7 @@
       return [];
     }
 
-    return Array.from(questionCard.querySelectorAll('input, select, textarea')).filter(function (field) {
+    return Array.from(questionCard.querySelectorAll('input, select, textarea')).filter((field) => {
       return field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement;
     });
   }
@@ -223,134 +218,117 @@
     return false;
   }
 
-  function focusCurrentQuestion() {
-    const card = questionItems[currentQuestionIndex];
-    if (!(card instanceof HTMLElement)) {
+  function markAnsweredStates() {
+    questionItems.forEach((questionCard) => {
+      if (!(questionCard instanceof HTMLElement)) {
+        return;
+      }
+
+      questionCard.classList.toggle('is-answered', questionHasAnswer(questionCard));
+    });
+  }
+
+  function focusFirstInput(questionCard) {
+    if (!(questionCard instanceof HTMLElement)) {
       return;
     }
 
-    const firstInput = card.querySelector('input, select, textarea');
+    const firstInput = questionCard.querySelector('input, select, textarea');
     if (firstInput instanceof HTMLElement) {
       firstInput.focus({ preventScroll: true });
-      return;
-    }
-
-    const legend = card.querySelector('legend');
-    if (legend instanceof HTMLElement) {
-      legend.setAttribute('tabindex', '-1');
-      legend.focus({ preventScroll: true });
     }
   }
 
-  function renderQuestionStep() {
-    if (!questionItems.length || !(stepNavigation instanceof HTMLElement)) {
+  function jumpToNextQuestion(currentCard) {
+    if (!(currentCard instanceof HTMLElement) || smoothTransitionLock) {
       return;
     }
 
-    questionItems.forEach(function (item, index) {
-      if (!(item instanceof HTMLElement)) {
-        return;
-      }
+    const currentIndex = questionItems.indexOf(currentCard);
+    if (currentIndex < 0 || currentIndex >= questionItems.length - 1) {
+      return;
+    }
 
-      item.hidden = index !== currentQuestionIndex;
+    const nextUnansweredIndex = questionItems.findIndex((card, index) => {
+      return index > currentIndex && !questionHasAnswer(card);
     });
+    const targetIndex = nextUnansweredIndex >= 0 ? nextUnansweredIndex : currentIndex + 1;
+    const targetCard = questionItems[targetIndex];
 
-    if (backButton instanceof HTMLButtonElement) {
-      backButton.disabled = currentQuestionIndex === 0;
-    }
-
-    if (nextButton instanceof HTMLButtonElement) {
-      const isLast = currentQuestionIndex === questionItems.length - 1;
-      nextButton.textContent = 'Weiter →';
-      nextButton.hidden = isLast;
-      nextButton.disabled = isLast || !questionHasAnswer(questionItems[currentQuestionIndex]);
-    }
-
-    if (progressLabel instanceof HTMLElement) {
-      progressLabel.textContent = `Frage ${currentQuestionIndex + 1} von ${questionItems.length}`;
-    }
-  }
-
-  function goToQuestion(index, shouldFocus) {
-    const boundedIndex = Math.max(0, Math.min(index, questionItems.length - 1));
-    currentQuestionIndex = boundedIndex;
-    renderQuestionStep();
-    if (shouldFocus) {
-      focusCurrentQuestion();
-    }
-  }
-
-  function goToFirstUnanswered() {
-    if (!questionItems.length) {
+    if (!(targetCard instanceof HTMLElement)) {
       return;
     }
 
-    const firstUnanswered = questionItems.findIndex(function (questionCard) {
-      return !questionHasAnswer(questionCard);
-    });
+    smoothTransitionLock = true;
+    targetCard.classList.add('is-target');
+    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    goToQuestion(firstUnanswered >= 0 ? firstUnanswered : questionItems.length - 1, false);
+    window.setTimeout(() => {
+      focusFirstInput(targetCard);
+      targetCard.classList.remove('is-target');
+      smoothTransitionLock = false;
+    }, 360);
   }
 
-  form.addEventListener('change', function (event) {
-    if (!(event.target instanceof HTMLInputElement)) {
-      if (event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement) {
-        if (event.target.name.startsWith('answers[')) {
-          saveState(false);
-          renderQuestionStep();
-        }
-      }
+  function maybeAutoAdvance(element) {
+    if (!(element instanceof HTMLElement)) {
       return;
     }
 
-    if (event.target.name.startsWith('answers[')) {
-      saveState(false);
-      renderQuestionStep();
+    const questionCard = element.closest('[data-question-item="true"]');
+    if (!(questionCard instanceof HTMLElement)) {
+      return;
+    }
+
+    if (questionCard.dataset.autoAdvance !== 'true' || !questionHasAnswer(questionCard)) {
+      return;
+    }
+
+    jumpToNextQuestion(questionCard);
+  }
+
+  form.addEventListener('change', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    if (!target.name.startsWith('answers[')) {
+      return;
+    }
+
+    saveState(false);
+    markAnsweredStates();
+
+    if (!(target instanceof HTMLInputElement && target.type === 'checkbox')) {
+      maybeAutoAdvance(target);
     }
   });
 
-  form.addEventListener('input', function (event) {
-    if (!(event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement)) {
+  form.addEventListener('input', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) {
       return;
     }
 
-    if (event.target.name.startsWith('answers[')) {
-      saveState(false);
-      renderQuestionStep();
+    if (!target.name.startsWith('answers[')) {
+      return;
     }
+
+    saveState(false);
+    markAnsweredStates();
   });
 
-  if (backButton instanceof HTMLButtonElement) {
-    backButton.addEventListener('click', function () {
-      goToQuestion(currentQuestionIndex - 1, true);
-    });
-  }
-
-  if (nextButton instanceof HTMLButtonElement) {
-    nextButton.addEventListener('click', function () {
-      if (currentQuestionIndex >= questionItems.length - 1) {
-        const nextUnitLink = document.querySelector('.process-navigation a:last-child');
-        if (nextUnitLink instanceof HTMLAnchorElement) {
-          nextUnitLink.focus();
-          nextUnitLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-        return;
-      }
-      goToQuestion(currentQuestionIndex + 1, true);
-    });
-  }
-
-  window.addEventListener('beforeunload', function () {
+  window.addEventListener('beforeunload', () => {
     saveState(false);
   });
 
   document.querySelectorAll('[data-process-complete="true"]').forEach((element) => {
-    element.addEventListener('click', function () {
+    element.addEventListener('click', () => {
       saveState(true);
     });
   });
 
   restoreState();
-  goToFirstUnanswered();
-  renderQuestionStep();
+  markAnsweredStates();
 })();

@@ -332,6 +332,39 @@ function normalizeTextItems($value): array
     return $items;
 }
 
+function shouldUseInlineOptionLayout(array $options): bool
+{
+    $optionCount = count($options);
+    if ($optionCount < 2 || $optionCount > 4) {
+        return false;
+    }
+
+    $labelLengths = [];
+    foreach ($options as $option) {
+        $label = '';
+        if (is_array($option)) {
+            if (isset($option['label']) && is_string($option['label'])) {
+                $label = trim($option['label']);
+            } elseif (isset($option['text']) && is_string($option['text'])) {
+                $label = trim($option['text']);
+            }
+        } elseif (is_string($option)) {
+            $label = trim($option);
+        }
+
+        if ($label !== '') {
+            $labelLengths[] = mb_strlen($label);
+        }
+    }
+
+    if (empty($labelLengths)) {
+        return false;
+    }
+
+    $averageLength = array_sum($labelLengths) / count($labelLengths);
+    return $averageLength <= 20;
+}
+
 /**
  * @param mixed $question
  * @return array{
@@ -601,8 +634,8 @@ include 'includes/header.php';
       <?php endif; ?>
     <?php endforeach; ?>
 
-    <form class="process-questions process-block" method="post" action="#" aria-labelledby="questions-title">
-      <h3 id="questions-title">Fragen</h3>
+    <form class="process-questions process-block" method="post" action="#" aria-labelledby="questions-title" novalidate>
+      <h3 id="questions-title">Eingaben</h3>
 
       <?php if (empty($questions)): ?>
         <p>Für diese Einheit sind noch keine Fragen hinterlegt. Du kannst stattdessen eine konkrete Alltagssituation wählen, drei beobachtbare Merkmale notieren und einen kleinen nächsten Handlungsschritt festlegen.</p>
@@ -615,20 +648,27 @@ include 'includes/header.php';
           $questionOptions = $vm['options'];
           $controlType = $vm['control'];
           $questionName = $vm['multiple'] ? 'answers[' . $questionId . '][]' : 'answers[' . $questionId . ']';
+          $hintId = $vm['hint'] !== '' ? $questionId . '-hint' : '';
+          $useInlineOptions = in_array($controlType, ['radio', 'checkbox', 'likert'], true)
+            && is_array($questionOptions)
+            && shouldUseInlineOptionLayout($questionOptions);
           ?>
           <fieldset
             class="question-card question-control-<?php echo htmlspecialchars($controlType); ?>"
             data-question-item="true"
             data-question-position="<?php echo ($index + 1); ?>"
             data-question-total="<?php echo count($questions); ?>"
+            data-control-type="<?php echo htmlspecialchars($controlType); ?>"
+            data-auto-advance="<?php echo in_array($controlType, ['radio', 'likert', 'select', 'range'], true) ? 'true' : 'false'; ?>"
+            data-question-id="<?php echo htmlspecialchars($questionId); ?>"
           >
             <legend><?php echo htmlspecialchars(($index + 1) . '. ' . $questionText); ?></legend>
             <?php if ($vm['hint'] !== ''): ?>
-              <p class="question-hint"><?php echo htmlspecialchars($vm['hint']); ?></p>
+              <p class="question-hint" id="<?php echo htmlspecialchars($hintId); ?>"><?php echo htmlspecialchars($vm['hint']); ?></p>
             <?php endif; ?>
 
             <?php if (in_array($controlType, ['radio', 'checkbox', 'likert'], true) && is_array($questionOptions) && !empty($questionOptions)): ?>
-              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?>">
+              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?><?php echo $useInlineOptions ? ' question-options--inline' : ''; ?>">
               <?php foreach ($questionOptions as $optionIndex => $option): ?>
                 <?php
                 $optionLabel = '';
@@ -662,6 +702,9 @@ include 'includes/header.php';
                       id="<?php echo htmlspecialchars($inputId); ?>"
                       name="<?php echo htmlspecialchars($questionName); ?>"
                       value="<?php echo htmlspecialchars($optionValue); ?>"
+                      <?php if ($hintId !== ''): ?>
+                      aria-describedby="<?php echo htmlspecialchars($hintId); ?>"
+                      <?php endif; ?>
                     >
                     <span><?php echo htmlspecialchars($optionLabel); ?></span>
                   </label>
@@ -735,11 +778,7 @@ include 'includes/header.php';
             <?php endif; ?>
           </fieldset>
         <?php endforeach; ?>
-        <div class="question-step-navigation" data-question-step-navigation="true" aria-label="Fragen-Navigation">
-          <button type="button" class="question-step-back" data-question-back disabled>&larr; Zurück</button>
-          <div class="question-step-progress" aria-live="polite" data-question-progress>Frage 1 von <?php echo count($questions); ?></div>
-          <button type="button" class="question-step-next" data-question-next>Weiter &rarr;</button>
-        </div>
+        <p class="question-flow-hint" aria-live="polite">Tipp: Bei Auswahl springt die Ansicht automatisch sanft zum nächsten Schritt.</p>
       <?php endif; ?>
     </form>
   </section>
