@@ -1,3 +1,28 @@
+<?php
+require_once __DIR__ . '/admin-auth.php';
+
+$adminAuthNotice = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_action']) && is_string($_POST['admin_action'])) {
+    $action = $_POST['admin_action'];
+    $token = isset($_POST['csrf_token']) && is_string($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
+
+    if (!adminValidateCsrfToken($token)) {
+        $adminAuthNotice = 'Sicherheitsprüfung fehlgeschlagen. Bitte erneut versuchen.';
+    } elseif ($action === 'login') {
+        $password = isset($_POST['admin_password']) && is_string($_POST['admin_password']) ? $_POST['admin_password'] : '';
+        $adminAuthNotice = adminLogin($password)
+            ? 'Admin-Login erfolgreich.'
+            : 'Login fehlgeschlagen.';
+    } elseif ($action === 'logout') {
+        adminLogout();
+        $adminAuthNotice = 'Du wurdest als Admin abgemeldet.';
+    }
+}
+
+$adminAuthenticated = isAdminAuthenticated();
+$adminCsrfToken = adminGetCsrfToken();
+?>
     </main>
 
     <footer class="site-footer">
@@ -45,6 +70,34 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="admin-auth-box" aria-live="polite">
+                <p class="admin-auth-state">
+                    Admin-Status:
+                    <strong><?php echo $adminAuthenticated ? 'angemeldet' : 'nicht angemeldet'; ?></strong>
+                </p>
+
+                <?php if ($adminAuthNotice !== ''): ?>
+                    <p class="admin-auth-notice"><?php echo htmlspecialchars($adminAuthNotice, ENT_QUOTES, 'UTF-8'); ?></p>
+                <?php endif; ?>
+
+                <?php if ($adminAuthenticated): ?>
+                    <form method="post" class="admin-auth-form" autocomplete="off">
+                        <input type="hidden" name="admin_action" value="logout">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($adminCsrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+                        <button type="submit" class="btn btn-secondary btn-sm">Admin Logout</button>
+                    </form>
+                <?php else: ?>
+                    <form method="post" class="admin-auth-form" autocomplete="off">
+                        <input type="hidden" name="admin_action" value="login">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($adminCsrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+                        <label for="adminPassword" class="visually-hidden">Admin Passwort</label>
+                        <input type="password" id="adminPassword" name="admin_password" placeholder="Admin Passwort" required>
+                        <button type="submit" class="btn btn-secondary btn-sm">Admin Login</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+
             <p class="footer-small">&copy; <?php echo date('Y'); ?> NeuroDiag. Klarheit durch kleine, machbare Schritte.</p>
         </div>
     </footer>
