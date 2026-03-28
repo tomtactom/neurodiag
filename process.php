@@ -614,7 +614,12 @@ include 'includes/header.php';
           $controlType = $vm['control'];
           $questionName = $vm['multiple'] ? 'answers[' . $questionId . '][]' : 'answers[' . $questionId . ']';
           ?>
-          <fieldset class="question-card question-control-<?php echo htmlspecialchars($controlType); ?>">
+          <fieldset
+            class="question-card question-control-<?php echo htmlspecialchars($controlType); ?>"
+            data-question-item="true"
+            data-question-position="<?php echo ($index + 1); ?>"
+            data-question-total="<?php echo count($questions); ?>"
+          >
             <legend><?php echo htmlspecialchars(($index + 1) . '. ' . $questionText); ?></legend>
             <?php if ($vm['hint'] !== ''): ?>
               <p class="question-hint"><?php echo htmlspecialchars($vm['hint']); ?></p>
@@ -649,13 +654,15 @@ include 'includes/header.php';
                 $inputId = $questionId . '-opt-' . ($optionIndex + 1);
                 ?>
                 <div class="question-option">
-                  <input
-                    type="<?php echo $controlType === 'checkbox' ? 'checkbox' : 'radio'; ?>"
-                    id="<?php echo htmlspecialchars($inputId); ?>"
-                    name="<?php echo htmlspecialchars($questionName); ?>"
-                    value="<?php echo htmlspecialchars($optionValue); ?>"
-                  >
-                  <label for="<?php echo htmlspecialchars($inputId); ?>"><?php echo htmlspecialchars($optionLabel); ?></label>
+                  <label class="question-option-label" for="<?php echo htmlspecialchars($inputId); ?>">
+                    <input
+                      type="<?php echo $controlType === 'checkbox' ? 'checkbox' : 'radio'; ?>"
+                      id="<?php echo htmlspecialchars($inputId); ?>"
+                      name="<?php echo htmlspecialchars($questionName); ?>"
+                      value="<?php echo htmlspecialchars($optionValue); ?>"
+                    >
+                    <span><?php echo htmlspecialchars($optionLabel); ?></span>
+                  </label>
                 </div>
               <?php endforeach; ?>
               </div>
@@ -726,6 +733,11 @@ include 'includes/header.php';
             <?php endif; ?>
           </fieldset>
         <?php endforeach; ?>
+        <div class="question-step-navigation" data-question-step-navigation="true" aria-label="Fragen-Navigation">
+          <button type="button" class="question-step-back" data-question-back disabled>&larr; Zurück</button>
+          <div class="question-step-progress" aria-live="polite" data-question-progress>Frage 1 von <?php echo count($questions); ?></div>
+          <button type="button" class="question-step-next" data-question-next>Weiter &rarr;</button>
+        </div>
       <?php endif; ?>
     </form>
   </section>
