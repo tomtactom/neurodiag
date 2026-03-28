@@ -142,6 +142,70 @@ function h(string $value): string
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
+function ndClamp(float $value, float $min, float $max): float
+{
+    if ($value < $min) {
+        return $min;
+    }
+
+    if ($value > $max) {
+        return $max;
+    }
+
+    return $value;
+}
+
+/**
+ * @return array{
+ *   hasNorm: bool,
+ *   zValue: ?float,
+ *   markerPercent: float,
+ *   fallbackLabel: string,
+ *   summary: string,
+ *   zone: string
+ * }
+ */
+function buildNormVizModel(array $evaluation): array
+{
+    $zValue = isset($evaluation['norm']['z']) && is_float($evaluation['norm']['z']) ? $evaluation['norm']['z'] : null;
+    $hasNorm = $zValue !== null;
+    $zForScale = $hasNorm ? ndClamp((float) $zValue, -2.5, 2.5) : 0.0;
+    $markerPercent = (($zForScale + 2.5) / 5.0) * 100.0;
+
+    $zone = 'avg';
+    if ($hasNorm) {
+        if ($zValue <= -1.0) {
+            $zone = 'low';
+        } elseif ($zValue >= 1.0) {
+            $zone = 'high';
+        }
+    } else {
+        $zone = 'unknown';
+    }
+
+    $fallbackLabel = $hasNorm
+        ? sprintf('Normposition bei z = %s (%.1f%% auf der Skala)', ndFmt($zValue, 2), $markerPercent)
+        : 'Normposition nicht berechenbar, da keine belastbaren Normdaten vorliegen.';
+
+    $summary = $hasNorm
+        ? sprintf(
+            'Beobachtete Position: z = %s (T = %s, PR = %s). Einordnung als Momentaufnahme mit Blick auf Auslöser, aufrechterhaltende Bedingungen und konkrete nächste Schritte.',
+            ndFmt($evaluation['norm']['z'], 2),
+            ndFmt(isset($evaluation['norm']['t']) && is_float($evaluation['norm']['t']) ? $evaluation['norm']['t'] : null, 1),
+            ndFmt(isset($evaluation['norm']['pr']) && is_float($evaluation['norm']['pr']) ? $evaluation['norm']['pr'] : null, 1)
+        )
+        : 'Aktuell ist keine Normposition berechenbar. Nutzen Sie beobachtbare Alltagsdaten (Häufigkeit, Dauer, Unterstützungsbedarf), um Veränderungsschritte trotzdem planbar zu machen.';
+
+    return [
+        'hasNorm' => $hasNorm,
+        'zValue' => $zValue,
+        'markerPercent' => $markerPercent,
+        'fallbackLabel' => $fallbackLabel,
+        'summary' => $summary,
+        'zone' => $zone,
+    ];
+}
+
 /**
  * @param array<int, array{title: string, text: string, tone: string}> $cards
  */
@@ -230,6 +294,7 @@ function renderProcessPicker(array $processes): void
 }
 
 $viewModel = buildViewModel($mode, $processId, $processTitle, $areas, $evaluation);
+$normViz = buildNormVizModel($evaluation);
 $pageTitle = $viewModel['mode'] === 'process'
     ? 'Auswertung – ' . (string) $viewModel['processTitle']
     : 'Auswertung – Gesamtüberblick';
@@ -268,14 +333,59 @@ include __DIR__ . '/includes/header.php';
 
   <section class="result-section" aria-labelledby="viz-title">
     <h2 id="viz-title">Visualisierung</h2>
-    <div class="result-visual">
-      <div class="result-bell" role="img" aria-label="Normalverteilung mit Positionsmarker">
-        <div class="result-marker" style="left: 64%;" aria-hidden="true"></div>
+    <div
+      class="result-visual"
+      data-norm-viz="true"
+      data-has-norm="<?php echo $normViz['hasNorm'] ? '1' : '0'; ?>"
+      data-z="<?php echo $normViz['zValue'] !== null ? h(ndFmt($normViz['zValue'], 2)) : ''; ?>"
+      data-marker-percent="<?php echo h(ndFmt($normViz['markerPercent'], 1)); ?>"
+    >
+      <p class="sr-only" id="result-viz-description"><?php echo h($normViz['fallbackLabel']); ?></p>
+      <div class="result-bell-wrap">
+        <div class="result-bell-zones" aria-hidden="true">
+          <span class="result-zone result-zone--low"></span>
+          <span class="result-zone result-zone--avg"></span>
+          <span class="result-zone result-zone--high"></span>
+        </div>
+        <svg class="result-bell-curve" viewBox="0 0 500 180" role="img" aria-labelledby="result-viz-title result-viz-description">
+          <title id="result-viz-title">Normalverteilungskurve mit individueller Markerposition</title>
+          <path class="result-bell-curve-line" d="M10,170 C85,170 135,50 250,22 C365,50 415,170 490,170" />
+        </svg>
+        <div class="result-marker <?php echo 'result-marker--' . h($normViz['zone']); ?>" style="left: <?php echo h(ndFmt($normViz['markerPercent'], 1)); ?>%;" aria-hidden="true">
+          <span class="result-marker-dot"></span>
+          <span class="result-marker-line"></span>
+        </div>
       </div>
+
+      <div class="result-scale-fallback" role="img" aria-label="<?php echo h($normViz['fallbackLabel']); ?>">
+        <div class="result-scale-track" aria-hidden="true">
+          <span class="result-scale-segment result-scale-segment--low"></span>
+          <span class="result-scale-segment result-scale-segment--avg"></span>
+          <span class="result-scale-segment result-scale-segment--high"></span>
+          <span class="result-scale-marker" style="left: <?php echo h(ndFmt($normViz['markerPercent'], 1)); ?>%;"></span>
+        </div>
+      </div>
+
       <div class="result-axis" aria-hidden="true">
         <span>-2 SD</span><span>-1 SD</span><span>M</span><span>+1 SD</span><span>+2 SD</span>
       </div>
-      <p class="result-visual-note">Beispielhafte Position im Normraum. Für belastbare Aussagen sind Messwiederholungen und Kontextdaten sinnvoll.</p>
+
+      <ul class="result-viz-legend">
+        <li><span class="result-legend-chip result-legend-chip--low"></span>Untere Zone: aktuell eher gering ausgeprägt; hilfreich ist die Prüfung, wann Verhalten bereits stabil gelingt.</li>
+        <li><span class="result-legend-chip result-legend-chip--avg"></span>Mittlere Zone: im Referenzbereich; Fokus auf auslösende Situationen und Bedingungen, die Stabilität fördern.</li>
+        <li><span class="result-legend-chip result-legend-chip--high"></span>Obere Zone: aktuell stärker ausgeprägt; sinnvoll sind kurze Entlastungsschritte und gezielte Anpassung aufrechterhaltender Muster.</li>
+      </ul>
+
+      <div class="result-viz-help">
+        <h3>Einordnung für nächste machbare Schritte</h3>
+        <p><?php echo h($normViz['summary']); ?></p>
+        <ul class="result-list">
+          <li>Beobachtbares Verhalten festhalten: Was ist konkret sichtbar (z.&nbsp;B. Startverzögerung, Unterbrechungen, Vermeidungsverhalten)?</li>
+          <li>Auslöser erfassen: In welchen Kontexten steigt die Belastung (Zeitdruck, Reizniveau, soziale Anforderungen)?</li>
+          <li>Aufrechterhaltende Bedingungen prüfen: Welche kurzfristigen Entlastungen stabilisieren langfristig ungünstige Muster?</li>
+          <li>Nächster Schritt in 7 Tagen: eine kleine Veränderung, ein klarer Kontext, ein überprüfbarer Indikator.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
