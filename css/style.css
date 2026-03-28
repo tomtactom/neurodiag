@@ -208,9 +208,10 @@ header.site-header .brand { display: flex; align-items: center; min-width: max-c
   margin: 0;
   padding: 0.26rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.46rem;
-  overflow-x: auto;
-  scrollbar-width: thin;
+  overflow-x: hidden;
+  scrollbar-width: auto;
   border-radius: 999px;
   border: 1px solid rgba(172, 221, 243, 0.28);
   background: rgba(7, 33, 55, 0.42);
@@ -2760,14 +2761,12 @@ blockquote {
 }
 
 .question-options--inline {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   align-items: stretch;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scrollbar-gutter: stable both-edges;
-  padding-bottom: 0.25rem;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  scrollbar-gutter: auto;
+  padding-bottom: 0;
 }
 
 .question-options--inline.question-options--count-5 {
@@ -2817,11 +2816,11 @@ blockquote {
 }
 
 .question-options--inline .question-option {
-  flex: 0 0 clamp(140px, 16vw, 240px);
+  min-width: 0;
 }
 
 .question-options.likert-grid .question-option {
-  flex-basis: clamp(180px, 18vw, 260px);
+  min-width: 0;
 }
 
 .question-options--inline .question-option-label {
@@ -2994,16 +2993,13 @@ blockquote {
   }
 
   .question-options--inline {
-    flex-wrap: wrap;
-    overflow-x: visible;
-    scrollbar-gutter: auto;
-    padding-bottom: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow-x: hidden;
     gap: 0.5rem;
   }
 
   .question-options--inline .question-option {
-    flex: 1 1 calc(50% - 0.25rem);
-    min-width: min(280px, 100%);
+    min-width: 0;
   }
 
   .question-options--inline.question-options--count-5 {
@@ -3026,21 +3022,17 @@ blockquote {
 
   .question-card.question-control-radio .question-options--inline,
   .question-options--inline.likert-grid {
-    flex-wrap: wrap;
-    overflow-x: visible;
-    scrollbar-gutter: auto;
-    padding-bottom: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow-x: hidden;
     gap: 0.5rem;
   }
 
   .question-card.question-control-radio .question-options--inline .question-option {
-    flex: 1 1 calc(50% - 0.25rem);
-    min-width: min(280px, 100%);
+    min-width: 0;
   }
 
   .question-options--inline.likert-grid .question-option {
-    flex: 1 1 calc(50% - 0.25rem);
-    min-width: min(280px, 100%);
+    min-width: 0;
   }
 
   .process-navigation {
@@ -3049,8 +3041,11 @@ blockquote {
 }
 
 @media (max-width: 480px) {
+  .question-options--inline {
+    grid-template-columns: 1fr;
+  }
+
   .question-options--inline .question-option {
-    flex-basis: 100%;
     min-width: 100%;
   }
 
@@ -3060,7 +3055,6 @@ blockquote {
 
   .question-card.question-control-radio .question-options--inline .question-option,
   .question-options--inline.likert-grid .question-option {
-    flex-basis: 100%;
     min-width: 100%;
   }
 }
