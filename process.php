@@ -546,6 +546,7 @@ $nextUrl = null;
 if ($activeUnitIndex < count($unitRefs) - 1) {
     $nextUrl = 'process.php?process=' . urlencode($canonicalProcessId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex + 1]['id']);
 }
+$completeUrl = 'result.php?process=' . urlencode($canonicalProcessId);
 
 $pageTitle = 'Diagnostischer Prozess';
 include 'includes/header.php';
@@ -753,7 +754,7 @@ include 'includes/header.php';
     <?php if ($nextUrl !== null): ?>
       <a href="<?php echo htmlspecialchars($nextUrl); ?>">Weiter &rarr;</a>
     <?php else: ?>
-      <a href="diagnostics.php#module-selector" data-process-complete="true">Abschließen</a>
+      <a href="<?php echo htmlspecialchars($completeUrl); ?>" data-process-complete="true">Abschließen</a>
     <?php endif; ?>
   </nav>
   </div>
