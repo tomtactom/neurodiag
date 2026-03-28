@@ -196,42 +196,42 @@ document.addEventListener('DOMContentLoaded', function() {
   if (previewButtons.length && previewModal) {
     // Vorschaufragen für einen kurzen Eindruck der jeweiligen Module
     const previewQuestions = {
-      'aq-test': [
+      'ass': [
         'Wie belastend sind soziale Situationen mit unklaren Erwartungen für dich?',
         'Wie stark beeinflussen Reize (Licht, Geräusche, Berührung) deinen Alltag?',
         'Wie hilfreich sind feste Routinen für Ruhe und Selbststeuerung?'
       ],
-      'asrs-test': [
+      'adhs': [
         'Wie oft fällt dir der Einstieg in wichtige Aufgaben schwer?',
         'Wie häufig springt deine Aufmerksamkeit trotz Motivation weg?',
         'Wie stark beeinflusst Impulsivität Entscheidungen im Alltag?'
       ],
-      'dyslexia-test': [
+      'dyslexie-lrs': [
         'Wie anstrengend sind Lesen und Rechtschreibung unter Zeitdruck?',
         'Wie oft vertauschst du Buchstaben, Silben oder Wortfolgen?',
         'Wie sehr helfen dir auditive oder visuelle Strategien beim Verstehen?'
       ],
-      'dysgraphia-test': [
+      'dysgraphie': [
         'Wie stark weicht deine schriftliche von deiner mündlichen Ausdrucksfähigkeit ab?',
         'Wie häufig bremsen Handschrift oder Schreibtempo deine Leistung?',
         'Wie hilfreich sind alternative Ausdruckswege (Tippen, Sprechen, Skizzen)?'
       ],
-      'dyskalkulie-test': [
+      'dyskalkulie': [
         'Wie sicher fühlst du dich bei Mengen, Zahlenreihen und Grundrechenarten?',
         'Wie oft brauchst du externe Hilfen für alltägliche Rechenaufgaben?',
         'Wie stark steigen Fehler bei Zeitdruck oder Stress?'
       ],
-      'dyspraxia-test': [
+      'dyspraxie-dcd': [
         'Wie häufig benötigen Bewegungsabläufe bewusste Schritt-für-Schritt-Planung?',
         'Wie oft passieren Koordinationsfehler im Alltag?',
         'Wie sehr hilft dir strukturierte Vorbereitung bei motorischen Aufgaben?'
       ],
-      'tic-test': [
+      'tic-tourette': [
         'Wie häufig treten unwillkürliche Bewegungen oder Laute auf?',
         'Wie deutlich nimmst du eine innere Anspannung vor dem Tic wahr?',
         'Wie gut helfen dir erlernte Strategien zur Spannungsregulation?'
       ],
-      'dld-test': [
+      'dld': [
         'Wie oft sind längere sprachliche Anweisungen schwer verständlich?',
         'Wie häufig treten Wortfindungsprobleme in Gesprächen auf?',
         'Wie stark hilft dir visuelle Unterstützung bei Kommunikation?'

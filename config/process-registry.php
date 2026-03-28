@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     'areas' => [
-        'aq' => [
+        'ass' => [
             'title' => 'Autismus (AQ)',
             'definitionFile' => 'data/processes/aq.json',
         ],
@@ -12,11 +12,11 @@ return [
             'title' => 'AD(H)S',
             'definitionFile' => 'data/processes/adhs.json',
         ],
-        'dyslexia' => [
+        'dyslexie-lrs' => [
             'title' => 'Dyslexie',
             'definitionFile' => 'data/processes/dyslexia.json',
         ],
-        'dysgraphia' => [
+        'dysgraphie' => [
             'title' => 'Dysgraphie',
             'definitionFile' => 'data/processes/dysgraphia.json',
         ],
@@ -24,11 +24,11 @@ return [
             'title' => 'Dyskalkulie',
             'definitionFile' => 'data/processes/dyskalkulie.json',
         ],
-        'dyspraxie' => [
+        'dyspraxie-dcd' => [
             'title' => 'Dyspraxie',
             'definitionFile' => 'data/processes/dyspraxie.json',
         ],
-        'tic' => [
+        'tic-tourette' => [
             'title' => 'Tic/Tourette',
             'definitionFile' => 'data/processes/tic.json',
         ],
@@ -38,22 +38,30 @@ return [
         ],
     ],
     'aliases' => [
-        'aq' => 'aq',
-        'aq-test' => 'aq',
+        'ass' => 'ass',
+        'aq' => 'ass',
+        'aq-test' => 'ass',
+        'autismus' => 'ass',
         'asrs' => 'adhs',
         'asrs-test' => 'adhs',
         'adhs' => 'adhs',
-        'dyslexia' => 'dyslexia',
-        'dyslexia-test' => 'dyslexia',
-        'dysgraphia' => 'dysgraphia',
-        'dysgraphia-test' => 'dysgraphia',
+        'dyslexie-lrs' => 'dyslexie-lrs',
+        'dyslexia' => 'dyslexie-lrs',
+        'dyslexia-test' => 'dyslexie-lrs',
+        'dyslexie' => 'dyslexie-lrs',
+        'dysgraphie' => 'dysgraphie',
+        'dysgraphia' => 'dysgraphie',
+        'dysgraphia-test' => 'dysgraphie',
         'dyskalkulie' => 'dyskalkulie',
         'dyskalkulie-test' => 'dyskalkulie',
-        'dyspraxie' => 'dyspraxie',
-        'dyspraxia' => 'dyspraxie',
-        'dyspraxia-test' => 'dyspraxie',
-        'tic' => 'tic',
-        'tic-test' => 'tic',
+        'dyspraxie-dcd' => 'dyspraxie-dcd',
+        'dyspraxie' => 'dyspraxie-dcd',
+        'dyspraxia' => 'dyspraxie-dcd',
+        'dyspraxia-test' => 'dyspraxie-dcd',
+        'tic-tourette' => 'tic-tourette',
+        'tic' => 'tic-tourette',
+        'tic-test' => 'tic-tourette',
+        'tourette' => 'tic-tourette',
         'dld' => 'dld',
         'dld-test' => 'dld',
     ],

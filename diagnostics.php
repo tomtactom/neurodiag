@@ -6,13 +6,13 @@ $areas = isset($processRegistry['areas']) && is_array($processRegistry['areas'])
  * Offizielle process-Parameter (kanonische IDs aus config/process-registry.php).
  */
 $processParams = [
-  'autismus' => array_key_exists('aq', $areas) ? 'aq' : 'aq-test',
+  'autismus' => array_key_exists('ass', $areas) ? 'ass' : 'aq-test',
   'adhs' => array_key_exists('adhs', $areas) ? 'adhs' : 'asrs-test',
-  'dyslexie' => array_key_exists('dyslexia', $areas) ? 'dyslexia' : 'dyslexia-test',
-  'dysgraphie' => array_key_exists('dysgraphia', $areas) ? 'dysgraphia' : 'dysgraphia-test',
+  'dyslexie' => array_key_exists('dyslexie-lrs', $areas) ? 'dyslexie-lrs' : 'dyslexia-test',
+  'dysgraphie' => array_key_exists('dysgraphie', $areas) ? 'dysgraphie' : 'dysgraphia-test',
   'dyskalkulie' => array_key_exists('dyskalkulie', $areas) ? 'dyskalkulie' : 'dyskalkulie-test',
-  'dyspraxie' => array_key_exists('dyspraxie', $areas) ? 'dyspraxie' : 'dyspraxia-test',
-  'tic' => array_key_exists('tic', $areas) ? 'tic' : 'tic-test',
+  'dyspraxie' => array_key_exists('dyspraxie-dcd', $areas) ? 'dyspraxie-dcd' : 'dyspraxia-test',
+  'tic' => array_key_exists('tic-tourette', $areas) ? 'tic-tourette' : 'tic-test',
   'dld' => array_key_exists('dld', $areas) ? 'dld' : 'dld-test',
 ];
 
