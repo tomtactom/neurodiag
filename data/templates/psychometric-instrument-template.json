@@ -1,0 +1,279 @@
+{
+  "_comment_template": "Allgemeine Vorlage für die Digitalisierung lokaler (papierbasierter oder statischer) Fragebögen in standardisierte JSON-Strukturen.",
+  "_comment_for_ai_models": [
+    "Diese Datei nutzt _comment-Felder statt echter JSON-Kommentare, damit sie maschinenlesbar bleibt.",
+    "Lokale Fragebögen: Original-Itemtexte, Antwortanker, Auswertungsregeln und Normtabellen 1:1 erfassen.",
+    "Bei der Digitalisierung keine klinischen Inhalte verändern; nur strukturieren, normalisieren und eindeutig benennen.",
+    "Normtabellen nach Population, Region, Alter und Version trennen; Quelle und Standdatum verpflichtend angeben."
+  ],
+  "templateMeta": {
+    "templateId": "psychometric_instrument_generic_template_v2",
+    "templateName": "Allgemeine Vorlage psychometrisches Instrument",
+    "language": "de-DE",
+    "version": "2.0.0",
+    "createdAt": "2026-03-28",
+    "intendedUse": "Standardisierte Erfassung von Instrument-Metadaten, Items, offenen Fragen, Skalenlogik, Normtabellen und interpretationsnahen Berichtselementen.",
+    "clinicalOrientation": [
+      "Verhaltenstherapie",
+      "Ressourcenorientierung",
+      "Psychoedukation"
+    ],
+    "disclaimer": "Die Vorlage ist ein Strukturstandard und ersetzt keine fachliche Diagnostik oder Behandlung."
+  },
+  "conversionGuideForAIModels": {
+    "_comment": "Ablauf für die Umwandlung lokaler Fragebögen in digitale Formate.",
+    "stepByStep": [
+      {
+        "step": 1,
+        "title": "Instrument identifizieren",
+        "instruction": "Titel, Version, Autorenschaft, Zielgruppe, Sprache und Copyright-Status aus der Primärquelle erfassen."
+      },
+      {
+        "step": 2,
+        "title": "Items extrahieren",
+        "instruction": "Alle Items in Originalreihenfolge übertragen; pro Item ID, Subskala, Antwortformat und ggf. Invertierung erfassen."
+      },
+      {
+        "step": 3,
+        "title": "Auswertung abbilden",
+        "instruction": "Rohwertformeln, fehlende Werte, Cut-offs, Prozentränge/T-Werte und Berichtsregeln exakt hinterlegen."
+      },
+      {
+        "step": 4,
+        "title": "Normtabellen modellieren",
+        "instruction": "Normen nach Populationstyp (z. B. Allgemein, klinisch, lokal) getrennt speichern; Quelle, Stichprobe und Datum angeben."
+      },
+      {
+        "step": 5,
+        "title": "Qualitätssicherung",
+        "instruction": "JSON validieren, Feldkonsistenz prüfen (IDs, Range-Grenzen, Item-Referenzen) und mit Originaldokument gegenchecken."
+      }
+    ],
+    "mappingHints": {
+      "paper_to_digital": [
+        "Likert-Anker in numerische Werte überführen (z. B. 0-4), Originalankertext erhalten.",
+        "Mehrfachantworten als Array-Typ definieren.",
+        "Freitextfragen mit min/max Länge und Analysehinweisen ergänzen."
+      ],
+      "norms": [
+        "Jede Normzeile mit rawScoreMin/rawScoreMax erfassen.",
+        "Falls vorhanden: percentile, zScore, tScore und klinisches Band speichern.",
+        "Normversionen nie überschreiben, sondern versionieren."
+      ]
+    }
+  },
+  "instrument": {
+    "instrumentId": "INSTRUMENT_ID",
+    "title": "Titel des Instruments",
+    "shortTitle": "Kurztitel",
+    "domain": "z. B. Aufmerksamkeit, Stimmung, exekutive Funktionen, Schlaf, Stress",
+    "constructs": [
+      {
+        "id": "C1",
+        "name": "Konstruktname",
+        "definition": "Kurzdefinition des Konstrukts"
+      }
+    ],
+    "targetPopulation": {
+      "ageRange": {
+        "min": 18,
+        "max": 99
+      },
+      "languageLevel": "B1",
+      "inclusionCriteria": [
+        "Kriterium 1"
+      ],
+      "exclusionCriteria": [
+        "Kriterium A"
+      ]
+    },
+    "administration": {
+      "mode": [
+        "Selbstbericht",
+        "Interview",
+        "Online",
+        "Papier"
+      ],
+      "estimatedDurationMinutes": 20,
+      "requiredMaterials": [
+        "Fragebogen oder digitale Eingabemaske"
+      ],
+      "instructionsForAdministrators": [
+        "Standardisierte, neutrale Durchführung sicherstellen.",
+        "Keine inhaltliche Lenkung während der Beantwortung.",
+        "Abweichungen vom Protokoll dokumentieren."
+      ]
+    }
+  },
+  "instructions": {
+    "forParticipants": {
+      "introText": "Bitte beantworten Sie die Fragen bezogen auf den angegebenen Zeitraum ehrlich und vollständig.",
+      "responseGuidance": [
+        "Es gibt keine richtigen oder falschen Antworten.",
+        "Wählen Sie die Antwort, die Ihr Erleben am besten beschreibt.",
+        "Bei Unsicherheit die am ehesten passende Option wählen."
+      ],
+      "safetyNotice": "Bei akuter Belastung bitte fachliche Unterstützung in Anspruch nehmen."
+    },
+    "forClinicians": {
+      "sessionSetup": [
+        "Ziel, Ablauf und Datenschutz transparent erläutern.",
+        "Instrument als Teil einer multimodalen Diagnostik einordnen."
+      ],
+      "behaviorTherapyCompetencies": [
+        "Validierung und therapeutische Grundhaltung",
+        "Funktionale Verhaltensanalyse (SORKC-orientiert)",
+        "Ressourcenaktivierung und Selbstwirksamkeitsförderung",
+        "Ableitung konkreter, beobachtbarer Verhaltensziele"
+      ]
+    }
+  },
+  "responseFormat": {
+    "scaleType": "Likert",
+    "scaleAnchors": [
+      { "value": 0, "label": "Nie" },
+      { "value": 1, "label": "Selten" },
+      { "value": 2, "label": "Manchmal" },
+      { "value": 3, "label": "Oft" },
+      { "value": 4, "label": "Sehr oft" }
+    ],
+    "missingValuePolicy": {
+      "allowMissing": true,
+      "maxMissingPercent": 10,
+      "imputationRule": "Mittelwert der jeweiligen Subskala bei <= 10% fehlenden Antworten"
+    }
+  },
+  "items": [
+    {
+      "id": "I1",
+      "subscaleId": "S1",
+      "text": "Beispielitem 1",
+      "reverseScored": false,
+      "scoringWeight": 1.0,
+      "tags": ["Beispieltag"]
+    },
+    {
+      "id": "I2",
+      "subscaleId": "S1",
+      "text": "Beispielitem 2",
+      "reverseScored": true,
+      "scoringWeight": 1.0,
+      "tags": ["Beispieltag"]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "OQ1",
+      "prompt": "Welche Situationen verstärken die geschilderten Schwierigkeiten?",
+      "inputType": "textarea",
+      "minLength": 20,
+      "maxLength": 1200,
+      "analysisHints": [
+        "Auslöser (S), Organismusvariablen (O), Reaktionen (R), Konsequenzen (K/C) erfassen",
+        "Kontext- und Ressourcenfaktoren herausarbeiten"
+      ]
+    }
+  ],
+  "subscales": [
+    {
+      "id": "S1",
+      "name": "Subskala Beispiel",
+      "itemIds": ["I1", "I2"],
+      "scoreRange": { "min": 0, "max": 8 }
+    }
+  ],
+  "scoring": {
+    "totalScore": {
+      "formula": "Summe aller (ggf. invertierten) Itemwerte",
+      "range": { "min": 0, "max": 80 }
+    },
+    "reverseScoringRule": "invertierterWert = maxSkalenwert - Rohwert",
+    "qualityChecks": {
+      "minCompletionRatePercent": 90,
+      "inconsistencyChecks": [
+        "Prüfung auf uniforme Antwortmuster",
+        "Prüfung auf ungültige Werte außerhalb der Anker"
+      ]
+    }
+  },
+  "normTables": [
+    {
+      "normId": "NORM_GENERAL_DE_18_65_V1",
+      "populationType": "Allgemeinbevölkerung",
+      "region": "Deutschland",
+      "ageBand": "18-65",
+      "sampleSize": 1200,
+      "source": "Quelle/Publikation eintragen",
+      "updatedAt": "YYYY-MM-DD",
+      "normType": "T-Werte",
+      "rows": [
+        { "rawScoreMin": 0, "rawScoreMax": 15, "percentile": 10, "tScore": 35, "severityBand": "niedrig" },
+        { "rawScoreMin": 16, "rawScoreMax": 35, "percentile": 50, "tScore": 50, "severityBand": "mittel" },
+        { "rawScoreMin": 36, "rawScoreMax": 80, "percentile": 90, "tScore": 65, "severityBand": "hoch" }
+      ]
+    },
+    {
+      "normId": "NORM_CLINICAL_DE_18_65_V1",
+      "populationType": "Klinische Population",
+      "region": "Deutschland",
+      "ageBand": "18-65",
+      "sampleSize": 450,
+      "source": "Quelle/Publikation eintragen",
+      "updatedAt": "YYYY-MM-DD",
+      "normType": "Prozentränge",
+      "rows": [
+        { "rawScoreMin": 0, "rawScoreMax": 20, "percentile": 15, "severityBand": "niedrig" },
+        { "rawScoreMin": 21, "rawScoreMax": 45, "percentile": 55, "severityBand": "mittel" },
+        { "rawScoreMin": 46, "rawScoreMax": 80, "percentile": 92, "severityBand": "hoch" }
+      ]
+    },
+    {
+      "normId": "NORM_LOCAL_SITE_V1",
+      "populationType": "Lokale Stichprobe",
+      "region": "Standort/Einrichtung",
+      "ageBand": "definieren",
+      "sampleSize": 0,
+      "source": "Interne Normierung",
+      "updatedAt": "YYYY-MM-DD",
+      "normType": "Prozentränge",
+      "rows": []
+    }
+  ],
+  "interpretation": {
+    "cutOffs": [
+      { "label": "Unauffällig", "min": 0, "max": 24, "clinicalMeaning": "Geringe aktuelle Belastung im erfassten Bereich." },
+      { "label": "Grenzbereich", "min": 25, "max": 44, "clinicalMeaning": "Hinweise auf relevante Schwierigkeiten; vertiefte Exploration empfohlen." },
+      { "label": "Klinisch auffällig", "min": 45, "max": 80, "clinicalMeaning": "Deutliche Belastung; diagnostische Abklärung und Intervention indiziert." }
+    ],
+    "reportTemplate": {
+      "summary": "Die Ergebnisse zeigen eine {severityBand}-Ausprägung im Bereich {subscaleName}.",
+      "behaviorTherapyRecommendations": [
+        "SMART-Ziele vereinbaren und in kleinschrittige Verhaltensziele überführen",
+        "Selbstbeobachtung mittels ABC-Protokollen und Trigger-Monitoring",
+        "Reizkontrolle, Routinen und Verstärkerpläne alltagsnah implementieren",
+        "Ressourcenbasierte Rückmeldung zur Förderung der Selbstwirksamkeit"
+      ]
+    },
+    "limits": [
+      "Keine alleinige Diagnosestellung auf Basis dieses Instruments.",
+      "Kontextfaktoren (z. B. Schlaf, Stress, Komorbiditäten) berücksichtigen."
+    ]
+  },
+  "psychometrics": {
+    "reliability": {
+      "internalConsistency": { "metric": "Cronbachs Alpha", "value": null },
+      "testRetest": { "intervalDays": 14, "value": null }
+    },
+    "validity": {
+      "constructValidity": null,
+      "criterionValidity": null,
+      "measurementInvariance": ["Geschlecht", "Alter", "Populationstyp"]
+    }
+  },
+  "dataGovernance": {
+    "consentRequired": true,
+    "anonymization": "Pseudonymisierung mit getrenntem Schlüsselspeicher",
+    "retentionPolicy": "Aufbewahrung gemäß geltenden Datenschutzvorgaben",
+    "exportFormats": ["json", "csv"]
+  }
+}
