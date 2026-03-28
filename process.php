@@ -219,7 +219,7 @@ function renderError(string $message, array $unitRefs = []): void
 
 /**
  * @param array<int, array{id: string, file: string}> $unitRefs
- * @return array{unit: string, answers: array<string, string>, updatedAt: int, completed: bool}|null
+ * @return array{unit: string, answers: array<string, string|array<int, string>>, updatedAt: int, completed: bool}|null
  */
 function readResumeStateFromCookie(string $processId, array $unitRefs): ?array
 {
@@ -247,7 +247,7 @@ function readResumeStateFromCookie(string $processId, array $unitRefs): ?array
     $answers = [];
     if (isset($decoded['answers']) && is_array($decoded['answers'])) {
         foreach ($decoded['answers'] as $questionId => $value) {
-            if (!is_string($questionId) || (!is_string($value) && !is_int($value) && !is_float($value) && !is_bool($value))) {
+            if (!is_string($questionId)) {
                 continue;
             }
 
@@ -256,7 +256,22 @@ function readResumeStateFromCookie(string $processId, array $unitRefs): ?array
                 continue;
             }
 
-            $answers[$cleanQuestionId] = (string) $value;
+            if (is_array($value)) {
+                $listValues = [];
+                foreach ($value as $entry) {
+                    if (is_string($entry) || is_int($entry) || is_float($entry) || is_bool($entry)) {
+                        $listValues[] = (string) $entry;
+                    }
+                }
+                if (!empty($listValues)) {
+                    $answers[$cleanQuestionId] = array_values(array_unique($listValues));
+                }
+                continue;
+            }
+
+            if (is_string($value) || is_int($value) || is_float($value) || is_bool($value)) {
+                $answers[$cleanQuestionId] = (string) $value;
+            }
         }
     }
 
@@ -315,6 +330,128 @@ function normalizeTextItems($value): array
     }
 
     return $items;
+}
+
+/**
+ * @param mixed $question
+ * @return array{
+ *   id: string,
+ *   text: string,
+ *   options: array<int, mixed>,
+ *   control: string,
+ *   multiple: bool,
+ *   min: int,
+ *   max: int,
+ *   step: int,
+ *   minLabel: string,
+ *   maxLabel: string,
+ *   hint: string,
+ *   placeholder: string
+ * }
+ */
+function buildQuestionViewModel($question, int $index, array $globalOptions): array
+{
+    $questionText = '';
+    $questionId = 'q' . ($index + 1);
+    $questionOptions = $globalOptions;
+    $control = 'radio';
+    $multiple = false;
+    $min = 1;
+    $max = 5;
+    $step = 1;
+    $minLabel = 'niedrig';
+    $maxLabel = 'hoch';
+    $hint = '';
+    $placeholder = '';
+
+    if (is_array($question)) {
+        if (isset($question['id']) && is_string($question['id']) && trim($question['id']) !== '') {
+            $questionId = preg_replace('/[^a-zA-Z0-9_-]/', '-', $question['id']) ?: $questionId;
+        }
+
+        if (isset($question['text']) && is_string($question['text'])) {
+            $questionText = $question['text'];
+        } elseif (isset($question['title']) && is_string($question['title'])) {
+            $questionText = $question['title'];
+        }
+
+        if (isset($question['options']) && is_array($question['options'])) {
+            $questionOptions = $question['options'];
+        }
+
+        if (isset($question['control']) && is_string($question['control'])) {
+            $control = strtolower(trim($question['control']));
+        } elseif (isset($question['answerType']) && is_string($question['answerType'])) {
+            $control = strtolower(trim($question['answerType']));
+        } elseif (isset($question['type']) && is_string($question['type'])) {
+            $control = strtolower(trim($question['type']));
+        }
+
+        $multiple = !empty($question['multiple']);
+        if ($multiple && ($control === 'radio' || $control === 'likert')) {
+            $control = 'checkbox';
+        }
+
+        if (isset($question['min']) && (is_int($question['min']) || is_float($question['min']))) {
+            $min = (int) $question['min'];
+        }
+        if (isset($question['max']) && (is_int($question['max']) || is_float($question['max']))) {
+            $max = (int) $question['max'];
+        }
+        if (isset($question['step']) && (is_int($question['step']) || is_float($question['step'])) && (int) $question['step'] > 0) {
+            $step = (int) $question['step'];
+        }
+
+        if (isset($question['minLabel']) && is_string($question['minLabel'])) {
+            $minLabel = trim($question['minLabel']);
+        }
+        if (isset($question['maxLabel']) && is_string($question['maxLabel'])) {
+            $maxLabel = trim($question['maxLabel']);
+        }
+        if (isset($question['hint']) && is_string($question['hint'])) {
+            $hint = trim($question['hint']);
+        }
+        if (isset($question['placeholder']) && is_string($question['placeholder'])) {
+            $placeholder = trim($question['placeholder']);
+        }
+    } elseif (is_string($question)) {
+        $questionText = $question;
+    }
+
+    if ($questionText === '') {
+        $questionText = 'Frage ' . ($index + 1);
+    }
+
+    if ($control === 'scale' || $control === 'slider') {
+        $control = 'range';
+    } elseif ($control === 'open' || $control === 'free_text' || $control === 'memo') {
+        $control = 'textarea';
+    } elseif ($control === 'multi_select') {
+        $control = 'checkbox';
+        $multiple = true;
+    } elseif (!in_array($control, ['radio', 'likert', 'checkbox', 'select', 'text', 'textarea', 'range'], true)) {
+        $control = !empty($questionOptions) ? 'radio' : 'textarea';
+    }
+
+    if ($min >= $max) {
+        $min = 1;
+        $max = 5;
+    }
+
+    return [
+        'id' => $questionId,
+        'text' => $questionText,
+        'options' => is_array($questionOptions) ? $questionOptions : [],
+        'control' => $control,
+        'multiple' => $multiple,
+        'min' => $min,
+        'max' => $max,
+        'step' => $step,
+        'minLabel' => $minLabel !== '' ? $minLabel : 'niedrig',
+        'maxLabel' => $maxLabel !== '' ? $maxLabel : 'hoch',
+        'hint' => $hint,
+        'placeholder' => $placeholder,
+    ];
 }
 
 if ($canonicalProcessId === '' || !isset($areas[$canonicalProcessId]) || !is_array($areas[$canonicalProcessId])) {
@@ -420,6 +557,11 @@ include 'includes/header.php';
     <h1 id="process-title"><?php echo htmlspecialchars($processTitle); ?></h1>
     <p><?php echo htmlspecialchars($processDescription); ?></p>
     <p><strong>Einheit:</strong> <?php echo ($activeUnitIndex + 1); ?> / <?php echo count($unitRefs); ?></p>
+    <div class="process-progress" role="progressbar" aria-label="Fortschritt im Prozess" aria-valuemin="1" aria-valuemax="<?php echo count($unitRefs); ?>" aria-valuenow="<?php echo ($activeUnitIndex + 1); ?>">
+      <div class="process-progress-track">
+        <span class="process-progress-fill" style="width: <?php echo (int) round((($activeUnitIndex + 1) / max(count($unitRefs), 1)) * 100); ?>%;"></span>
+      </div>
+    </div>
   </header>
 
   <section class="process-unit" aria-labelledby="unit-title">
@@ -465,36 +607,21 @@ include 'includes/header.php';
       <?php else: ?>
         <?php foreach ($questions as $index => $question): ?>
           <?php
-          $questionText = '';
-          $questionId = 'q' . ($index + 1);
-          $questionOptions = $globalOptions;
-
-          if (is_array($question)) {
-              if (isset($question['id']) && is_string($question['id']) && trim($question['id']) !== '') {
-                  $questionId = preg_replace('/[^a-zA-Z0-9_-]/', '-', $question['id']) ?: $questionId;
-              }
-
-              if (isset($question['text']) && is_string($question['text'])) {
-                  $questionText = $question['text'];
-              } elseif (isset($question['title']) && is_string($question['title'])) {
-                  $questionText = $question['title'];
-              }
-
-              if (isset($question['options']) && is_array($question['options'])) {
-                  $questionOptions = $question['options'];
-              }
-          } elseif (is_string($question)) {
-              $questionText = $question;
-          }
-
-          if ($questionText === '') {
-              $questionText = 'Frage ' . ($index + 1);
-          }
+          $vm = buildQuestionViewModel($question, $index, $globalOptions);
+          $questionText = $vm['text'];
+          $questionId = $vm['id'];
+          $questionOptions = $vm['options'];
+          $controlType = $vm['control'];
+          $questionName = $vm['multiple'] ? 'answers[' . $questionId . '][]' : 'answers[' . $questionId . ']';
           ?>
-          <fieldset>
+          <fieldset class="question-card question-control-<?php echo htmlspecialchars($controlType); ?>">
             <legend><?php echo htmlspecialchars(($index + 1) . '. ' . $questionText); ?></legend>
+            <?php if ($vm['hint'] !== ''): ?>
+              <p class="question-hint"><?php echo htmlspecialchars($vm['hint']); ?></p>
+            <?php endif; ?>
 
-            <?php if (is_array($questionOptions) && !empty($questionOptions)): ?>
+            <?php if (in_array($controlType, ['radio', 'checkbox', 'likert'], true) && is_array($questionOptions) && !empty($questionOptions)): ?>
+              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?>">
               <?php foreach ($questionOptions as $optionIndex => $option): ?>
                 <?php
                 $optionLabel = '';
@@ -521,11 +648,79 @@ include 'includes/header.php';
 
                 $inputId = $questionId . '-opt-' . ($optionIndex + 1);
                 ?>
-                <div>
-                  <input type="radio" id="<?php echo htmlspecialchars($inputId); ?>" name="answers[<?php echo htmlspecialchars($questionId); ?>]" value="<?php echo htmlspecialchars($optionValue); ?>">
+                <div class="question-option">
+                  <input
+                    type="<?php echo $controlType === 'checkbox' ? 'checkbox' : 'radio'; ?>"
+                    id="<?php echo htmlspecialchars($inputId); ?>"
+                    name="<?php echo htmlspecialchars($questionName); ?>"
+                    value="<?php echo htmlspecialchars($optionValue); ?>"
+                  >
                   <label for="<?php echo htmlspecialchars($inputId); ?>"><?php echo htmlspecialchars($optionLabel); ?></label>
                 </div>
               <?php endforeach; ?>
+              </div>
+            <?php elseif ($controlType === 'select' && is_array($questionOptions) && !empty($questionOptions)): ?>
+              <label class="sr-only" for="<?php echo htmlspecialchars($questionId); ?>-select">Antwort auswählen</label>
+              <select id="<?php echo htmlspecialchars($questionId); ?>-select" name="<?php echo htmlspecialchars($questionName); ?>">
+                <option value="">Bitte auswählen</option>
+                <?php foreach ($questionOptions as $optionIndex => $option): ?>
+                  <?php
+                  $optionLabel = '';
+                  $optionValue = (string) $optionIndex;
+
+                  if (is_array($option)) {
+                      if (isset($option['label']) && is_string($option['label'])) {
+                          $optionLabel = $option['label'];
+                      } elseif (isset($option['text']) && is_string($option['text'])) {
+                          $optionLabel = $option['text'];
+                      }
+                      if (isset($option['value']) && (is_string($option['value']) || is_int($option['value']) || is_float($option['value']))) {
+                          $optionValue = (string) $option['value'];
+                      }
+                  } elseif (is_string($option)) {
+                      $optionLabel = $option;
+                      $optionValue = $option;
+                  }
+
+                  if ($optionLabel === '') {
+                      $optionLabel = 'Option ' . ($optionIndex + 1);
+                  }
+                  ?>
+                  <option value="<?php echo htmlspecialchars($optionValue); ?>"><?php echo htmlspecialchars($optionLabel); ?></option>
+                <?php endforeach; ?>
+              </select>
+            <?php elseif ($controlType === 'range'): ?>
+              <div class="range-control">
+                <div class="range-labels">
+                  <span><?php echo htmlspecialchars($vm['minLabel']); ?></span>
+                  <span><?php echo htmlspecialchars($vm['maxLabel']); ?></span>
+                </div>
+                <input
+                  type="range"
+                  id="<?php echo htmlspecialchars($questionId); ?>-range"
+                  name="<?php echo htmlspecialchars($questionName); ?>"
+                  min="<?php echo htmlspecialchars((string) $vm['min']); ?>"
+                  max="<?php echo htmlspecialchars((string) $vm['max']); ?>"
+                  step="<?php echo htmlspecialchars((string) $vm['step']); ?>"
+                  value="<?php echo htmlspecialchars((string) $vm['min']); ?>"
+                >
+              </div>
+            <?php elseif ($controlType === 'text'): ?>
+              <label class="sr-only" for="<?php echo htmlspecialchars($questionId); ?>-text">Freitextantwort</label>
+              <input
+                type="text"
+                id="<?php echo htmlspecialchars($questionId); ?>-text"
+                name="<?php echo htmlspecialchars($questionName); ?>"
+                placeholder="<?php echo htmlspecialchars($vm['placeholder'] !== '' ? $vm['placeholder'] : 'Kurze Antwort eingeben'); ?>"
+              >
+            <?php elseif ($controlType === 'textarea' || empty($questionOptions)): ?>
+              <label class="sr-only" for="<?php echo htmlspecialchars($questionId); ?>-textarea">Freitextantwort</label>
+              <textarea
+                id="<?php echo htmlspecialchars($questionId); ?>-textarea"
+                name="<?php echo htmlspecialchars($questionName); ?>"
+                rows="4"
+                placeholder="<?php echo htmlspecialchars($vm['placeholder'] !== '' ? $vm['placeholder'] : 'Beschreibe kurz Situation, Gedanken, Gefühl und nächsten machbaren Schritt.'); ?>"
+              ></textarea>
             <?php else: ?>
               <p>Für diese Frage sind noch keine Antwortoptionen hinterlegt. Formuliere eine kurze eigene Beobachtung mit Situation, Verhalten und direkt sichtbarem Ergebnis.</p>
             <?php endif; ?>
