@@ -205,7 +205,7 @@ function renderError(string $message, array $unitRefs = []): void
     $pageTitle = 'Diagnostischer Prozess';
     include 'includes/header.php';
     ?>
-    <main class="process-page" aria-labelledby="process-error-title">
+    <section class="process-page" aria-labelledby="process-error-title">
       <section class="process-error" role="alert">
         <h1 id="process-error-title">Prozess konnte nicht geladen werden</h1>
         <p><?php echo htmlspecialchars($message); ?></p>
@@ -216,7 +216,7 @@ function renderError(string $message, array $unitRefs = []): void
           <a href="diagnostics.php">Zurück zur Modulübersicht</a>
         </p>
       </section>
-    </main>
+    </section>
     <?php
     include 'includes/footer.php';
     exit;
@@ -590,7 +590,7 @@ $pageTitle = 'Diagnostischer Prozess';
 include 'includes/header.php';
 ?>
 
-<main class="process-page" aria-labelledby="process-title" data-process-id="<?php echo htmlspecialchars($canonicalProcessId); ?>" data-unit-id="<?php echo htmlspecialchars($activeUnitId); ?>">
+<section class="process-page" aria-labelledby="process-title" data-process-id="<?php echo htmlspecialchars($canonicalProcessId); ?>" data-unit-id="<?php echo htmlspecialchars($activeUnitId); ?>">
   <div class="process-shell">
   <header class="process-header">
     <p class="process-overline">Diagnostischer Prozess: <?php echo htmlspecialchars(strtoupper($canonicalProcessId)); ?></p>
@@ -802,6 +802,6 @@ include 'includes/header.php';
     <?php endif; ?>
   </nav>
   </div>
-</main>
+</section>
 
 <?php include 'includes/footer.php'; ?>
