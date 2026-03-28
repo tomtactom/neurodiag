@@ -1,0 +1,2 @@
+# Direkten HTTP-Zugriff auf Datenartefakte unterbinden (Apache 2.4+)
+Require all denied

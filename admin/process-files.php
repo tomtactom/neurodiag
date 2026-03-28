@@ -310,9 +310,31 @@ if ($action === 'upload') {
         adminProcessJsonResponse(400, ['ok' => false, 'error' => 'Datei ist leer oder nicht lesbar.']);
     }
 
+    $detectedMime = '';
+    if (class_exists('finfo')) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        if ($finfo !== false) {
+            $mime = finfo_file($finfo, $tmpName);
+            if (is_string($mime)) {
+                $detectedMime = strtolower(trim($mime));
+            }
+            finfo_close($finfo);
+        }
+    }
+
+    $allowedMimeTypes = ['application/json', 'text/json', 'text/plain'];
+    if ($detectedMime !== '' && !in_array($detectedMime, $allowedMimeTypes, true)) {
+        adminProcessJsonResponse(400, ['ok' => false, 'error' => 'Ungültiger Dateityp. Erwartet wird JSON.']);
+    }
+
     $unitDefinition = json_decode($raw, true);
     if (!is_array($unitDefinition)) {
         adminProcessJsonResponse(400, ['ok' => false, 'error' => 'Datei enthält kein gültiges JSON-Objekt.']);
+    }
+
+    $schemaError = ndRepoValidateInstrumentSchema($unitDefinition);
+    if ($schemaError !== null) {
+        adminProcessJsonResponse(400, ['ok' => false, 'error' => 'Ungültiges Inhaltsschema: ' . $schemaError]);
     }
 
     $questionError = ndRepoValidateQuestionStructure($unitDefinition);

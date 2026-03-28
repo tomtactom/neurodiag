@@ -47,6 +47,21 @@ NeuroDiag ermöglicht Nutzenden eigenverantwortliche Selbstentdeckung mit Fokus 
 ### Für Entwickler & Deployment
 - [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) – Schritt-für-Schritt Deployment-Anleitung für tomaschmann.de
 
+## Sicherheits-Setup für Prozess-/Unit-Dateien
+
+- Der Speicherpfad für Prozess- und Unit-Dateien wird über `PROCESS_STORAGE_DIR` in `config.inc.php` gesetzt und muss als **absoluter Pfad außerhalb des Webroots** konfiguriert werden.
+- Für Apache liegt zusätzlich unter `data/.htaccess` eine harte Zugriffssperre (`Require all denied`), falls Deployments ausnahmsweise datennahe Verzeichnisse im Webroot führen.
+- Für Nginx wirkt `.htaccess` nicht. Verwende stattdessen z. B.:
+
+```nginx
+location ^~ /data/ {
+    deny all;
+    return 403;
+}
+```
+
+Wenn ein dedizierter Storage-Unterordner im Webroot unvermeidbar ist, sperre diesen analog per `location`-Block.
+
 ## Schnellstart
 
 ### Lokal testen
