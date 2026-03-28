@@ -26,7 +26,7 @@ NeuroDiag ermöglicht Nutzenden eigenverantwortliche Selbstentdeckung mit Fokus 
 
 ## Technologie
 
-- **Backend**: PHP 8.5 (vanilla, no frameworks)
+- **Backend**: PHP 8.x (vanilla, no frameworks)
 - **Frontend**: HTML5, CSS3 (variables-based), Vanilla JavaScript
 - **Architecture**: JSON-driven modular system
 - **Design System**: CSS custom properties with universal element styling
@@ -40,19 +40,14 @@ NeuroDiag ermöglicht Nutzenden eigenverantwortliche Selbstentdeckung mit Fokus 
 - Homepage komplett neu gestaltet mit Selbstwirksamkeits-Messaging
 - Interaktives Selbstcheck-Widget hinzugefügt
 - Empowerment-fokussierte CSS-Styles implementiert
-- Dokumentation: 4 neue Leitfäden (siehe unten)
+- Dokumentation aktualisiert (siehe unten)
 
 ## Dokumentation
 
-### Für Nutzer
-- [EMPOWERMENT_PHILOSOPHY.md](EMPOWERMENT_PHILOSOPHY.md) – Psychologische Grundlagen der Selbstwirksamkeit
-- [HOMEPAGE_VISUAL_SUMMARY.md](HOMEPAGE_VISUAL_SUMMARY.md) – Visuelle Vorher/Nachher der Homepage
-
 ### Für Entwickler & Deployment
-- [EMPOWERMENT_UPDATE.md](EMPOWERMENT_UPDATE.md) – Detaillierte Änderungen in Code & Design
 - [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) – Schritt-für-Schritt Deployment-Anleitung für tomaschmann.de
 
-## Schnelstart
+## Schnellstart
 
 ### Lokal testen
 ```bash
@@ -69,9 +64,13 @@ neurodiag/
 ├── about.php                    # Über uns / Mission
 ├── resources.php                # Ressourcen
 ├── contact.php                  # Kontaktformular
+├── process.php                  # JSON-gesteuerter Prozess-Renderer
+├── result.php                   # Ergebnisdarstellung
 ├── tests/
-│   ├── test.php                 # Test-Formular-Engine
-│   └── results.php              # Ergebnisvisualisierung
+│   ├── aq-test.php              # Legacy-Testseite AQ
+│   ├── asrs-test.php            # Legacy-Testseite ASRS
+│   ├── dyslexia-test.php        # Legacy-Testseite Dyslexie
+│   └── dyspraxia-test.php       # Legacy-Testseite Dyspraxie
 ├── includes/
 │   ├── header.php               # SVG-Logo, Navigation
 │   ├── footer.php               # Footer
@@ -79,7 +78,6 @@ neurodiag/
 ├── data/
 │   ├── aq-test.json             # Autismus
 │   ├── asrs-test.json           # ADHS
-│   ├── dyslexia-test.json       # Dyslexie
 │   ├── dysgraphia-test.json     # Dysgraphie
 │   ├── dyskalkulie-test.json    # Dyskalkulie
 │   ├── dyspraxie-test.json      # Dyspraxie
@@ -108,7 +106,7 @@ neurodiag/
 - **Interactive Elements**: Smooth animations, accessibility-first
 - **Responsive**: Mobile-first, breakpoint 560px
 
-## Humanismusrerprinzipien
+## Humanismusprinzipien
 
 1. **Neurodiversität nicht Pathologie**: Wort- und Framewahl reflektiert Variation
 2. **Nutzer als Experten**: "Du kennst dich selbst am besten"
@@ -118,7 +116,7 @@ neurodiag/
 
 ## Philosophie: Selbstdiagnose
 
-**These**: Selbstdiagnose ist legitimate und oft der erste Schritt zu Selbstverständnis.
+**These**: Selbstdiagnose ist legitim und oft der erste Schritt zu Selbstverständnis.
 
 - Viele Menschen erkennen sich selbst, *bevor* ein Fachmann sie diagnostiziert
 - Professionelle Diagnose kann später folgen (optional)
@@ -136,13 +134,13 @@ neurodiag/
 
 ### Deployment zu tomaschmann.de
 1. Siehe [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)
-2. Dateien hochladen: `index.php`, `css/style.css`
-3. QA: Homepage-Tests durchführen
+2. Relevante Projektdateien hochladen (mind. PHP-, CSS-, JS- und `data/`-Dateien gemäß Checkliste)
+3. QA: Funktions- und Darstellungs-Checks durchführen
 4. Go-Live: Monitoring starten
 
 ## Installation und Ausführung
 
-1. PHP 8.5 installieren
+1. PHP 8.x installieren
 2. Repository klonen
 3. Server starten: `php -S localhost:8000`
 4. Im Browser öffnen: http://localhost:8000

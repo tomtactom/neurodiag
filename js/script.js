@@ -307,13 +307,17 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    previewClose.addEventListener('click', () => {
-      previewModal.style.display = 'none';
-    });
+    if (previewClose) {
+      previewClose.addEventListener('click', () => {
+        previewModal.style.display = 'none';
+      });
+    }
 
-    previewCancelBtn.addEventListener('click', () => {
-      previewModal.style.display = 'none';
-    });
+    if (previewCancelBtn) {
+      previewCancelBtn.addEventListener('click', () => {
+        previewModal.style.display = 'none';
+      });
+    }
 
     previewModal.addEventListener('click', (e) => {
       if (e.target === previewModal) {
