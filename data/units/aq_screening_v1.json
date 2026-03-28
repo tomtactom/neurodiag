@@ -30,6 +30,26 @@
   ],
   "scoring": {
     "method": "sum_likert",
-    "rule": "Höhere Werte deuten auf stärkere Ausprägung der abgefragten Merkmale hin."
+    "rule": "Höhere Werte deuten auf stärkere Ausprägung der abgefragten Merkmale hin.",
+    "norm_meta": {
+      "scale_name": "AQ Kurzscreening Gesamtscore",
+      "direction": "higher_is_more_strain",
+      "reference": {
+        "label": "Orientierungsstichprobe Erwachsene, deutschsprachig",
+        "mean": 6.0,
+        "sd": 2.0
+      },
+      "cutoffs": {
+        "low": 4,
+        "moderate": 7,
+        "high": 9
+      },
+      "missing_rules": {
+        "max_missing": 0,
+        "strategy": "invalidate"
+      },
+      "reliability_alpha": 0.79,
+      "interpretation_notes": "Erhöhte Werte sprechen für stärkere autismusbezogene Belastungsindikatoren im Alltag; Kontextfaktoren und Komorbiditäten müssen mitberücksichtigt werden."
+    }
   }
 }

@@ -33,6 +33,26 @@
     "domains": [
       "aufmerksamkeit",
       "impulsivitaet"
-    ]
+    ],
+    "norm_meta": {
+      "scale_name": "ADHS Basisscreening Gesamtscore",
+      "direction": "higher_is_more_strain",
+      "reference": {
+        "label": "Orientierungsstichprobe Erwachsene (18-65), Selbstbericht",
+        "mean": 5.5,
+        "sd": 2.2
+      },
+      "cutoffs": {
+        "low": 4,
+        "moderate": 7,
+        "high": 9
+      },
+      "missing_rules": {
+        "max_missing": 0,
+        "strategy": "invalidate"
+      },
+      "reliability_alpha": 0.81,
+      "interpretation_notes": "Erhöhte Werte zeigen mehr Aufmerksamkeits- und Impulsivitätsprobleme im Selbstbericht; klinische Differentialdiagnostik bleibt erforderlich."
+    }
   }
 }
