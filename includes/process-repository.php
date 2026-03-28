@@ -53,6 +53,71 @@ function ndRepoBuildPath(string $collection, string $handle): string
     return ndRepoBaseDir() . '/' . $cleanCollection . '/' . $cleanHandle . '.json';
 }
 
+function ndRepoEnsureCollectionDir(string $collection): string
+{
+    $cleanCollection = trim($collection);
+    if (!preg_match('/^[a-z0-9_-]+$/', $cleanCollection)) {
+        return '';
+    }
+
+    $dir = ndRepoBaseDir() . '/' . $cleanCollection;
+    if (!is_dir($dir) && !mkdir($dir, 0775, true) && !is_dir($dir)) {
+        return '';
+    }
+
+    return $dir;
+}
+
+/**
+ * @return array{0: bool, 1: ?string}
+ */
+function ndRepoWriteJsonAtomically(string $targetPath, array $payload): array
+{
+    $targetDir = dirname($targetPath);
+    if (!is_dir($targetDir) && !mkdir($targetDir, 0775, true) && !is_dir($targetDir)) {
+        return [false, 'Zielverzeichnis konnte nicht erstellt werden.'];
+    }
+
+    $json = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if (!is_string($json)) {
+        return [false, 'JSON-Kodierung fehlgeschlagen.'];
+    }
+    $json .= PHP_EOL;
+
+    $lockHandle = fopen($targetPath . '.lock', 'c');
+    if ($lockHandle === false) {
+        return [false, 'Lock-Datei konnte nicht geöffnet werden.'];
+    }
+
+    $tempFile = '';
+    try {
+        if (!flock($lockHandle, LOCK_EX)) {
+            return [false, 'Dateisperre konnte nicht gesetzt werden.'];
+        }
+
+        $tempFile = tempnam($targetDir, 'ndtmp_');
+        if ($tempFile === false) {
+            return [false, 'Temporäre Datei konnte nicht erstellt werden.'];
+        }
+
+        if (file_put_contents($tempFile, $json, LOCK_EX) === false) {
+            return [false, 'Temporäre Datei konnte nicht geschrieben werden.'];
+        }
+
+        if (!rename($tempFile, $targetPath)) {
+            return [false, 'Datei konnte nicht atomar ersetzt werden.'];
+        }
+    } finally {
+        if ($tempFile !== '' && is_file($tempFile)) {
+            @unlink($tempFile);
+        }
+        flock($lockHandle, LOCK_UN);
+        fclose($lockHandle);
+    }
+
+    return [true, null];
+}
+
 /**
  * @return array{0: ?array<string, mixed>, 1: ?string}
  */
@@ -64,6 +129,67 @@ function ndRepoLoadProcessDefinition(string $handle): array
     }
 
     return ndRepoLoadJsonFile($path);
+}
+
+/**
+ * @return array{0: bool, 1: ?string}
+ */
+function ndRepoSaveProcessDefinition(string $handle, array $processDefinition): array
+{
+    $path = ndRepoBuildPath('processes', $handle);
+    if ($path === '') {
+        return [false, 'Ungültiger Prozess-Handle.'];
+    }
+
+    return ndRepoWriteJsonAtomically($path, $processDefinition);
+}
+
+/**
+ * @return array<int, string>
+ */
+function ndRepoListCollectionHandles(string $collection): array
+{
+    $dir = ndRepoEnsureCollectionDir($collection);
+    if ($dir === '') {
+        return [];
+    }
+
+    $files = glob($dir . '/*.json');
+    if (!is_array($files)) {
+        return [];
+    }
+
+    $handles = [];
+    foreach ($files as $filePath) {
+        $name = pathinfo($filePath, PATHINFO_FILENAME);
+        if (is_string($name) && preg_match('/^[a-z0-9_-]+$/', $name)) {
+            $handles[] = strtolower($name);
+        }
+    }
+
+    sort($handles);
+    return array_values(array_unique($handles));
+}
+
+/**
+ * @return array{0: bool, 1: ?string}
+ */
+function ndRepoDeleteCollectionHandle(string $collection, string $handle): array
+{
+    $path = ndRepoBuildPath($collection, $handle);
+    if ($path === '') {
+        return [false, 'Ungültiger Handle.'];
+    }
+
+    if (!is_file($path)) {
+        return [false, 'Datei wurde nicht gefunden.'];
+    }
+
+    if (!unlink($path)) {
+        return [false, 'Datei konnte nicht gelöscht werden.'];
+    }
+
+    return [true, null];
 }
 
 /**

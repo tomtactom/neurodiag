@@ -114,6 +114,7 @@ $adminCsrfToken = adminGetCsrfToken();
     <script src="js/script.js"></script>
     <script src="js/diagnostics-process.js"></script>
     <script src="js/process.js"></script>
+    <script src="js/process-admin.js"></script>
     <script src="js/result.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/includes/process-repository.php';
+require_once __DIR__ . '/includes/admin-auth.php';
 
 $processRegistry = require __DIR__ . '/config/process-registry.php';
 $areas = isset($processRegistry['areas']) && is_array($processRegistry['areas']) ? $processRegistry['areas'] : [];
@@ -427,6 +428,8 @@ if ($activeUnitIndex < count($unitRefs) - 1) {
     $nextUrl = 'process.php?process=' . urlencode($canonicalProcessId) . '&unit=' . urlencode($unitRefs[$activeUnitIndex + 1]['id']);
 }
 $completeUrl = 'result.php?process=' . urlencode($canonicalProcessId);
+$adminAuthenticated = isAdminAuthenticated();
+$adminCsrfToken = $adminAuthenticated ? adminGetCsrfToken() : '';
 
 $pageTitle = 'Diagnostischer Prozess';
 include 'includes/header.php';
@@ -644,6 +647,54 @@ include 'includes/header.php';
       <a href="<?php echo htmlspecialchars($completeUrl); ?>" data-process-complete="true">Abschließen</a>
     <?php endif; ?>
   </nav>
+
+  <?php if ($adminAuthenticated): ?>
+    <section
+      class="process-admin"
+      aria-labelledby="process-admin-title"
+      data-process-admin="true"
+      data-process-id="<?php echo htmlspecialchars($canonicalProcessId); ?>"
+      data-csrf-token="<?php echo htmlspecialchars($adminCsrfToken); ?>"
+      data-endpoint="admin/process-files.php"
+    >
+      <header>
+        <h2 id="process-admin-title">Admin: Prozess-Dateien verwalten</h2>
+        <p>Hier kannst du Units als JSON hochladen, per Drag-and-drop neu sortieren oder entfernen. Änderungen werden sofort in der genutzten Prozessdefinition gespeichert.</p>
+      </header>
+
+      <form class="process-admin-upload" data-admin-upload-form="true" enctype="multipart/form-data">
+        <div>
+          <label for="processAdminUnitId">Unit-ID</label>
+          <input id="processAdminUnitId" name="unit_id" type="text" pattern="[a-z0-9_-]+" required placeholder="z. B. unit-5">
+        </div>
+        <div>
+          <label for="processAdminFile">JSON-Datei</label>
+          <input id="processAdminFile" name="file" type="file" accept="application/json,.json" required>
+        </div>
+        <button type="submit">Unit hochladen</button>
+      </form>
+
+      <div class="process-admin-dropzone" data-admin-dropzone="true" tabindex="0" role="button" aria-label="JSON-Datei hier ablegen">
+        JSON-Datei hierher ziehen oder oben auswählen.
+      </div>
+
+      <div class="process-admin-order">
+        <h3>Reihenfolge (Drag-and-drop)</h3>
+        <ul class="process-admin-list" data-admin-sortable="true">
+          <?php foreach ($unitRefs as $unitRef): ?>
+            <li draggable="true" data-unit-id="<?php echo htmlspecialchars($unitRef['id']); ?>">
+              <span class="process-admin-drag-handle" aria-hidden="true">↕</span>
+              <span><strong><?php echo htmlspecialchars($unitRef['id']); ?></strong> · <?php echo htmlspecialchars($unitRef['handle']); ?></span>
+              <button type="button" data-admin-delete="<?php echo htmlspecialchars($unitRef['id']); ?>">Löschen</button>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+        <button type="button" data-admin-save-order="true">Reihenfolge speichern</button>
+      </div>
+
+      <p class="process-admin-status" data-admin-status="true" aria-live="polite"></p>
+    </section>
+  <?php endif; ?>
   </div>
 </section>
 
