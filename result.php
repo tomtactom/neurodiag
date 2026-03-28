@@ -5,6 +5,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/includes/result-functions.php';
+
 $processRegistry = require __DIR__ . '/config/process-registry.php';
 $areas = isset($processRegistry['areas']) && is_array($processRegistry['areas']) ? $processRegistry['areas'] : [];
 $aliases = isset($processRegistry['aliases']) && is_array($processRegistry['aliases']) ? $processRegistry['aliases'] : [];
@@ -28,11 +30,12 @@ if ($processInput !== '' && isset($aliases[$processInput]) && is_string($aliases
 }
 
 $mode = $processId === null ? 'global' : 'process';
+$evaluation = ndBuildEvaluationViewModel($processId, $processTitle, $areas);
 
 /**
  * @return array<string, mixed>
  */
-function buildViewModel(string $mode, ?string $processId, ?string $processTitle, array $areas): array
+function buildViewModel(string $mode, ?string $processId, ?string $processTitle, array $areas, array $evaluation): array
 {
     $isProcessMode = $mode === 'process' && $processId !== null;
 
@@ -56,33 +59,36 @@ function buildViewModel(string $mode, ?string $processId, ?string $processTitle,
 
     $apaBlocks = [
         [
-            'headline' => 'Berichtsstruktur (APA-7 orientiert)',
-            'content' => 'M = 58.4, SD = 9.1, 95%-KI [54.8, 62.0], z = 0.93. Die Kennwerte sind als orientierende Selbstbeobachtung zu interpretieren.',
+            'headline' => 'APA-7 Ergebnisstring',
+            'content' => (string) $evaluation['text']['apa'],
         ],
         [
-            'headline' => 'Interpretationsrahmen',
-            'content' => 'Effektstärken und Normpositionen werden immer gemeinsam mit Funktionsniveau, Belastung und Alltagszielen eingeordnet.',
+            'headline' => 'Trennung von Beschreibung und Interpretation',
+            'content' => (string) $evaluation['text']['description'] . ' ' . (string) $evaluation['text']['interpretation'],
         ],
     ];
 
     $normSections = [
         [
-            'title' => 'Normbezug',
+            'title' => 'Normbezug und Kennwerte',
             'points' => [
-                'Vergleich mit Referenzstichprobe (alters- und sprachsensibel, sofern verfügbar).',
-                'Einordnung über Perzentil, z-Wert und qualitatives Funktionsniveau.',
+                'Antwortquelle: ' . (string) $evaluation['source'] . '.',
+                isset($evaluation['norm']['reference']) ? 'Referenzbereich: ' . (string) $evaluation['norm']['reference'] . '.' : 'Referenzbereich: nicht verfügbar.',
+                isset($evaluation['norm']['z']) && $evaluation['norm']['z'] !== null ? 'Normwerte: z=' . ndFmt((float) $evaluation['norm']['z'], 2) . ', T=' . ndFmt((float) $evaluation['norm']['t'], 1) . ', PR=' . ndFmt((float) $evaluation['norm']['pr'], 1) . '.' : 'Normwerte: aufgrund fehlender Daten nicht berechenbar.',
             ],
         ],
         [
-            'title' => 'Unsicherheit transparent',
+            'title' => 'Transparenz bei fehlenden Werten',
             'points' => [
+                isset($evaluation['raw']['missing']) ? 'Fehlende Antworten: ' . (string) $evaluation['raw']['missing'] . ' von ' . (string) $evaluation['raw']['expected'] . '.' : 'Keine Antwortdaten verfügbar.',
                 'Messfehler, Tagesform und Antwortstil können Werte beeinflussen.',
-                'Konfidenzintervalle und Wiederholungsmessung werden empfohlen.',
             ],
         ],
     ];
 
     $recommendations = [
+        ($evaluation['text']['safety'][0] ?? ''),
+        ($evaluation['text']['safety'][1] ?? ''),
         'Formuliere ein Zielverhalten konkret: Was genau soll in welcher Situation häufiger gelingen?',
         'Plane Mikro-Schritte (z. B. 10 Minuten, 1 Kontext, 1 Hilfsmittel) und führe ein kurzes Wochenprotokoll.',
         'Nutze Wenn-Dann-Pläne: "Wenn Überlastung > 7/10, dann 3-Minuten-Reizreduktion + Prioritätencheck".',
@@ -223,7 +229,7 @@ function renderProcessPicker(array $processes): void
     echo '</div></section>';
 }
 
-$viewModel = buildViewModel($mode, $processId, $processTitle, $areas);
+$viewModel = buildViewModel($mode, $processId, $processTitle, $areas, $evaluation);
 $pageTitle = $viewModel['mode'] === 'process'
     ? 'Auswertung – ' . (string) $viewModel['processTitle']
     : 'Auswertung – Gesamtüberblick';
@@ -240,7 +246,7 @@ include __DIR__ . '/includes/header.php';
         Integrierte Ergebnisübersicht
       <?php endif; ?>
     </h1>
-    <p class="result-subtitle">Klinisch-neutraler Hinweis: Diese Auswertung dient der strukturierten Selbstreflexion und ersetzt keine fachärztliche oder psychotherapeutische Diagnostik.</p>
+    <p class="result-subtitle">Klinisch-neutraler Hinweis: Diese Auswertung dient der strukturierten Selbstreflexion und ersetzt keine fachärztliche oder psychotherapeutische Diagnostik.<?php if (!empty($evaluation['unitTitle'])): ?> Grundlage: <?php echo h((string) $evaluation['unitTitle']); ?>.<?php endif; ?></p>
   </header>
 
   <section class="result-section" aria-labelledby="summary-title">
@@ -282,6 +288,20 @@ include __DIR__ . '/includes/header.php';
   <section class="result-section" aria-labelledby="next-steps-title">
     <h2 id="next-steps-title">Nächste Schritte</h2>
     <?php renderNextSteps($viewModel['nextSteps']); ?>
+  </section>
+
+
+
+  <section class="result-section" aria-labelledby="safety-title">
+    <h2 id="safety-title">Sicherheits- und Transparenzhinweise</h2>
+    <ul class="result-list">
+      <?php foreach (($evaluation['text']['safety'] ?? []) as $safetyItem): ?>
+        <li><?php echo h((string) $safetyItem); ?></li>
+      <?php endforeach; ?>
+      <?php foreach (($evaluation['text']['transparency'] ?? []) as $transparencyItem): ?>
+        <li><?php echo h((string) $transparencyItem); ?></li>
+      <?php endforeach; ?>
+    </ul>
   </section>
 
   <?php if ($viewModel['mode'] === 'global'): ?>
