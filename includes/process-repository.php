@@ -26,15 +26,54 @@ function ndRepoLoadJsonFile(string $path): array
 
 function ndRepoBaseDir(): string
 {
-    $configured = getenv('NEURODIAG_DATA_DIR');
-    if (is_string($configured)) {
-        $configured = trim($configured);
-        if ($configured !== '') {
-            return rtrim($configured, '/');
+    static $resolved = null;
+    if (is_string($resolved)) {
+        return $resolved;
+    }
+
+    $configured = '';
+    if (isset($GLOBALS['NEURODIAG_CONFIG']) && is_array($GLOBALS['NEURODIAG_CONFIG'])) {
+        $configuredValue = $GLOBALS['NEURODIAG_CONFIG']['PROCESS_STORAGE_DIR'] ?? '';
+        if (is_string($configuredValue)) {
+            $configured = trim($configuredValue);
         }
     }
 
-    return dirname(__DIR__) . '/../neurodiag-storage';
+    if ($configured === '') {
+        $envConfigured = getenv('NEURODIAG_DATA_DIR');
+        if (is_string($envConfigured)) {
+            $configured = trim($envConfigured);
+        }
+    }
+
+    if ($configured === '') {
+        $configured = dirname(__DIR__, 2) . '/neurodiag-storage';
+    }
+
+    if ($configured[0] !== '/') {
+        throw new RuntimeException('PROCESS_STORAGE_DIR muss als absoluter Pfad konfiguriert sein.');
+    }
+
+    if (!is_dir($configured) && !mkdir($configured, 0770, true) && !is_dir($configured)) {
+        throw new RuntimeException('PROCESS_STORAGE_DIR konnte nicht erstellt werden.');
+    }
+
+    $realBaseDir = realpath($configured);
+    if ($realBaseDir === false || !is_dir($realBaseDir)) {
+        throw new RuntimeException('PROCESS_STORAGE_DIR konnte nicht per realpath() validiert werden.');
+    }
+
+    $resolved = rtrim($realBaseDir, '/');
+    return $resolved;
+}
+
+function ndRepoPathInRoot(string $root, string $path): bool
+{
+    if ($path === $root) {
+        return true;
+    }
+
+    return strncmp($path, $root . '/', strlen($root) + 1) === 0;
 }
 
 function ndRepoBuildPath(string $collection, string $handle): string
@@ -50,7 +89,23 @@ function ndRepoBuildPath(string $collection, string $handle): string
         return '';
     }
 
-    return ndRepoBaseDir() . '/' . $cleanCollection . '/' . $cleanHandle . '.json';
+    $baseDir = ndRepoBaseDir();
+    $collectionDir = $baseDir . '/' . $cleanCollection;
+    if (!is_dir($collectionDir) && !mkdir($collectionDir, 0770, true) && !is_dir($collectionDir)) {
+        return '';
+    }
+
+    $resolvedCollectionDir = realpath($collectionDir);
+    if (!is_string($resolvedCollectionDir) || !ndRepoPathInRoot($baseDir, $resolvedCollectionDir)) {
+        return '';
+    }
+
+    $resolvedPath = $resolvedCollectionDir . '/' . $cleanHandle . '.json';
+    if (!ndRepoPathInRoot($baseDir, $resolvedCollectionDir)) {
+        return '';
+    }
+
+    return $resolvedPath;
 }
 
 function ndRepoEnsureCollectionDir(string $collection): string
@@ -61,11 +116,16 @@ function ndRepoEnsureCollectionDir(string $collection): string
     }
 
     $dir = ndRepoBaseDir() . '/' . $cleanCollection;
-    if (!is_dir($dir) && !mkdir($dir, 0775, true) && !is_dir($dir)) {
+    if (!is_dir($dir) && !mkdir($dir, 0770, true) && !is_dir($dir)) {
         return '';
     }
 
-    return $dir;
+    $resolved = realpath($dir);
+    if (!is_string($resolved) || !ndRepoPathInRoot(ndRepoBaseDir(), $resolved)) {
+        return '';
+    }
+
+    return $resolved;
 }
 
 /**
@@ -314,6 +374,43 @@ function ndRepoValidateQuestionStructure(array $instrumentDefinition): ?string
 }
 
 /**
+ * @param array<string, mixed> $instrumentDefinition
+ */
+function ndRepoValidateInstrumentSchema(array $instrumentDefinition): ?string
+{
+    $requiredStringFields = ['id', 'title', 'description'];
+    foreach ($requiredStringFields as $fieldName) {
+        if (!isset($instrumentDefinition[$fieldName]) || !is_string($instrumentDefinition[$fieldName]) || trim($instrumentDefinition[$fieldName]) === '') {
+            return 'Pflichtfeld "' . $fieldName . '" fehlt oder ist leer.';
+        }
+    }
+
+    if (!isset($instrumentDefinition['instructions'])) {
+        return 'Pflichtfeld "instructions" fehlt.';
+    }
+
+    $instructions = $instrumentDefinition['instructions'];
+    if (is_string($instructions)) {
+        if (trim($instructions) === '') {
+            return 'Feld "instructions" darf nicht leer sein.';
+        }
+    } elseif (is_array($instructions)) {
+        if (empty($instructions)) {
+            return 'Feld "instructions" darf nicht leer sein.';
+        }
+        foreach ($instructions as $index => $entry) {
+            if (!is_string($entry) || trim($entry) === '') {
+                return 'Feld "instructions" enthält bei Position ' . ($index + 1) . ' einen ungültigen Eintrag.';
+            }
+        }
+    } else {
+        return 'Feld "instructions" muss ein String oder ein Array sein.';
+    }
+
+    return null;
+}
+
+/**
  * @return array{0: ?array<string, mixed>, 1: ?string}
  */
 function ndRepoLoadAndValidateInstrument(string $handle): array
@@ -331,6 +428,11 @@ function ndRepoLoadAndValidateInstrument(string $handle): array
     $questionError = ndRepoValidateQuestionStructure($instrumentDefinition);
     if ($questionError !== null) {
         return [null, 'Die Fragenstruktur der Unit "' . $handle . '" ist ungültig: ' . $questionError];
+    }
+
+    $schemaError = ndRepoValidateInstrumentSchema($instrumentDefinition);
+    if ($schemaError !== null) {
+        return [null, 'Die Unit "' . $handle . '" verletzt das erwartete Inhaltsschema: ' . $schemaError];
     }
 
     return [$instrumentDefinition, null];

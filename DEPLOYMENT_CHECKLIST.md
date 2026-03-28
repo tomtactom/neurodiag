@@ -78,6 +78,19 @@ Key phrases integrated throughout:
 ✅ Bilder aus Pixabay (freie Lizenz, CC0) und Flaticon (freie Icons mit Attribution erforderlich)  
 ✅ Quellen im Code und Dokumentation vermerkt  
 
+### Storage-Härtung (Prozess-/Unit-Dateien)
+
+- [ ] `PROCESS_STORAGE_DIR` in `config.inc.php` auf einen **absoluten Pfad außerhalb des Webroots** gesetzt.
+- [ ] Apache: `data/.htaccess` vorhanden mit `Require all denied`.
+- [ ] Nginx: Zugriff auf Datenpfade explizit gesperrt (da `.htaccess` ignoriert wird), z. B.:
+
+```nginx
+location ^~ /data/ {
+    deny all;
+    return 403;
+}
+```
+
 ---
 
 ## SEO/Meta Considerations
