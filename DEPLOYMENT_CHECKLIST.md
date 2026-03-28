@@ -20,7 +20,7 @@
 
 **No changes** to:
 - Testprozess jetzt über `process.php`
-- Test data (JSON modules)
+- Laufzeitdaten werden ausschließlich serverseitig in `PROCESS_STORAGE_DIR` gepflegt (nicht im Repo)
 - Any other PHP files
 
 ---
@@ -81,7 +81,7 @@ Key phrases integrated throughout:
 ### Storage-Härtung (Prozess-/Unit-Dateien)
 
 - [ ] `PROCESS_STORAGE_DIR` in `config.inc.php` auf einen **absoluten Pfad außerhalb des Webroots** gesetzt.
-- [ ] Apache: `data/.htaccess` vorhanden mit `Require all denied`.
+- [ ] Apache: optionaler Fallback `data/.htaccess` mit `Require all denied` vorhanden (falls `data/` im Webroot verbleibt).
 - [ ] Nginx: Zugriff auf Datenpfade explizit gesperrt (da `.htaccess` ignoriert wird), z. B.:
 
 ```nginx
@@ -92,6 +92,14 @@ location ^~ /data/ {
 ```
 
 ---
+
+
+### Initialer Daten-Seed nach Cleanup
+
+- [ ] Export/Backup mit JSON-Struktur bereitstellen (z. B. `processes/`, `units/`, `templates/`).
+- [ ] Import ausführen: `php scripts/import-server-data.php --source=/absoluter/pfad/zum/export`.
+- [ ] Mapping-Ausgabe (alte Datei → neue Collection/Handle-ID) im Deployment-Log archivieren.
+- [ ] Danach Smoke-Test: `process.php?process=ass` sowie mind. ein weiterer Prozess aus `config/process-registry.php`.
 
 ## SEO/Meta Considerations
 
