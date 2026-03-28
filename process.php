@@ -679,7 +679,8 @@ include 'includes/header.php';
             <?php endif; ?>
 
             <?php if (in_array($controlType, ['radio', 'checkbox', 'likert'], true) && is_array($questionOptions) && !empty($questionOptions)): ?>
-              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?><?php echo $useInlineOptions ? ' question-options--inline' : ''; ?><?php echo $controlType === 'checkbox' ? ' question-options--checkbox' : ''; ?>">
+              <?php $optionCount = is_array($questionOptions) ? count($questionOptions) : 0; ?>
+              <div class="question-options<?php echo $controlType === 'likert' ? ' likert-grid' : ''; ?><?php echo $useInlineOptions ? ' question-options--inline' : ''; ?><?php echo $controlType === 'checkbox' ? ' question-options--checkbox' : ''; ?> question-options--count-<?php echo $optionCount; ?>">
               <?php foreach ($questionOptions as $optionIndex => $option): ?>
                 <?php
                 $optionLabel = '';
