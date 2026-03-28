@@ -94,6 +94,52 @@ location ^~ /data/ {
 ---
 
 
+### Open_basedir-Fix für Prozess-Storage (Deployment, nicht im Repo)
+
+> Ziel: Keine `open_basedir`-Warnings (`is_file()/is_dir()/mkdir()`) und kein RuntimeException-Fatal auf der Prozessseite.
+
+1. **Umgebungsvariable im Deployment setzen** (z. B. vHost/Panel/.user.ini):
+   - `NEURODIAG_CONFIG_PATH` auf eine produktive `config.inc.php` innerhalb erlaubter `open_basedir`-Pfade setzen.
+   - Erlaubte Beispiele:
+     - `.../httpdocs/config.inc.php`
+     - `.../tmp/neurodiag-config/config.inc.php`
+
+2. **In dieser produktiven Config `PROCESS_STORAGE_DIR` setzen** auf ein Verzeichnis innerhalb von:
+   - `/var/www/vhosts/hosting186321.ae8cd.netcup.net/neurodiag.tomaschmann.de/httpdocs/`
+   - **oder** `/var/www/vhosts/hosting186321.ae8cd.netcup.net/tmp`
+
+3. **Beispiel (empfohlen, außerhalb öffentlich erreichbarer URL-Pfade):**
+
+```php
+<?php
+// produktive config.inc.php (Deployment)
+define(
+    'PROCESS_STORAGE_DIR',
+    '/var/www/vhosts/hosting186321.ae8cd.netcup.net/tmp/neurodiag-process-storage'
+);
+```
+
+4. **Schreibrechte des PHP-Users sicherstellen** (Owner/Group je nach Hosting-Setup):
+
+```bash
+mkdir -p /var/www/vhosts/hosting186321.ae8cd.netcup.net/tmp/neurodiag-process-storage
+chown -R <php-user>:<php-group> /var/www/vhosts/hosting186321.ae8cd.netcup.net/tmp/neurodiag-process-storage
+chmod -R 770 /var/www/vhosts/hosting186321.ae8cd.netcup.net/tmp/neurodiag-process-storage
+```
+
+5. **Verifikation nach Deployment**
+   - Prozessseite neu laden (z. B. `process.php?process=ass`).
+   - Erwartung im PHP-/Webserver-Log:
+     - **keine** `open_basedir`-Warnings zu `is_file()/is_dir()/mkdir()`
+     - **kein** RuntimeException-Fatal
+
+6. **Wenn weiterhin Fehler auftreten:**
+   - Effektiven Wert von `NEURODIAG_CONFIG_PATH` prüfen.
+   - Prüfen, ob `PROCESS_STORAGE_DIR` wirklich unter einem erlaubten `open_basedir`-Root liegt.
+   - Berechtigungen/Owner des Storage-Ordners erneut prüfen.
+
+---
+
 ### Initialer Daten-Seed nach Cleanup
 
 - [ ] Export/Backup mit JSON-Struktur bereitstellen (z. B. `processes/`, `units/`, `templates/`).
