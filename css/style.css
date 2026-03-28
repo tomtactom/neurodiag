@@ -2760,7 +2760,25 @@ blockquote {
 }
 
 .question-options--inline {
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.question-options--inline .question-option {
+  flex: 0 1 auto;
+}
+
+.question-options--inline .question-option-label {
+  width: fit-content;
+  min-width: 8.5rem;
+  max-width: 100%;
+  padding-inline: 0.9rem;
+}
+
+.question-options--inline .question-option-label span {
+  white-space: nowrap;
 }
 
 .question-options--checkbox {
@@ -2813,6 +2831,9 @@ blockquote {
 }
 
 .question-option-label span {
+  min-width: 0;
+  white-space: normal;
+  word-break: break-word;
   overflow-wrap: anywhere;
 }
 
