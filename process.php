@@ -337,14 +337,16 @@ function normalizeTextItems($value): array
     return $items;
 }
 
+// Inline-Optionen sind auf deutschsprachige, tendenziell längere Antworttexte ausgelegt:
+// deshalb entscheidet primär die Anzahl der Optionen (statt Durchschnittslänge), ergänzt um ein Label-Maximum.
 function shouldUseInlineOptionLayout(array $options): bool
 {
     $optionCount = count($options);
-    if ($optionCount < 2 || $optionCount > 4) {
+    if ($optionCount < 2 || $optionCount > 5) {
         return false;
     }
 
-    $labelLengths = [];
+    $maxLabelLength = 0;
     foreach ($options as $option) {
         $label = '';
         if (is_array($option)) {
@@ -357,17 +359,21 @@ function shouldUseInlineOptionLayout(array $options): bool
             $label = trim($option);
         }
 
-        if ($label !== '') {
-            $labelLengths[] = mb_strlen($label);
+        if ($label === '') {
+            continue;
+        }
+
+        $labelLength = mb_strlen($label);
+        if ($labelLength > $maxLabelLength) {
+            $maxLabelLength = $labelLength;
         }
     }
 
-    if (empty($labelLengths)) {
+    if ($maxLabelLength === 0) {
         return false;
     }
 
-    $averageLength = array_sum($labelLengths) / count($labelLengths);
-    return $averageLength <= 20;
+    return $maxLabelLength <= 35;
 }
 
 /**
