@@ -3,7 +3,7 @@
  * JSON-driven process renderer for diagnostics units.
  *
  * URL params:
- * - process (required): canonical slug oder Legacy-Alias (z. B. aq-test, asrs-test)
+ * - process (required): canonical slug oder Legacy-Alias (z. B. ass, adhs)
  * - unit (optional): active unit identifier from process definition
  */
 
@@ -318,7 +318,7 @@ function normalizeTextItems($value): array
 }
 
 if ($canonicalProcessId === '' || !isset($areas[$canonicalProcessId]) || !is_array($areas[$canonicalProcessId])) {
-    renderError('Bitte wähle einen gültigen Prozess über den Parameter "process" (z. B. aq, aq-test oder dld).');
+    renderError('Bitte wähle einen gültigen Prozess über den Parameter "process" (z. B. ass, dyslexie-lrs oder dld).');
 }
 
 $processMeta = $areas[$canonicalProcessId];
