@@ -62,6 +62,19 @@ location ^~ /data/ {
 
 Wenn ein dedizierter Storage-Unterordner im Webroot unvermeidbar ist, sperre diesen analog per `location`-Block.
 
+
+### Initialer Server-Datenimport (nach Repo-Cleanup)
+
+Für einen Erstimport aus einem Export-Ordner (z. B. Backup mit `processes/`, `units/`, `templates/`) steht ein CLI-Skript bereit:
+
+```bash
+php scripts/import-server-data.php --source=/absoluter/pfad/zum/export
+```
+
+- Das Skript schreibt in den serverseitigen Speicher (`PROCESS_STORAGE_DIR`).
+- Eine alte→neue Zuordnung wird direkt im Terminal ausgegeben (`old/path.json -> collection/handle`).
+- Vorabprüfung ohne Schreiben: `--dry-run` ergänzen.
+
 ## Schnellstart
 
 ### Lokal testen
@@ -86,9 +99,9 @@ neurodiag/
 │   ├── footer.php               # Footer
 │   └── process-repository.php   # Serverseitiger JSON-Repository-Layer
 ├── data/
-│   ├── module-config.json       # Legacy-Metadaten
-│   └── templates/
-│       └── psychometric-instrument-template.json
+│   └── .htaccess                # Zugriffsschutz-Fallback (Apache)
+├── scripts/
+│   └── import-server-data.php   # Initialer JSON-Import in PROCESS_STORAGE_DIR
 └── css/
     └── style.css                # Design System mit CSS Variables
 ```
@@ -140,7 +153,7 @@ neurodiag/
 
 ### Deployment zu tomaschmann.de
 1. Siehe [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)
-2. Relevante Projektdateien hochladen (mind. PHP-, CSS-, JS- und `data/`-Dateien gemäß Checkliste)
+2. Relevante Projektdateien hochladen (mind. PHP-, CSS- und JS-Dateien gemäß Checkliste)
 3. QA: Funktions- und Darstellungs-Checks durchführen
 4. Go-Live: Monitoring starten
 
@@ -157,7 +170,7 @@ Dieses Projekt ist Open-Source. Beiträge sind willkommen!
 
 ## Autorenhinweise: VT-kompatible Instrument-JSONs
 
-Neue Instrumente unter `data/units/*.json` sollen verhaltenstherapeutisch nutzbar, ressourcenorientiert und konkret beobachtbar aufgebaut sein.
+Neue Instrumente werden serverseitig unter `${PROCESS_STORAGE_DIR}/units/*.json` gepflegt und sollen verhaltenstherapeutisch nutzbar, ressourcenorientiert und konkret beobachtbar aufgebaut sein.
 
 ### Pflichtfelder (bestehender Renderer)
 - `id` (string, eindeutig)
