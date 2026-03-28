@@ -2,15 +2,26 @@
 
     <footer class="site-footer">
         <div class="footer-grid">
-            <div>
+            <div class="footer-intro">
                 <h4>NeuroDiag</h4>
-                <p>Dein digitaler Begleiter zur ressourcenorientierten Selbsterkenntnis.</p>
+                <p>Dein digitaler Begleiter zur ressourcenorientierten Selbsterkenntnis – mit klarer Sprache, achtsamer Struktur und alltagstauglichen Impulsen.</p>
+                <a class="footer-cta-link" href="diagnostics.php">Selbstentdeckung starten <span aria-hidden="true">→</span></a>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.php">Startseite</a></li>
+                    <li><a href="diagnostics.php">Selbstentdeckung</a></li>
+                    <li><a href="resources.php">Ressourcen</a></li>
+                    <li><a href="about.php">Über uns</a></li>
+                </ul>
             </div>
             <div>
                 <h4>Support</h4>
                 <ul>
                     <li><a href="contact.php">Kontakt</a></li>
-                    <li><a href="resources.php">Ressourcen</a></li>
+                    <li><a href="resources.php">Hilfsmaterialien</a></li>
+                    <li><a href="interviews/neurodivergence-interview.php">Interview</a></li>
                 </ul>
             </div>
             <div>
@@ -18,10 +29,11 @@
                 <ul>
                     <li><a href="impressum.php">Impressum</a></li>
                     <li><a href="datenschutz.php">Datenschutz</a></li>
+                    <li><a href="#top">Nach oben</a></li>
                 </ul>
             </div>
         </div>
-        <p class="footer-small">&copy; 2026 NeuroDiag. Alle Rechte vorbehalten.</p>
+        <p class="footer-small">&copy; <?php echo date('Y'); ?> NeuroDiag. Alle Rechte vorbehalten.</p>
     </footer>
 
     <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Banner">
