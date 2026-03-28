@@ -21,7 +21,6 @@
 **No changes** to:
 - Testprozess jetzt über `process.php`
 - Test data (JSON modules)
-- `includes/test-functions.php`
 - Any other PHP files
 
 ---
@@ -201,4 +200,3 @@ Potential additions for next phase:
 3. Community stories/blog
 4. Resources for "Nächste Schritte nach Selbstentdeckung"
 5. Optional anonymous analytics on empowerment messaging effectiveness
-

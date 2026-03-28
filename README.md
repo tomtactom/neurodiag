@@ -66,23 +66,14 @@ neurodiag/
 ├── contact.php                  # Kontaktformular
 ├── process.php                  # JSON-gesteuerter Prozess-Renderer
 ├── result.php                   # Ergebnisdarstellung
-├── tests/
-│   ├── aq-test.php              # Legacy-Testseite AQ
-│   ├── asrs-test.php            # Legacy-Testseite ASRS
-│   ├── dyslexia-test.php        # Legacy-Testseite Dyslexie
-│   └── dyspraxia-test.php       # Legacy-Testseite Dyspraxie
 ├── includes/
 │   ├── header.php               # SVG-Logo, Navigation
 │   ├── footer.php               # Footer
-│   └── test-functions.php       # Test-Logik & Scoring
+│   └── process-repository.php   # Serverseitiger JSON-Repository-Layer
 ├── data/
-│   ├── aq-test.json             # Autismus
-│   ├── asrs-test.json           # ADHS
-│   ├── dysgraphia-test.json     # Dysgraphie
-│   ├── dyskalkulie-test.json    # Dyskalkulie
-│   ├── dyspraxie-test.json      # Dyspraxie
-│   ├── tic-test.json            # Tic-Störungen
-│   └── dld-test.json            # DLD
+│   ├── module-config.json       # Legacy-Metadaten
+│   └── templates/
+│       └── psychometric-instrument-template.json
 └── css/
     └── style.css                # Design System mit CSS Variables
 ```
