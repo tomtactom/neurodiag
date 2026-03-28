@@ -545,7 +545,7 @@ include 'includes/header.php';
     <?php if ($nextUrl !== null): ?>
       <a href="<?php echo htmlspecialchars($nextUrl); ?>">Weiter &rarr;</a>
     <?php else: ?>
-      <a href="diagnostics.php?process=<?php echo urlencode($canonicalProcessId); ?>" data-process-complete="true">Abschließen</a>
+      <a href="diagnostics.php#module-selector" data-process-complete="true">Abschließen</a>
     <?php endif; ?>
   </nav>
 </main>
