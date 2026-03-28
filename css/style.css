@@ -2452,15 +2452,34 @@ blockquote {
 .question-options {
   display: grid;
   gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .question-option {
+  min-width: 0;
+}
+
+.question-option-label {
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  padding: 0.55rem 0.65rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
   border-radius: 10px;
+  border: 1px solid transparent;
   background: rgba(69, 123, 157, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.question-option-label:hover {
+  background: rgba(69, 123, 157, 0.12);
+  border-color: rgba(69, 123, 157, 0.2);
+}
+
+.question-option-label:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(69, 123, 157, 0.18);
 }
 
 .likert-grid {
@@ -2470,6 +2489,51 @@ blockquote {
 .question-option input[type="radio"],
 .question-option input[type="checkbox"] {
   margin-top: 0.25rem;
+}
+
+.question-option-label span {
+  overflow-wrap: anywhere;
+}
+
+.question-option-label:has(input:checked) {
+  border-color: rgba(69, 123, 157, 0.45);
+  background: rgba(69, 123, 157, 0.16);
+}
+
+.question-card[data-question-item][hidden] {
+  display: none;
+}
+
+.question-step-navigation {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.question-step-navigation button {
+  min-width: 130px;
+}
+
+.question-step-back {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.question-step-back:disabled,
+.question-step-next:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.question-step-progress {
+  font-weight: 600;
+  color: var(--color-muted);
+  text-align: center;
 }
 
 .question-card select,
@@ -2538,6 +2602,18 @@ blockquote {
 }
 
 @media (max-width: 720px) {
+  .question-options {
+    grid-template-columns: 1fr;
+  }
+
+  .question-step-navigation {
+    flex-direction: column;
+  }
+
+  .question-step-navigation button {
+    width: 100%;
+  }
+
   .process-navigation {
     flex-direction: column;
   }
