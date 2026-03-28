@@ -47,15 +47,31 @@ function ndRepoBaseDir(): string
     }
 
     if ($configured === '') {
-        $configured = dirname(__DIR__, 2) . '/neurodiag-storage';
+        $configured = dirname(__DIR__) . '/neurodiag-storage';
     }
 
     if ($configured[0] !== '/') {
         throw new RuntimeException('PROCESS_STORAGE_DIR muss als absoluter Pfad konfiguriert sein.');
     }
 
+    $normalizedTargetDir = ndRepoNormalizeAbsolutePath($configured);
+    $openBaseDirPrefixes = ndRepoOpenBaseDirPrefixes();
+    if ($openBaseDirPrefixes !== [] && !ndRepoPathAllowedByOpenBaseDir($normalizedTargetDir, $openBaseDirPrefixes)) {
+        $prefixList = implode(', ', $openBaseDirPrefixes);
+        throw new RuntimeException(sprintf(
+            'PROCESS_STORAGE_DIR "%s" liegt außerhalb von open_basedir. Erlaubte Prefixe: %s. Bitte Hosting-Konfiguration oder PROCESS_STORAGE_DIR prüfen.',
+            $normalizedTargetDir,
+            $prefixList === '' ? '(leer)' : $prefixList
+        ));
+    }
+
     if (!is_dir($configured) && !mkdir($configured, 0770, true) && !is_dir($configured)) {
-        throw new RuntimeException('PROCESS_STORAGE_DIR konnte nicht erstellt werden.');
+        $openBaseDir = (string) ini_get('open_basedir');
+        throw new RuntimeException(sprintf(
+            'PROCESS_STORAGE_DIR "%s" konnte nicht erstellt werden (open_basedir="%s"). Bitte Hosting-Konfiguration prüfen.',
+            $configured,
+            $openBaseDir
+        ));
     }
 
     $realBaseDir = realpath($configured);
@@ -65,6 +81,61 @@ function ndRepoBaseDir(): string
 
     $resolved = rtrim($realBaseDir, '/');
     return $resolved;
+}
+
+function ndRepoNormalizeAbsolutePath(string $path): string
+{
+    $parts = explode('/', $path);
+    $normalized = [];
+    foreach ($parts as $part) {
+        if ($part === '' || $part === '.') {
+            continue;
+        }
+        if ($part === '..') {
+            array_pop($normalized);
+            continue;
+        }
+        $normalized[] = $part;
+    }
+
+    return '/' . implode('/', $normalized);
+}
+
+/**
+ * @return array<int, string>
+ */
+function ndRepoOpenBaseDirPrefixes(): array
+{
+    $raw = ini_get('open_basedir');
+    if (!is_string($raw) || trim($raw) === '') {
+        return [];
+    }
+
+    $prefixes = [];
+    foreach (explode(PATH_SEPARATOR, $raw) as $entry) {
+        $trimmed = trim($entry);
+        if ($trimmed === '' || $trimmed[0] !== '/') {
+            continue;
+        }
+        $prefixes[] = rtrim(ndRepoNormalizeAbsolutePath($trimmed), '/');
+    }
+
+    return array_values(array_unique($prefixes));
+}
+
+/**
+ * @param array<int, string> $prefixes
+ */
+function ndRepoPathAllowedByOpenBaseDir(string $path, array $prefixes): bool
+{
+    $normalizedPath = rtrim(ndRepoNormalizeAbsolutePath($path), '/');
+    foreach ($prefixes as $prefix) {
+        if ($normalizedPath === $prefix || strncmp($normalizedPath, $prefix . '/', strlen($prefix) + 1) === 0) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function ndRepoPathInRoot(string $root, string $path): bool
