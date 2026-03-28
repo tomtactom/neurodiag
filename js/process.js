@@ -261,8 +261,9 @@
 
     if (nextButton instanceof HTMLButtonElement) {
       const isLast = currentQuestionIndex === questionItems.length - 1;
-      nextButton.textContent = isLast ? 'Fertig' : 'Weiter →';
-      nextButton.disabled = !questionHasAnswer(questionItems[currentQuestionIndex]);
+      nextButton.textContent = 'Weiter →';
+      nextButton.hidden = isLast;
+      nextButton.disabled = isLast || !questionHasAnswer(questionItems[currentQuestionIndex]);
     }
 
     if (progressLabel instanceof HTMLElement) {
@@ -305,15 +306,6 @@
     if (event.target.name.startsWith('answers[')) {
       saveState(false);
       renderQuestionStep();
-
-      if (event.target.type === 'radio') {
-        const activeQuestionCard = questionItems[currentQuestionIndex];
-        if (activeQuestionCard && activeQuestionCard.contains(event.target) && currentQuestionIndex < questionItems.length - 1) {
-          window.setTimeout(function () {
-            goToQuestion(currentQuestionIndex + 1, true);
-          }, 120);
-        }
-      }
     }
   });
 
