@@ -6,35 +6,35 @@ return [
     'areas' => [
         'ass' => [
             'title' => 'Autismus (AQ)',
-            'definitionFile' => 'data/processes/aq.json',
+            'definitionHandle' => 'aq',
         ],
         'adhs' => [
             'title' => 'AD(H)S',
-            'definitionFile' => 'data/processes/adhs.json',
+            'definitionHandle' => 'adhs',
         ],
         'dyslexie-lrs' => [
             'title' => 'Dyslexie',
-            'definitionFile' => 'data/processes/dyslexia.json',
+            'definitionHandle' => 'dyslexia',
         ],
         'dysgraphie' => [
             'title' => 'Dysgraphie',
-            'definitionFile' => 'data/processes/dysgraphia.json',
+            'definitionHandle' => 'dysgraphia',
         ],
         'dyskalkulie' => [
             'title' => 'Dyskalkulie',
-            'definitionFile' => 'data/processes/dyskalkulie.json',
+            'definitionHandle' => 'dyskalkulie',
         ],
         'dyspraxie-dcd' => [
             'title' => 'Dyspraxie',
-            'definitionFile' => 'data/processes/dyspraxie.json',
+            'definitionHandle' => 'dyspraxie',
         ],
         'tic-tourette' => [
             'title' => 'Tic/Tourette',
-            'definitionFile' => 'data/processes/tic.json',
+            'definitionHandle' => 'tic',
         ],
         'dld' => [
             'title' => 'Sprachstörung (DLD)',
-            'definitionFile' => 'data/processes/dld.json',
+            'definitionHandle' => 'dld',
         ],
     ],
     'aliases' => [

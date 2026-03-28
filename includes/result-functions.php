@@ -2,22 +2,24 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/process-repository.php';
+
 /**
  * @return array<string, mixed>|null
  */
-function ndReadJson(string $path): ?array
+function ndReadJson(string $collection, string $handle): ?array
 {
-    if (!is_file($path) || !is_readable($path)) {
+    $path = ndRepoBuildPath($collection, $handle);
+    if ($path === '') {
         return null;
     }
 
-    $raw = file_get_contents($path);
-    if ($raw === false) {
+    [$decoded, $error] = ndRepoLoadJsonFile($path);
+    if ($decoded === null || $error !== null) {
         return null;
     }
 
-    $decoded = json_decode($raw, true);
-    return is_array($decoded) ? $decoded : null;
+    return $decoded;
 }
 
 /**
@@ -128,31 +130,28 @@ function ndLoadAnswers(string $processId): array
  */
 function ndFindUnitDefinition(array $areas, string $processId, string $unitId): ?array
 {
-    if (!isset($areas[$processId]['definitionFile']) || !is_string($areas[$processId]['definitionFile'])) {
+    if (!isset($areas[$processId]['definitionHandle']) || !is_string($areas[$processId]['definitionHandle'])) {
         return null;
     }
 
-    $processDefinition = ndReadJson(__DIR__ . '/../' . $areas[$processId]['definitionFile']);
-    if ($processDefinition === null || !isset($processDefinition['phases']) || !is_array($processDefinition['phases'])) {
+    $processHandle = strtolower(trim($areas[$processId]['definitionHandle']));
+    $processDefinition = ndReadJson('processes', $processHandle);
+    if ($processDefinition === null) {
         return null;
     }
 
-    foreach ($processDefinition['phases'] as $phase) {
-        if (!is_array($phase) || !isset($phase['instruments']) || !is_array($phase['instruments'])) {
+    [$unitRefs, $phaseError] = ndRepoGetInstrumentRefs($processDefinition);
+    if ($phaseError !== null) {
+        return null;
+    }
+
+    foreach ($unitRefs as $instrumentRef) {
+        if (!isset($instrumentRef['id'], $instrumentRef['handle'])) {
             continue;
         }
 
-        foreach ($phase['instruments'] as $instrument) {
-            if (!is_array($instrument)) {
-                continue;
-            }
-
-            $instrumentId = isset($instrument['id']) && is_string($instrument['id']) ? trim($instrument['id']) : '';
-            $instrumentFile = isset($instrument['file']) && is_string($instrument['file']) ? trim($instrument['file']) : '';
-
-            if ($instrumentId === $unitId && $instrumentFile !== '') {
-                return ndReadJson(__DIR__ . '/../data/units/' . basename($instrumentFile));
-            }
+        if ($instrumentRef['id'] === $unitId) {
+            return ndReadJson('units', $instrumentRef['handle']);
         }
     }
 

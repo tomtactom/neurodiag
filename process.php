@@ -9,6 +9,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/includes/process-repository.php';
+
 $processRegistry = require __DIR__ . '/config/process-registry.php';
 $areas = isset($processRegistry['areas']) && is_array($processRegistry['areas']) ? $processRegistry['areas'] : [];
 $aliases = isset($processRegistry['aliases']) && is_array($processRegistry['aliases']) ? $processRegistry['aliases'] : [];
@@ -33,172 +35,7 @@ if ($processInput !== '') {
 }
 
 /**
- * @return array{0: ?array<string, mixed>, 1: ?string}
- */
-function loadJsonFile(string $path): array
-{
-    if (!is_file($path) || !is_readable($path)) {
-        return [null, 'Datei wurde nicht gefunden oder ist nicht lesbar.'];
-    }
-
-    $raw = file_get_contents($path);
-    if ($raw === false) {
-        return [null, 'Datei konnte nicht geladen werden.'];
-    }
-
-    $data = json_decode($raw, true);
-    if (!is_array($data)) {
-        return [null, 'Datei enthält kein gültiges JSON-Objekt.'];
-    }
-
-    return [$data, null];
-}
-
-/**
- * @param array<string, mixed> $processDefinition
- * @return array{0: array<int, array{id: string, file: string}>, 1: ?string}
- */
-function getInstrumentRefs(array $processDefinition): array
-{
-    $instrumentRefs = [];
-    $knownIds = [];
-
-    if (!isset($processDefinition['phases']) || !is_array($processDefinition['phases']) || empty($processDefinition['phases'])) {
-        return [[], 'Die Prozessdefinition enthält keine Phasen. Bitte ergänze im JSON das Feld "phases".'];
-    }
-
-    foreach ($processDefinition['phases'] as $phaseIndex => $phaseEntry) {
-        if (!is_array($phaseEntry)) {
-            return [[], 'Phase ' . ($phaseIndex + 1) . ' ist ungültig. Jede Phase muss ein JSON-Objekt sein.'];
-        }
-
-        $instruments = isset($phaseEntry['instruments']) && is_array($phaseEntry['instruments'])
-            ? $phaseEntry['instruments']
-            : [];
-
-        if (empty($instruments)) {
-            return [[], 'Phase ' . ($phaseIndex + 1) . ' enthält keine Instrument-Referenzen.'];
-        }
-
-        foreach ($instruments as $instrumentEntry) {
-            if (is_string($instrumentEntry)) {
-                $instrumentId = trim($instrumentEntry);
-                if ($instrumentId === '') {
-                    continue;
-                }
-
-                $instrumentRefs[] = [
-                    'id' => $instrumentId,
-                    'file' => $instrumentId . '.json',
-                ];
-                continue;
-            }
-
-            if (!is_array($instrumentEntry)) {
-                continue;
-            }
-
-            $instrumentId = isset($instrumentEntry['id']) && is_string($instrumentEntry['id']) ? trim($instrumentEntry['id']) : '';
-            $instrumentFile = isset($instrumentEntry['file']) && is_string($instrumentEntry['file']) ? trim($instrumentEntry['file']) : '';
-
-            if ($instrumentId === '' && $instrumentFile !== '') {
-                $instrumentId = pathinfo($instrumentFile, PATHINFO_FILENAME);
-            }
-
-            if ($instrumentId === '') {
-                continue;
-            }
-
-            if ($instrumentFile === '') {
-                $instrumentFile = $instrumentId . '.json';
-            }
-
-            $instrumentRefs[] = [
-                'id' => $instrumentId,
-                'file' => $instrumentFile,
-            ];
-        }
-    }
-
-    if (empty($instrumentRefs)) {
-        return [[], 'Die Prozessdefinition enthält keine gültigen Instrument-Referenzen.'];
-    }
-
-    foreach ($instrumentRefs as $instrumentRef) {
-        if (isset($knownIds[$instrumentRef['id']])) {
-            return [[], 'Die Instrument-ID "' . $instrumentRef['id'] . '" ist mehrfach vorhanden.'];
-        }
-
-        $knownIds[$instrumentRef['id']] = true;
-    }
-
-    return [$instrumentRefs, null];
-}
-
-/**
- * @param array<string, mixed> $instrumentDefinition
- */
-function validateQuestionStructure(array $instrumentDefinition): ?string
-{
-    if (!isset($instrumentDefinition['questions']) || !is_array($instrumentDefinition['questions']) || empty($instrumentDefinition['questions'])) {
-        return 'Das Instrument enthält keine gültigen Fragen.';
-    }
-
-    foreach ($instrumentDefinition['questions'] as $index => $questionEntry) {
-        if (is_string($questionEntry)) {
-            if (trim($questionEntry) === '') {
-                return 'Frage ' . ($index + 1) . ' ist leer.';
-            }
-            continue;
-        }
-
-        if (!is_array($questionEntry)) {
-            return 'Frage ' . ($index + 1) . ' hat ein ungültiges Format.';
-        }
-
-        $questionText = '';
-        if (isset($questionEntry['text']) && is_string($questionEntry['text'])) {
-            $questionText = trim($questionEntry['text']);
-        } elseif (isset($questionEntry['title']) && is_string($questionEntry['title'])) {
-            $questionText = trim($questionEntry['title']);
-        }
-
-        if ($questionText === '') {
-            return 'Frage ' . ($index + 1) . ' benötigt ein Feld "text" oder "title".';
-        }
-
-        if (isset($questionEntry['options']) && !is_array($questionEntry['options'])) {
-            return 'Frage ' . ($index + 1) . ' enthält ein ungültiges "options"-Format.';
-        }
-    }
-
-    return null;
-}
-
-/**
- * @param array{id: string, file: string} $instrumentRef
- * @return array{0: ?array<string, mixed>, 1: ?string}
- */
-function loadAndValidateInstrument(string $baseDir, array $instrumentRef): array
-{
-    $instrumentFileName = basename($instrumentRef['file']);
-    $instrumentPath = rtrim($baseDir, '/') . '/' . $instrumentFileName;
-
-    [$instrumentDefinition, $instrumentError] = loadJsonFile($instrumentPath);
-    if ($instrumentDefinition === null) {
-        return [null, 'Die Instrument-Datei "data/units/' . $instrumentFileName . '" konnte nicht geladen werden: ' . $instrumentError];
-    }
-
-    $questionError = validateQuestionStructure($instrumentDefinition);
-    if ($questionError !== null) {
-        return [null, 'Die Fragenstruktur von "data/units/' . $instrumentFileName . '" ist ungültig: ' . $questionError];
-    }
-
-    return [$instrumentDefinition, null];
-}
-
-/**
- * @param array<int, array{id: string, file: string}> $unitRefs
+ * @param array<int, array{id: string, handle: string}> $unitRefs
  */
 function renderError(string $message, array $unitRefs = []): void
 {
@@ -223,7 +60,7 @@ function renderError(string $message, array $unitRefs = []): void
 }
 
 /**
- * @param array<int, array{id: string, file: string}> $unitRefs
+ * @param array<int, array{id: string, handle: string}> $unitRefs
  * @return array{unit: string, answers: array<string, string|array<int, string>>, updatedAt: int, completed: bool}|null
  */
 function readResumeStateFromCookie(string $processId, array $unitRefs): ?array
@@ -503,21 +340,20 @@ if ($canonicalProcessId === '' || !isset($areas[$canonicalProcessId]) || !is_arr
 }
 
 $processMeta = $areas[$canonicalProcessId];
-$definitionFile = isset($processMeta['definitionFile']) && is_string($processMeta['definitionFile'])
-    ? trim($processMeta['definitionFile'])
+$definitionHandle = isset($processMeta['definitionHandle']) && is_string($processMeta['definitionHandle'])
+    ? strtolower(trim($processMeta['definitionHandle']))
     : '';
 
-if ($definitionFile === '') {
-    renderError('Für den Bereich "' . $canonicalProcessId . '" wurde keine Prozessdefinition hinterlegt.');
+if ($definitionHandle === '') {
+    renderError('Für den Bereich "' . $canonicalProcessId . '" wurde kein Prozess-Handle hinterlegt.');
 }
 
-$processPath = __DIR__ . '/' . ltrim($definitionFile, '/');
-[$processDefinition, $processError] = loadJsonFile($processPath);
+[$processDefinition, $processError] = ndRepoLoadProcessDefinition($definitionHandle);
 if ($processDefinition === null) {
-    renderError('Die Prozessdatei "' . $definitionFile . '" konnte nicht geladen werden: ' . $processError);
+    renderError('Die Prozessdefinition mit Handle "' . $definitionHandle . '" konnte nicht geladen werden: ' . $processError);
 }
 
-[$unitRefs, $phaseError] = getInstrumentRefs($processDefinition);
+[$unitRefs, $phaseError] = ndRepoGetInstrumentRefs($processDefinition);
 if ($phaseError !== null) {
     renderError($phaseError);
 }
@@ -541,7 +377,7 @@ if ($activeUnitIndex === false) {
 }
 
 $activeUnitRef = $unitRefs[$activeUnitIndex];
-[$unitDefinition, $instrumentValidationError] = loadAndValidateInstrument(__DIR__ . '/data/units', $activeUnitRef);
+[$unitDefinition, $instrumentValidationError] = ndRepoLoadAndValidateInstrument($activeUnitRef['handle']);
 if ($unitDefinition === null) {
     renderError((string) $instrumentValidationError, $unitRefs);
 }
