@@ -552,11 +552,12 @@ include 'includes/header.php';
 ?>
 
 <main class="process-page" aria-labelledby="process-title" data-process-id="<?php echo htmlspecialchars($canonicalProcessId); ?>" data-unit-id="<?php echo htmlspecialchars($activeUnitId); ?>">
+  <div class="process-shell">
   <header class="process-header">
     <p class="process-overline">Diagnostischer Prozess: <?php echo htmlspecialchars(strtoupper($canonicalProcessId)); ?></p>
     <h1 id="process-title"><?php echo htmlspecialchars($processTitle); ?></h1>
     <p><?php echo htmlspecialchars($processDescription); ?></p>
-    <p><strong>Einheit:</strong> <?php echo ($activeUnitIndex + 1); ?> / <?php echo count($unitRefs); ?></p>
+    <p class="process-unit-counter"><strong>Einheit:</strong> <?php echo ($activeUnitIndex + 1); ?> / <?php echo count($unitRefs); ?></p>
     <div class="process-progress" role="progressbar" aria-label="Fortschritt im Prozess" aria-valuemin="1" aria-valuemax="<?php echo count($unitRefs); ?>" aria-valuenow="<?php echo ($activeUnitIndex + 1); ?>">
       <div class="process-progress-track">
         <span class="process-progress-fill" style="width: <?php echo (int) round((($activeUnitIndex + 1) / max(count($unitRefs), 1)) * 100); ?>%;"></span>
@@ -572,7 +573,7 @@ include 'includes/header.php';
       <?php endif; ?>
     </header>
 
-    <article aria-labelledby="unit-instructions-title">
+    <article class="process-block process-block-intro" aria-labelledby="unit-instructions-title">
       <h3 id="unit-instructions-title">Instruktionen</h3>
       <?php if (!empty($instructions)): ?>
         <ul>
@@ -588,7 +589,7 @@ include 'includes/header.php';
     <?php foreach ($vtSections as $vtFieldKey => $vtFieldLabel): ?>
       <?php $vtItems = normalizeTextItems($unitDefinition[$vtFieldKey] ?? null); ?>
       <?php if (!empty($vtItems)): ?>
-        <article aria-labelledby="unit-<?php echo htmlspecialchars($vtFieldKey); ?>-title">
+        <article class="process-block" aria-labelledby="unit-<?php echo htmlspecialchars($vtFieldKey); ?>-title">
           <h3 id="unit-<?php echo htmlspecialchars($vtFieldKey); ?>-title"><?php echo htmlspecialchars($vtFieldLabel); ?></h3>
           <ul>
             <?php foreach ($vtItems as $vtItem): ?>
@@ -599,7 +600,7 @@ include 'includes/header.php';
       <?php endif; ?>
     <?php endforeach; ?>
 
-    <form class="process-questions" method="post" action="#" aria-labelledby="questions-title">
+    <form class="process-questions process-block" method="post" action="#" aria-labelledby="questions-title">
       <h3 id="questions-title">Fragen</h3>
 
       <?php if (empty($questions)): ?>
@@ -755,6 +756,7 @@ include 'includes/header.php';
       <a href="diagnostics.php#module-selector" data-process-complete="true">Abschließen</a>
     <?php endif; ?>
   </nav>
+  </div>
 </main>
 
 <?php include 'includes/footer.php'; ?>
